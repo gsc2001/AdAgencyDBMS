@@ -86,18 +86,18 @@ def dispatch(ch):
 # Global
 while(1):
     tmp = sp.call('clear', shell=True)
-    
+
     # Can be skipped if you want to hard core username and password
     username = input("Username: ")
     password = input("Password: ")
 
     try:
         # Set db name accordingly which have been create by you
-        # Set host to the server's address if you don't want to use local SQL server 
-        con = pymysql.connect(host='localhost',
+        # Set host to the server's address if you don't want to use local SQL server
+        con = pymysql.connect(host='127.0.0.1',
+                              port=5005,
                               user=username,
                               password=password,
-                              db='COMPANY',
                               cursorclass=pymysql.cursors.DictCursor)
         tmp = sp.call('clear', shell=True)
 
@@ -125,7 +125,7 @@ while(1):
                     dispatch(ch)
                     tmp = input("Enter any key to CONTINUE>")
 
-    except:
+    except BaseException:
         tmp = sp.call('clear', shell=True)
         print("Connection Refused: Either username or password is incorrect or user doesn't have access to database")
         tmp = input("Enter any key to CONTINUE>")
