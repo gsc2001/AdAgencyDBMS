@@ -4,6 +4,7 @@ import pymysql.cursors
 from datetime import date
 import re
 
+
 def addDirector(cur, con):
     row = {}
     print("Enter the new director's details: ")
@@ -88,7 +89,7 @@ def addDirector(cur, con):
             return
 
     try:
-        query = "INSERT INTO person(aadharCard, name, accountNo, gender, DOB) VALUES('%d', '%s', '%d', '%s', '%s')" % (
+        query = "INSERT INTO person(aadharCard, name, accountNo, gender, DOB) VALUES(%d, '%s', %d, '%s', '%s');" % (
             row["aadharCard"], row["name"], row["accountNo"], row["galary"], row["DOB"])
         cur.execute(query)
     except Exception as e:
@@ -98,7 +99,7 @@ def addDirector(cur, con):
         return
 
     try:
-        query = "INSERT INTO director(aadharCard, joinDate, salary, supervisorAadharCard) VALUES('%d', '%s', '%d', '%d')" % (
+        query = "INSERT INTO director(aadharCard, joinDate, salary, supervisorAadharCard) VALUES(%d, '%s', %d, %d);" % (
             row["aadharCard"], row["joinDate"], row["salary"], row["supervisorAadharCard"])
         cur.execute(query)
     except Exception as e:
@@ -109,7 +110,7 @@ def addDirector(cur, con):
 
     for i in range(num_phone):
         try:
-            query = "INSERT INTO phone(aadharCard, phoneNo) VALUES('%d', '%d')" % (
+            query = "INSERT INTO phone(aadharCard, phoneNo) VALUES(%d, %d);" % (
                 row["aadharCard"], row_phone[i])
             cur.execute(query)
         except Exception as e:
@@ -117,8 +118,14 @@ def addDirector(cur, con):
             print(e)
             print("\nError: PLEASE TRY AGAIN!\n")
             return
-
-    con.commit()
+    
+    try:
+        con.commit()
+    except Exception as e:
+            con.rollback()
+            print(e)
+            print("\nError: PLEASE TRY AGAIN!\n")
+            return
     return
 
 
@@ -197,7 +204,7 @@ def addActor(cur, con):
             return
 
     try:
-        query = "INSERT INTO person(aadharCard, name, accountNo, gender, DOB) VALUES('%d', '%s', '%d', '%s', '%s')" % (
+        query = "INSERT INTO person(aadharCard, name, accountNo, gender, DOB) VALUES(%d, '%s', %d, '%s', '%s');" % (
             row["aadharCard"], row["name"], row["accountNo"], row["galary"], row["DOB"])
         cur.execute(query)
     except Exception as e:
@@ -207,7 +214,7 @@ def addActor(cur, con):
         return
 
     try:
-        query = "INSERT INTO actor(aadharCard, experience, height, weight) VALUES('%d', '%d', '%d', '%d')" % (
+        query = "INSERT INTO actor(aadharCard, experience, height, weight) VALUES(%d, %d, %d, %d);" % (
             row["aadharCard"], row["experience"], row["height"], row["weight"])
         cur.execute(query)
     except Exception as e:
@@ -218,7 +225,7 @@ def addActor(cur, con):
 
     for i in range(num_phone):
         try:
-            query = "INSERT INTO phone(aadharCard, phoneNo) VALUES('%d', '%d')" % (
+            query = "INSERT INTO phone(aadharCard, phoneNo) VALUES(%d, %d);" % (
                 row["aadharCard"], row_phone[i])
             cur.execute(query)
         except Exception as e:
@@ -247,7 +254,7 @@ def addActor(cur, con):
                 return
 
         try:
-            query = "INSERT INTO juniorActor(aadharCard) VALUES('%d')" % (
+            query = "INSERT INTO juniorActor(aadharCard) VALUES(%d);" % (
                 row["aadharCard"])
             cur.execute(query)
         except Exception as e:
@@ -258,7 +265,7 @@ def addActor(cur, con):
 
         for i in range(num_guard):
             try:
-                query = "INSERT INTO guardian(jActorAadharCard, aadharCard) VALUES('%d', '%d')" % (
+                query = "INSERT INTO guardian(jActorAadharCard, aadharCard) VALUES(%d, %d);" % (
                     row["aadharCard"], row_guardians[i][1])
                 cur.execute(query)
             except Exception as e:
@@ -268,7 +275,7 @@ def addActor(cur, con):
                 return
 
             try:
-                query = "INSERT INTO guardianData(aadharCard, name, phone) VALUES('%d', '%s', '%d')" % (
+                query = "INSERT INTO guardianData(aadharCard, name, phone) VALUES(%d, '%s', %d);" % (
                     row_guardians[i][1], row_guardians[i][2], row_guardians[i][0])
                 cur.execute(query)
             except Exception as e:
@@ -277,7 +284,13 @@ def addActor(cur, con):
                 print("\nError: PLEASE TRY AGAIN!\n")
                 return
 
-    con.commit()
+    try:
+        con.commit()
+    except Exception as e:
+            con.rollback()
+            print(e)
+            print("\nError: PLEASE TRY AGAIN!\n")
+            return
     return
 
 
@@ -295,7 +308,7 @@ def addBrand(cur, con):
         print("\nError: Please enter a valid Phone Number\n")
         return
     try:
-        query = "INSERT INTO brand(brandName, email, phone) VALUES('%s', '%s', '%d')" % (
+        query = "INSERT INTO brand(brandName, email, phone) VALUES('%s', '%s', %d);" % (
             row["brandName"], row["email"], row["phone"])
         cur.execute(query)
     except Exception as e:
@@ -303,7 +316,13 @@ def addBrand(cur, con):
         print(e)
         print("\nError: PLEASE TRY AGAIN!\n")
 
-    con.commit()
+    try:
+        con.commit()
+    except Exception as e:
+            con.rollback()
+            print(e)
+            print("\nError: PLEASE TRY AGAIN!\n")
+            return
     return
 
 
@@ -316,7 +335,7 @@ def addChannel(cur, con):
         print("\nError: Please enter a valid Baseprice\n")
         return
     try:
-        query = "INSERT INTO brand(channelName, baseprice) VALUES('%s', '%d')" % (
+        query = "INSERT INTO brand(channelName, baseprice) VALUES('%s', %d);" % (
             row["channelName"], row["baseprice"])
         cur.execute(query)
     except Exception as e:
@@ -324,7 +343,13 @@ def addChannel(cur, con):
         print(e)
         print("\nError: PLEASE TRY AGAIN!\n")
 
-    con.commit()
+    try:
+        con.commit()
+    except Exception as e:
+            con.rollback()
+            print(e)
+            print("\nError: PLEASE TRY AGAIN!\n")
+            return
     return
 
 
@@ -340,7 +365,7 @@ def addPrefers(cur, con):
         return
 
     try:
-        query = "INSERT INTO prefers(actorAadharCard, brandName) VALUES('%d', '%s')" % (
+        query = "INSERT INTO prefers(actorAadharCard, brandName) VALUES(%d, '%s');" % (
             row["actorAadharCard"], row["brandName"])
         cur.execute(query)
     except Exception as e:
@@ -348,7 +373,13 @@ def addPrefers(cur, con):
         print(e)
         print("\nError: PLEASE TRY AGAIN!\n")
 
-    con.commit()
+    try:
+        con.commit()
+    except Exception as e:
+            con.rollback()
+            print(e)
+            print("\nError: PLEASE TRY AGAIN!\n")
+            return
     return
 
 
@@ -368,7 +399,7 @@ def addProduct(cur, con):
         row["price"] = int(row["price"])
 
     try:
-        query = "INSERT INTO product(name, brandName, description, price) VALUES('%s', '%s', '%s', '%d')" % (
+        query = "INSERT INTO product(name, brandName, description, price) VALUES('%s', '%s', '%s', %d);" % (
             row["name"], row["brandName"], row["description"], row["price"])
         cur.execute(query)
     except Exception as e:
@@ -376,7 +407,13 @@ def addProduct(cur, con):
         print(e)
         print("\nError: PLEASE TRY AGAIN!\n")
 
-    con.commit()
+    try:
+        con.commit()
+    except Exception as e:
+            con.rollback()
+            print(e)
+            print("\nError: PLEASE TRY AGAIN!\n")
+            return
     return
 
 
@@ -442,7 +479,7 @@ def addProduction(cur, con):
             return
 
     try:
-        query = "INSERT INTO production(actorAadharCard, directorAadharCard, productName, brandName, signingDate, productionCost) VALUES('%d', '%d', '%s', '%s', '%s', '%d')" % (
+        query = "INSERT INTO production(actorAadharCard, directorAadharCard, productName, brandName, signingDate, productionCost) VALUES(%d, %d, '%s', '%s', '%s', %d);" % (
             row["actorAadharCard"], row["directorAadharCard"], row["productName"], row["brandName"], row["signingDate"], row["productionCost"])
         cur.execute(query)
     except Exception as e:
@@ -453,7 +490,7 @@ def addProduction(cur, con):
     adId = cur.lastrowid
 
     try:
-        query = "INSERT INTO ad(serialNo, duration) VALUES('%d', '%d')" % (
+        query = "INSERT INTO ad(serialNo, duration) VALUES(%d, %d);" % (
             adId, row["duration"])
         cur.execute(query)
     except Exception as e:
@@ -463,7 +500,7 @@ def addProduction(cur, con):
 
     for i in range(num_genre):
         try:
-            query = "INSERT INTO adGenre(name, adSerialNo) VALUES('%s', '%d')" % (
+            query = "INSERT INTO adGenre(name, adSerialNo) VALUES('%s', %d);" % (
                 row_genre[i], adId)
             cur.execute(query)
         except Exception as e:
@@ -471,7 +508,13 @@ def addProduction(cur, con):
             print(e)
             print("\nError: PLEASE TRY AGAIN!\n")
 
-    con.commit()
+    try:
+        con.commit()
+    except Exception as e:
+            con.rollback()
+            print(e)
+            print("\nError: PLEASE TRY AGAIN!\n")
+            return
     return
 
 
@@ -524,7 +567,7 @@ def addShow(cur, con):
             return
 
     try:
-        query = "INSERT INTO show(date, startTime, channelName, duration, surcharge, name) VALUES('%s', '%s', '%s', '%d', '%d', '%s')" % (
+        query = "INSERT INTO show(date, startTime, channelName, duration, surcharge, name) VALUES('%s', '%s', '%s', %d, %d, '%s');" % (
             row["date"], row["startTime"], row["channelName"], row["duration"], row["surcharge"], row["name"])
         cur.execute(query)
     except Exception as e:
@@ -534,7 +577,7 @@ def addShow(cur, con):
 
     for i in range(num_genre):
         try:
-            query = "INSERT INTO showGenre(name, showDate, showStartTime, channelName) VALUES('%s', '%s', '%s', '%s')" % (
+            query = "INSERT INTO showGenre(name, showDate, showStartTime, channelName) VALUES('%s', '%s', '%s', '%s');" % (
                 row_genre[i], row["date"], row["startTime"], row["channelName"])
             cur.execute(query)
         except Exception as e:
@@ -542,7 +585,13 @@ def addShow(cur, con):
             print(e)
             print("\nError: PLEASE TRY AGAIN!\n")
 
-    con.commit()
+    try:
+        con.commit()
+    except Exception as e:
+            con.rollback()
+            print(e)
+            print("\nError: PLEASE TRY AGAIN!\n")
+            return
     return
 
 
@@ -582,7 +631,7 @@ def addAdinShow(cur, con):
         return
 
     try:
-        query = "INSERT INTO displayedBetween(showDate, showStartTime, channelName, adSerialNo, timesShown) VALUES('%s', '%s', '%s', '%d', '%d')" % (
+        query = "INSERT INTO displayedBetween(showDate, showStartTime, channelName, adSerialNo, timesShown) VALUES('%s', '%s', '%s', %d, %d);" % (
             row["showDate"], row["showStartTime"], row["channelName"], row["adSerialNo"], row["timesShown"])
         cur.execute(query)
     except Exception as e:
@@ -590,5 +639,11 @@ def addAdinShow(cur, con):
         print(e)
         print("\nError: PLEASE TRY AGAIN!\n")
 
-    con.commit()
+    try:
+        con.commit()
+    except Exception as e:
+            con.rollback()
+            print(e)
+            print("\nError: PLEASE TRY AGAIN!\n")
+            return
     return
