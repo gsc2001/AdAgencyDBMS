@@ -35,24 +35,32 @@ def addDirector():
         return
 
     try:
-        row["DOB"] = date(input("Date of Birth in YYYY-MM-DD: "))
+        row["DOB"] = str(date(input("Date of Birth in YYYY-MM-DD: ")))
     except Exception as e:
         print(e)
         print("\nError: Please enter valid Date of Birth\n")
 
-    # row["age"] = date.today.year - row['DOB'].year - \
-    #     ((date.today.month, date.today.day) <
-    #      (row['DOB'].month, row['DOB'].day))
+    age = date.today.year - row['DOB'].year - \
+        ((date.today.month, date.today.day) <
+         (row['DOB'].month, row['DOB'].day))
+        
+    if age < 18:
+        print("\nError: Very young director. Minimum age is 18\n")
+        return
 
     row["salary"] = input("Salary: ")
-    if row["salary"].isnumeric() and row["salary"] > 0:
+    if row["salary"].isnumeric() and row["salary"] >= 10000:
         row["salary"] = int(row["salary"])
     else:
-        print("\nError: Please enter valid Salary\n")
+        print("\nError: Please enter valid Salary above 10000\n")
         return
 
     try:
-        row["joinDate"] = date(input("Date of Joining in YYYY-MM-DD: "))
+        row["joinDate"] = input("Date of Joining in YYYY-MM-DD: ")
+        if row["joinDate"] == "":
+            row["joinDate"] = str(date.today())
+        else:
+            row["joinDate"] = str(date(row["joinDate"]))
     except Exception as e:
         print(e)
         print("\nError: Please enter valid Date of Joining\n")
@@ -85,7 +93,6 @@ def addDirector():
         query = "INSERT INTO person(aadharCard, name, accountNo, gender, DOB) VALUES('%d', '%s', '%d', '%s', '%s')" % (
             row["aadharCard"], row["name"], row["accountNo"], row["galary"], row["DOB"])
         cur.execute(query)
-        con.commit()
     except Exception as e:
         con.rollback()
         print(e)
@@ -96,7 +103,6 @@ def addDirector():
         query = "INSERT INTO director(aadharCard, joinDate, salary, supervisorAadharCard) VALUES('%d', '%s', '%d', '%d')" % (
             row["aadharCard"], row["joinDate"], row["salary"], row["supervisorAadharCard"])
         cur.execute(query)
-        con.commit()
     except Exception as e:
         con.rollback()
         print(e)
@@ -108,12 +114,13 @@ def addDirector():
             query = "INSERT INTO phone(aadharCard, phoneNo) VALUES('%d', '%d')" % (
                 row["aadharCard"], row_phone[i])
             cur.execute(query)
-            con.commit()
         except Exception as e:
             con.rollback()
             print(e)
             print("\nError: PLEASE TRY AGAIN!\n")
             return
+    
+    con.commit()
     return
 
 
@@ -147,7 +154,7 @@ def addActor():
         return
 
     try:
-        row["DOB"] = date(input("Date of Birth in YYYY-MM-DD: "))
+        row["DOB"] = str(date(input("Date of Birth in YYYY-MM-DD: ")))
     except Exception as e:
         print(e)
         print("\nError: Please enter valid Date of Birth\n")
@@ -196,7 +203,6 @@ def addActor():
         query = "INSERT INTO person(aadharCard, name, accountNo, gender, DOB) VALUES('%d', '%s', '%d', '%s', '%s')" % (
             row["aadharCard"], row["name"], row["accountNo"], row["galary"], row["DOB"])
         cur.execute(query)
-        con.commit()
     except Exception as e:
         con.rollback()
         print(e)
@@ -207,7 +213,6 @@ def addActor():
         query = "INSERT INTO actor(aadharCard, experience, height, weight) VALUES('%d', '%d', '%d', '%d')" % (
             row["aadharCard"], row["experience"], row["height"], row["weight"])
         cur.execute(query)
-        con.commit()
     except Exception as e:
         con.rollback()
         print(e)
@@ -219,7 +224,6 @@ def addActor():
             query = "INSERT INTO phone(aadharCard, phoneNo) VALUES('%d', '%d')" % (
                 row["aadharCard"], row_phone[i])
             cur.execute(query)
-            con.commit()
         except Exception as e:
             con.rollback()
             print(e)
@@ -249,7 +253,6 @@ def addActor():
             query = "INSERT INTO juniorActor(aadharCard) VALUES('%d')" % (
                 row["aadharCard"])
             cur.execute(query)
-            con.commit()
         except Exception as e:
             con.rollback()
             print(e)
@@ -261,7 +264,6 @@ def addActor():
                 query = "INSERT INTO guardian(jActorAadharCard, aadharCard) VALUES('%d', '%d')" % (
                     row["aadharCard"], row_guardians[i][1])
                 cur.execute(query)
-                con.commit()
             except Exception as e:
                 con.rollback()
                 print(e)
@@ -272,12 +274,13 @@ def addActor():
                 query = "INSERT INTO guardianData(aadharCard, name, phone) VALUES('%d', '%s', '%d')" % (
                     row_guardians[i][1], row_guardians[i][2], row_guardians[i][0])
                 cur.execute(query)
-                con.commit()
             except Exception as e:
                 con.rollback()
                 print(e)
                 print("\nError: PLEASE TRY AGAIN!\n")
                 return
+    
+    con.commit()
     return
 
 
@@ -299,12 +302,13 @@ def addBrand():
         query = "INSERT INTO brand(brandName, email, phone) VALUES('%s', '%s', '%d')" % (
             row["brandName"], row["email"], row["phone"])
         cur.execute(query)
-        con.commit()
     except Exception as e:
         con.rollback()
         print(e)
         print("\nError: PLEASE TRY AGAIN!\n")
-        return
+
+    con.commit()
+    return
 
 
 def addChannel():
@@ -320,12 +324,13 @@ def addChannel():
         query = "INSERT INTO brand(channelName, baseprice) VALUES('%s', '%d')" % (
             row["channelName"], row["baseprice"])
         cur.execute(query)
-        con.commit()
     except Exception as e:
         con.rollback()
         print(e)
         print("\nError: PLEASE TRY AGAIN!\n")
-        return
+
+    con.commit()
+    return
 
 
 def addPrefers():
@@ -339,17 +344,19 @@ def addPrefers():
     else:
         print("\nError: Please enter valid 12 digit Actor Aadhar Card Number\n")
         return
-    
+
     try:
         query = "INSERT INTO prefers(actorAadharCard, brandName) VALUES('%d', '%s')" % (
             row["actorAadharCard"], row["brandName"])
         cur.execute(query)
-        con.commit()
     except Exception as e:
         con.rollback()
         print(e)
         print("\nError: PLEASE TRY AGAIN!\n")
-        return
+
+    con.commit()
+    return
+
 
 def addProduct():
     global cur
@@ -366,14 +373,225 @@ def addProduct():
         return
     else:
         row["price"] = int(row["price"])
-    
+
     try:
         query = "INSERT INTO product(name, brandName, description, price) VALUES('%s', '%s', '%s', '%d')" % (
             row["name"], row["brandName"], row["description"], row["price"])
         cur.execute(query)
-        con.commit()
     except Exception as e:
         con.rollback()
         print(e)
         print("\nError: PLEASE TRY AGAIN!\n")
+
+    con.commit()
+    return
+
+
+def addProduction():
+    global cur
+    row = {}
+
+    row["brandName"] = input("Enter Brand Name: ")
+    row["productName"] = input("Enter Product Name: ")
+    row["actorAadharCard"] = input(
+        "Enter Aadhar Card of actor working in that Ad: ")
+    if len(row["actorAadharCard"]) == 12 and row["actorAadharCard"].isnumeric():
+        row["actorAadharCard"] = int(row["actorAadharCard"])
+    else:
+        print("\nError: Please enter valid 12 digit Actor Aadhar Card Number\n")
         return
+    row["directorAadharCard"] = input(
+        "Enter Aadhar Card of director working in that Ad: ")
+    if len(row["directorAadharCard"]) == 12 and row["directorAadharCard"].isnumeric():
+        row["directorAadharCard"] = int(row["directorAadharCard"])
+    else:
+        print("\nError: Please enter valid 12 digit Actor Director Card Number\n")
+        return
+
+    try:
+        row["signingDate"] = input("Enter Signing Date of Ad in YYYY-MM-DD: ")
+        if row["signingDate"] == "":
+            row["signingDate"] = str(date.today())
+        else:
+            row["signingDate"] = str(date(row["signingDate"]))
+    except Exception as e:
+        print(e)
+        print("\nError: Please enter valid Signing Date\n")
+
+    row["productionCost"] = input("Enter Production Cost of Ad: ")
+    if row["productionCost"] > 0 and row["productionCost"].isnumeric:
+        row["productionCost"] = int(row["productionCost"])
+    else:
+        print("\nError: Please enter valid Production Cost\n")
+        return
+
+    row["duration"] = input("Enter Duration of Ad in sec: ")
+    if row["duration"] > 0 and row["duration"].isnumeric:
+        row["duration"] = int(row["duration"])
+    else:
+        print("\nError: Please enter valid duration\n")
+        return
+
+    row_genre = []
+    genre_list = ['Comedy', 'Thriller', 'Romance',
+        'Suspense', 'Sci-fi', 'Action', 'Horror', 'Fantasy']
+    try:
+        num_genre = int(input("Number of genre in Ad: "))
+    except Exception as e:
+        print(e)
+        print("\nError: Please enter a valid number\n")
+    for i in range(num_genre):
+        name = input(
+            "Genre from Comedy|Thriller|Romance|Suspense|Sci-fi|Action|Horror|Fantasy: ")
+        if name in genre_list:
+            row_genre.append(name)
+        else:
+            print("\nError: Please enter valid genre\n")
+            return
+
+    try:
+        query = "INSERT INTO ad(duration) VALUES('%d')" % (
+            row["duration"])
+        cur.execute(query)
+    except Exception as e:
+        con.rollback()
+        print(e)
+        print("\nError: PLEASE TRY AGAIN!\n")
+
+    adId = cur.lastrowid
+
+    try:
+        query = "INSERT INTO production(adSerialNo, actorAadharCard, directorAadharCard, productName, brandName, signingDate, productionCost) VALUES('%d', '%d', '%d', '%s', '%s', '%s', '%d')" % (
+            adId, row["actorAadharCard"], row["directorAadharCard"], row["productName"], row["brandName"], row["signingDate"], row["productionCost"])
+        cur.execute(query)
+    except Exception as e:
+        con.rollback()
+        print(e)
+        print("\nError: PLEASE TRY AGAIN!\n")
+
+    for i in range(num_genre):
+        try:
+            query = "INSERT INTO adGenre(name, adSerialNo) VALUES('%s', '%d')" % (
+                row_genre[i], adId)
+            cur.execute(query)
+        except Exception as e:
+            con.rollback()
+            print(e)
+            print("\nError: PLEASE TRY AGAIN!\n")
+
+    con.commit()
+    return
+
+
+def addShow():
+    global cur
+    row = {}
+
+    row["name"] = input("Enter Show Name: ")
+    row["channelName"] = input("Enter Channel Name on which show is aired: ")
+    row["startTime"] = input("Enter Start Time of show in HH-MM-SS: ")
+    regex = '(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)'
+    if not re.search(regex, row["startTime"]):
+        print("\nError: Please enter a valid start time in HH-MM-SS format\n")
+        return
+    try:
+        row["date"] = str(date(input("Enter Air Date of Show in YYYY-MM-DD: ")))
+    except Exception as e:
+        print(e)
+        print("\nError: Please enter valid Airing Date\n")
+
+    row["duration"] = input("Enter Duration of Show in min: ")
+    if row["duration"] > 0 and row["duration"].isnumeric:
+        row["duration"] = int(row["duration"])
+    else:
+        print("\nError: Please enter valid duration\n")
+        return
+    
+    row["surcharge"] = input("Enter Surcharge of Show: ")
+    if row["surcharge"] > 0 and row["surcharge"].isnumeric:
+        row["surcharge"] = int(row["surcharge"])
+    else:
+        print("\nError: Please enter valid surcharge\n")
+        return
+
+    row_genre = []
+    genre_list = ['Comedy', 'Thriller', 'Romance', 'Suspense', 'Sci-fi', 'Action', 'Horror', 'Fantasy']
+    try:
+        num_genre = int(input("Number of genre in Show: "))
+    except Exception as e:
+        print(e)
+        print("\nError: Please enter a valid number\n")
+    for i in range(num_genre):
+        name = input("Genre from Comedy|Thriller|Romance|Suspense|Sci-fi|Action|Horror|Fantasy: ")
+        if name in genre_list:
+            row_genre.append(name)
+        else:
+            print("\nError: Please enter valid genre\n")
+            return
+
+    try:
+        query = "INSERT INTO show(date, startTime, channelName, duration, surcharge, name) VALUES('%s', '%s', '%s', '%d', '%d', '%s')" % (
+            row["date"], row["startTime"], row["channelName"], row["duration"], row["surcharge"], row["name"])
+        cur.execute(query)
+    except Exception as e:
+        con.rollback()
+        print(e)
+        print("\nError: PLEASE TRY AGAIN!\n")
+
+    for i in range(num_genre):    
+        try:
+            query = "INSERT INTO showGenre(name, showDate, showStartTime, channelName) VALUES('%s', '%s', '%s', '%s')" % (
+                row_genre[i], row["date"], row["startTime"], row["channelName"])
+            cur.execute(query)
+        except Exception as e:
+            con.rollback()
+            print(e)
+            print("\nError: PLEASE TRY AGAIN!\n")
+    
+    con.commit()
+    return
+
+def addAdinShow():
+    global cur
+    row = {}
+
+    row["adSerialNo"] = input("Please enter Serial number of Ad: ")
+    if row["adSerialNo"].isnumeric and row["adSerialNo"] > 0:
+        row["adSerialNo"] = int(row["adSerialNo"])
+    else:
+        print("\nError: Please enter a valid serial Number\n")
+        return 
+    
+    row["channelName"] = input("Enter Channel Name on which show is aired: ")
+    row["startTime"] = input("Enter Start Time of show in HH-MM-SS on which Ad is to be displayed: ")
+    regex = '(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)'
+    if not re.search(regex, row["startTime"]):
+        print("\nError: Please enter a valid start time in HH-MM-SS format\n")
+        return
+    
+    try:
+        row["date"] = str(date(input("Enter Air Date of Show in YYYY-MM-DD: ")))
+    except Exception as e:
+        print(e)
+        print("\nError: Please enter valid Airing Date\n")
+    
+    row["timesShown"] = input("Please enter number of times Ad is shown during Show: ")
+    if row["timesShown"].isnumeric and row["timesShown"] > 0:
+        row["timesShown"] = int(row["timesShown"])
+    elif row["timesShown"] == "":
+        row["timesShown"] = 1
+    else:
+        print("\nError: Please enter a valid number\n")
+        return 
+
+    try:
+        query = "INSERT INTO displayedBetween(showDate, showStartTime, channelName, adSerialNo, timesShown) VALUES('%s', '%s', '%s', '%d', '%d')" % (
+            row["showDate"], row["showStartTime"], row["channelName"], row["adSerialNo"], row["timesShown"])
+        cur.execute(query)
+    except Exception as e:
+        con.rollback()
+        print(e)
+        print("\nError: PLEASE TRY AGAIN!\n")
+
+    con.commit()
+    return
