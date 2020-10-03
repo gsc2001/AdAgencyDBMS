@@ -1,0 +1,87 @@
+1. Maximum of Sum of the Contract Money of Brand
+
+SELECT MAX(TotalCost.NetCost) AS HighestProductionCost
+FROM (SELECT SUM(production.productionCost) AS NetCost
+FROM production
+INNER JOIN product ON
+( product.name = production.productName AND
+product.brandName = production.brandName )
+GROUP BY product.brandname) AS TotalCost;
+
+2. Bill for Ad
+
+SELECT production.productionCost + SUM(channel.basePrice) + SUM(displayedBetween.timesShown * ad.duration * `show`.surcharge) AS Bill
+FROM (((( displayedBetween
+INNER JOIN ad ON displayedBetween.adSerialNo = ad.serialNo)
+INNER JOIN `show` ON 
+displayedBetween.showDate = `show`.date AND
+displayedBetween.showStartTime = `show`.startTime AND
+displayedBetween.channelName = `show`.channelName)
+INNER JOIN production ON ad.serialNo = production.adSerialNo)
+INNER JOIN channel ON `show`.channelName = channel.channelName)
+WHERE displayedBetween.adSerialNo = input;
+
+3. Shows list by amount
+
+SELECT (`show`.surcharge * SUM(ad.duration)) AS Earning, `show`.date, `show`.startTime, `show`.channelName, `show`.name
+FROM (( displayedBetween
+INNER JOIN ad ON displayedBetween.adSerialNo = ad.serialNo)
+INNER JOIN `show` ON 
+displayedBetween.showDate = `show`.date AND
+displayedBetween.showStartTime = `show`.startTime AND
+displayedBetween.channelName = `show`.channelName)
+GROUP BY `show`.date, `show`.startTime, `show`.channelName, `show`.name
+ORDER BY Earning DESC;
+
+4. Actors with Physical features
+ 
+SELECT *
+FROM person
+INNER JOIN actor ON person.aadharCard = actor.aadharCard
+WHERE
+person.gender = '${gender}' AND
+( actor.height BETWEEN ${minHeight} AND ${maxHeight} ) AND
+( actor.weight BETWEEN ${minWeight} AND ${maxWeight} );
+
+5. Avg Ad Production cost
+ 
+SELECT AVG(productionCost)
+FROM production;
+
+6. Maximum Preferred Brands:
+
+SELECT brandname, COUNT(brandname) AS count_prefer
+FROM prefers
+GROUP BY brandname
+ORDER BY count_prefer DESC
+LIMIT 1;
+
+7. Partial Text Search for Show:
+ 
+SELECT date, startTime, channelName, name
+FROM `show`
+WHERE name like 'Input%';
+
+8. Names of a show with surcharge less than a value:
+
+SELECT name AS showName FROM `show`
+WHERE `show`.surcharge < input;
+
+9. Partial Text Search for Actor:
+
+SELECT actor.aadharCard AS AadharCard, name 
+FROM person
+INNER JOIN actor ON person.aadharCard = actor.aadharCard
+WHERE person.name like 'input%'
+
+10. Get Best Shows for an Ad:
+
+SELECT showDate, showStartTime, channelName
+FROM showGenre
+WHERE name IN (
+	SELECT name As AdGenrename
+            FROM ad 
+            INNER JOIN adGenre on serialNo = adSerialNo
+            WHERE serialNo = input
+			);
+
