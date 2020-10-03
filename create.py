@@ -4,9 +4,7 @@ import pymysql.cursors
 from datetime import date
 import re
 
-
-def addDirector():
-    global cur
+def addDirector(cur, con):
     row = {}
     print("Enter the new director's details: ")
 
@@ -124,8 +122,7 @@ def addDirector():
     return
 
 
-def addActor():
-    global cur
+def addActor(cur, con):
     row = {}
     print("Enter the new actor's details: ")
 
@@ -284,8 +281,7 @@ def addActor():
     return
 
 
-def addBrand():
-    global cur
+def addBrand(cur, con):
     row = {}
 
     row["brandName"] = input("Enter Brand Name: ")
@@ -311,8 +307,7 @@ def addBrand():
     return
 
 
-def addChannel():
-    global cur
+def addChannel(cur, con):
     row = {}
 
     row["channelName"] = input("Enter Channel Name: ")
@@ -333,8 +328,7 @@ def addChannel():
     return
 
 
-def addPrefers():
-    global cur
+def addPrefers(cur, con):
     row = {}
 
     row["brandName"] = input("Enter Brand Name: ")
@@ -358,8 +352,7 @@ def addPrefers():
     return
 
 
-def addProduct():
-    global cur
+def addProduct(cur, con):
     row = {}
 
     row["brandName"] = input("Enter Brand Name: ")
@@ -387,8 +380,7 @@ def addProduct():
     return
 
 
-def addProduction():
-    global cur
+def addProduction(cur, con):
     row = {}
 
     row["brandName"] = input("Enter Brand Name: ")
@@ -483,8 +475,7 @@ def addProduction():
     return
 
 
-def addShow():
-    global cur
+def addShow(cur, con):
     row = {}
 
     row["name"] = input("Enter Show Name: ")
@@ -555,8 +546,7 @@ def addShow():
     return
 
 
-def addAdinShow():
-    global cur
+def addAdinShow(cur, con):
     row = {}
 
     row["adSerialNo"] = input("Please enter Serial number of Ad: ")
