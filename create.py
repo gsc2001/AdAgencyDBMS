@@ -66,7 +66,7 @@ def addDirector():
         print("\nError: Please enter valid Date of Joining\n")
 
     row["supervisorAadharCard"] = input("12 digit Supervisor AadharCard: ")
-    if len(row["supervisorAadharCard"]) == 12 and row["supervisorAadharCard"].isnumeric():
+    if len(row["supervisorAadharCard"]) == 12 and row["supervisorAadharCard"].isnumeric() and row["supervisorAadharCard"] != row["aadharCard"]:
         row["supervisorAadharCard"] = int(row["supervisorAadharCard"])
     elif row["supervisorAadharCard"] == "":
         row["supervisorAadharCard"] = "NULL"
