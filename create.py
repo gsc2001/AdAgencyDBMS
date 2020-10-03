@@ -2,6 +2,7 @@ import subprocess as sp
 import pymysql
 import pymysql.cursors
 from datetime import date
+import re
 
 
 def addDirector():
@@ -20,7 +21,7 @@ def addDirector():
     if len(row["name"]) <= 0:
         print("\nError: Please enter a name\n")
         return
-    
+
     row["accountNo"] = input("Account Number: ")
     if len(row["accountNo"]) >= 8 and len(row["accountNo"]) <= 12 and row["accountNo"].isnumeric():
         row["accountNo"] = int(row["accountNo"])
@@ -67,11 +68,11 @@ def addDirector():
 
     row_phone = []
     try:
-        m = int(input("Number of director's phone number: "))
+        num_phone = int(input("Number of director's phone number: "))
     except Exception as e:
         print(e)
         print("\nError: Please enter a valid number\n")
-    for i in range(m):
+    for i in range(num_phone):
         phone = input("Phone Number: ")
         if phone.isnumeric() and phone > 0 and len(phone) == 10:
             phone = int(phone)
@@ -102,7 +103,7 @@ def addDirector():
         print("\nError: PLEASE TRY AGAIN!\n")
         return
 
-    for i in range(m):
+    for i in range(num_phone):
         try:
             query = "INSERT INTO phone(aadharCard, phoneNo) VALUES('%d', '%d')" % (
                 row["aadharCard"], row_phone[i])
@@ -132,7 +133,7 @@ def addActor():
     if len(row["name"]) <= 0:
         print("\nError: Please enter a name\n")
         return
-    
+
     row["accountNo"] = input("Account Number: ")
     if len(row["accountNo"]) >= 8 and len(row["accountNo"]) <= 12 and row["accountNo"].isnumeric():
         row["accountNo"] = int(row["accountNo"])
@@ -178,11 +179,11 @@ def addActor():
 
     row_phone = []
     try:
-        m = int(input("Number of actor's phone number: "))
+        num_phone = int(input("Number of actor's phone number: "))
     except Exception as e:
         print(e)
         print("\nError: Please enter a valid number\n")
-    for i in range(m):
+    for i in range(num_phone):
         phone = input("Phone Number: ")
         if phone.isnumeric() and phone > 0 and len(phone) == 10:
             phone = int(phone)
@@ -213,7 +214,7 @@ def addActor():
         print("\nError: PLEASE TRY AGAIN!\n")
         return
 
-    for i in range(m):
+    for i in range(num_phone):
         try:
             query = "INSERT INTO phone(aadharCard, phoneNo) VALUES('%d', '%d')" % (
                 row["aadharCard"], row_phone[i])
@@ -228,11 +229,11 @@ def addActor():
     if(age < 18):
         row_guardians = []
         try:
-            g = int(input("Number of actor's guardians: "))
+            num_guard = int(input("Number of actor's guardians: "))
         except Exception as e:
             print(e)
             print("\nError: Please enter a valid number\n")
-        for i in range(g):
+        for i in range(num_guard):
             name = input("Name of Guardian: ")
             phone = input("Phone Number of Guardian: ")
             aadharCard = input("Aadhar Card of Guardian: ")
@@ -255,7 +256,7 @@ def addActor():
             print("\nError: PLEASE TRY AGAIN!\n")
             return
 
-        for i in range(g):
+        for i in range(num_guard):
             try:
                 query = "INSERT INTO guardian(jActorAadharCard, aadharCard) VALUES('%d', '%d')" % (
                     row["aadharCard"], row_guardians[i][1])
@@ -278,3 +279,101 @@ def addActor():
                 print("\nError: PLEASE TRY AGAIN!\n")
                 return
     return
+
+
+def addBrand():
+    global cur
+    row = {}
+
+    row["brandName"] = input("Enter Brand Name: ")
+    row["email"] = input("Email: ")
+    regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+    if not re.search(regex, row["email"]):
+        print("\nError: Please enter a valid Email Id\n")
+        return
+    row["phone"] = input("Phone: ")
+    if (not row["phone"].isnumeric()) or len(row["phone"]) != 10:
+        print("\nError: Please enter a valid Phone Number\n")
+        return
+    try:
+        query = "INSERT INTO brand(brandName, email, phone) VALUES('%s', '%s', '%d')" % (
+            row["brandName"], row["email"], row["phone"])
+        cur.execute(query)
+        con.commit()
+    except Exception as e:
+        con.rollback()
+        print(e)
+        print("\nError: PLEASE TRY AGAIN!\n")
+        return
+
+
+def addChannel():
+    global cur
+    row = {}
+
+    row["channelName"] = input("Enter Channel Name: ")
+    row["baseprice"] = input("Baseprice: ")
+    if row["baseprice"] > 0:
+        print("\nError: Please enter a valid Baseprice\n")
+        return
+    try:
+        query = "INSERT INTO brand(channelName, baseprice) VALUES('%s', '%d')" % (
+            row["channelName"], row["baseprice"])
+        cur.execute(query)
+        con.commit()
+    except Exception as e:
+        con.rollback()
+        print(e)
+        print("\nError: PLEASE TRY AGAIN!\n")
+        return
+
+
+def addPrefers():
+    global cur
+    row = {}
+
+    row["brandName"] = input("Enter Brand Name: ")
+    row["actorAadharCard"] = input("actorAadharCard: ")
+    if len(row["aadharCard"]) == 12 and row["aadharCard"].isnumeric():
+        row["aadharCard"] = int(row["aadharCard"])
+    else:
+        print("\nError: Please enter valid 12 digit Actor Aadhar Card Number\n")
+        return
+    
+    try:
+        query = "INSERT INTO prefers(actorAadharCard, brandName) VALUES('%d', '%s')" % (
+            row["actorAadharCard"], row["brandName"])
+        cur.execute(query)
+        con.commit()
+    except Exception as e:
+        con.rollback()
+        print(e)
+        print("\nError: PLEASE TRY AGAIN!\n")
+        return
+
+def addProduct():
+    global cur
+    row = {}
+
+    row["brandName"] = input("Enter Brand Name: ")
+    row["name"] = input("Enter Product Name: ")
+    row["description"] = input("Enter Product description: ")
+    if row["description"] == "":
+        row["description"] = "NULL"
+    row["price"] = input("Enter price: ")
+    if row["price"] < 0 or (not row["price"].isnumeric):
+        print("\nError: Please enter valid price\n")
+        return
+    else:
+        row["price"] = int(row["price"])
+    
+    try:
+        query = "INSERT INTO product(name, brandName, description, price) VALUES('%s', '%s', '%s', '%d')" % (
+            row["name"], row["brandName"], row["description"], row["price"])
+        cur.execute(query)
+        con.commit()
+    except Exception as e:
+        con.rollback()
+        print(e)
+        print("\nError: PLEASE TRY AGAIN!\n")
+        return
