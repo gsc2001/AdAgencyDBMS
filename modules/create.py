@@ -1,6 +1,3 @@
-import subprocess as sp
-import pymysql
-import pymysql.cursors
 from datetime import date
 import re
 
@@ -65,7 +62,8 @@ def addDirector(cur, con):
         print("\nError: Please enter valid Date of Joining\n")
 
     row["supervisorAadharCard"] = input("12 digit Supervisor AadharCard: ")
-    if len(row["supervisorAadharCard"]) == 12 and row["supervisorAadharCard"].isnumeric() and row["supervisorAadharCard"] != row["aadharCard"]:
+    if len(row["supervisorAadharCard"]) == 12 and row["supervisorAadharCard"].isnumeric(
+    ) and row["supervisorAadharCard"] != row["aadharCard"]:
         row["supervisorAadharCard"] = int(row["supervisorAadharCard"])
     elif row["supervisorAadharCard"] == "":
         row["supervisorAadharCard"] = "NULL"
@@ -118,14 +116,14 @@ def addDirector(cur, con):
             print(e)
             print("\nError: PLEASE TRY AGAIN!\n")
             return
-    
+
     try:
         con.commit()
     except Exception as e:
-            con.rollback()
-            print(e)
-            print("\nError: PLEASE TRY AGAIN!\n")
-            return
+        con.rollback()
+        print(e)
+        print("\nError: PLEASE TRY AGAIN!\n")
+        return
     return
 
 
@@ -245,7 +243,8 @@ def addActor(cur, con):
             name = input("Name of Guardian: ")
             phone = input("Phone Number of Guardian: ")
             aadharCard = input("Aadhar Card of Guardian: ")
-            if phone.isnumeric() and phone > 0 and len(phone) == 10 and len(aadharCard) == 12 and aadharCard > 0 and aadharCard.isnumeric() and len(name) > 0:
+            if phone.isnumeric() and phone > 0 and len(phone) == 10 and len(
+                    aadharCard) == 12 and aadharCard > 0 and aadharCard.isnumeric() and len(name) > 0:
                 phone = int(phone)
                 aadharCard = int(aadharCard)
                 row_guardians.append([phone, aadharCard, name])
@@ -287,10 +286,10 @@ def addActor(cur, con):
     try:
         con.commit()
     except Exception as e:
-            con.rollback()
-            print(e)
-            print("\nError: PLEASE TRY AGAIN!\n")
-            return
+        con.rollback()
+        print(e)
+        print("\nError: PLEASE TRY AGAIN!\n")
+        return
     return
 
 
@@ -299,7 +298,7 @@ def addBrand(cur, con):
 
     row["brandName"] = input("Enter Brand Name: ")
     row["email"] = input("Email: ")
-    regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+    regex = r'^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
     if not re.search(regex, row["email"]):
         print("\nError: Please enter a valid Email Id\n")
         return
@@ -319,10 +318,10 @@ def addBrand(cur, con):
     try:
         con.commit()
     except Exception as e:
-            con.rollback()
-            print(e)
-            print("\nError: PLEASE TRY AGAIN!\n")
-            return
+        con.rollback()
+        print(e)
+        print("\nError: PLEASE TRY AGAIN!\n")
+        return
     return
 
 
@@ -346,10 +345,10 @@ def addChannel(cur, con):
     try:
         con.commit()
     except Exception as e:
-            con.rollback()
-            print(e)
-            print("\nError: PLEASE TRY AGAIN!\n")
-            return
+        con.rollback()
+        print(e)
+        print("\nError: PLEASE TRY AGAIN!\n")
+        return
     return
 
 
@@ -376,10 +375,10 @@ def addPrefers(cur, con):
     try:
         con.commit()
     except Exception as e:
-            con.rollback()
-            print(e)
-            print("\nError: PLEASE TRY AGAIN!\n")
-            return
+        con.rollback()
+        print(e)
+        print("\nError: PLEASE TRY AGAIN!\n")
+        return
     return
 
 
@@ -410,10 +409,10 @@ def addProduct(cur, con):
     try:
         con.commit()
     except Exception as e:
-            con.rollback()
-            print(e)
-            print("\nError: PLEASE TRY AGAIN!\n")
-            return
+        con.rollback()
+        print(e)
+        print("\nError: PLEASE TRY AGAIN!\n")
+        return
     return
 
 
@@ -511,10 +510,10 @@ def addProduction(cur, con):
     try:
         con.commit()
     except Exception as e:
-            con.rollback()
-            print(e)
-            print("\nError: PLEASE TRY AGAIN!\n")
-            return
+        con.rollback()
+        print(e)
+        print("\nError: PLEASE TRY AGAIN!\n")
+        return
     return
 
 
@@ -524,7 +523,7 @@ def addShow(cur, con):
     row["name"] = input("Enter Show Name: ")
     row["channelName"] = input("Enter Channel Name on which show is aired: ")
     row["startTime"] = input("Enter Start Time of show in HH-MM-SS: ")
-    regex = '(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)'
+    regex = r'(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)'
     if not re.search(regex, row["startTime"]):
         print("\nError: Please enter a valid start time in HH-MM-SS format\n")
         return
@@ -588,10 +587,10 @@ def addShow(cur, con):
     try:
         con.commit()
     except Exception as e:
-            con.rollback()
-            print(e)
-            print("\nError: PLEASE TRY AGAIN!\n")
-            return
+        con.rollback()
+        print(e)
+        print("\nError: PLEASE TRY AGAIN!\n")
+        return
     return
 
 
@@ -608,7 +607,7 @@ def addAdinShow(cur, con):
     row["channelName"] = input("Enter Channel Name on which show is aired: ")
     row["startTime"] = input(
         "Enter Start Time of show in HH-MM-SS on which Ad is to be displayed: ")
-    regex = '(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)'
+    regex = r'(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)'
     if not re.search(regex, row["startTime"]):
         print("\nError: Please enter a valid start time in HH-MM-SS format\n")
         return
@@ -642,8 +641,8 @@ def addAdinShow(cur, con):
     try:
         con.commit()
     except Exception as e:
-            con.rollback()
-            print(e)
-            print("\nError: PLEASE TRY AGAIN!\n")
-            return
+        con.rollback()
+        print(e)
+        print("\nError: PLEASE TRY AGAIN!\n")
+        return
     return
