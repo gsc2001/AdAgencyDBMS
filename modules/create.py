@@ -19,7 +19,7 @@ def addDirector(cur, con):
         return
 
     row["accountNo"] = input("Account Number: ")
-    if len(row["accountNo"]) >= 8 and len(row["accountNo"]) <= 12 and row["accountNo"].isnumeric():
+    if len(row["accountNo"]) >= 8 and len(row["accountNo"]) <= 12 and row["accountNo"].isnumeric() and int(row["accountNo"]) > 0:
         row["accountNo"] = int(row["accountNo"])
     else:
         print("\nError: Please enter valid Account Number\n")
@@ -31,7 +31,7 @@ def addDirector(cur, con):
         return
 
     try:
-        row["DOB"] = str(date(input("Date of Birth in YYYY-MM-DD: ")))
+        row["DOB"] = date(input("Date of Birth in YYYY-MM-DD: "))
     except Exception as e:
         print(e)
         print("\nError: Please enter valid Date of Birth\n")
@@ -40,12 +40,14 @@ def addDirector(cur, con):
         ((date.today.month, date.today.day) <
          (row['DOB'].month, row['DOB'].day))
 
+    row["DOB"] = str(row["DOB"])
+
     if age < 18:
         print("\nError: Very young director. Minimum age is 18\n")
         return
 
     row["salary"] = input("Salary: ")
-    if row["salary"].isnumeric() and row["salary"] >= 10000:
+    if row["salary"].isnumeric() and int(row["salary"]) >= 10000:
         row["salary"] = int(row["salary"])
     else:
         print("\nError: Please enter valid Salary above 10000\n")
@@ -62,7 +64,7 @@ def addDirector(cur, con):
         print("\nError: Please enter valid Date of Joining\n")
 
     row["supervisorAadharCard"] = input("12 digit Supervisor AadharCard: ")
-    if len(row["supervisorAadharCard"]) == 12 and row["supervisorAadharCard"].isnumeric(
+    if len(row["supervisorAadharCard"]) == 12 and row["supervisorAadharCard"].isnumeric()(
     ) and row["supervisorAadharCard"] != row["aadharCard"]:
         row["supervisorAadharCard"] = int(row["supervisorAadharCard"])
     elif row["supervisorAadharCard"] == "":
@@ -79,7 +81,7 @@ def addDirector(cur, con):
         print("\nError: Please enter a valid number\n")
     for i in range(num_phone):
         phone = input("Phone Number: ")
-        if phone.isnumeric() and phone > 0 and len(phone) == 10:
+        if phone.isnumeric() and int(phone) > 0 and len(phone) == 10:
             phone = int(phone)
             row_phone.append(phone)
         else:
@@ -144,7 +146,7 @@ def addActor(cur, con):
         return
 
     row["accountNo"] = input("Account Number: ")
-    if len(row["accountNo"]) >= 8 and len(row["accountNo"]) <= 12 and row["accountNo"].isnumeric():
+    if len(row["accountNo"]) >= 8 and len(row["accountNo"]) <= 12 and row["accountNo"].isnumeric() and int(row["accountNo"]) > 0:
         row["accountNo"] = int(row["accountNo"])
     else:
         print("\nError: Please enter valid Account Number\n")
@@ -156,7 +158,7 @@ def addActor(cur, con):
         return
 
     try:
-        row["DOB"] = str(date(input("Date of Birth in YYYY-MM-DD: ")))
+        row["DOB"] = date(input("Date of Birth in YYYY-MM-DD: "))
     except Exception as e:
         print(e)
         print("\nError: Please enter valid Date of Birth\n")
@@ -164,23 +166,25 @@ def addActor(cur, con):
     age = date.today.year - row['DOB'].year - \
         ((date.today.month, date.today.day) <
          (row['DOB'].month, row['DOB'].day))
+    
+    row["DOB"] = str(row["DOB"])
 
     row["experience"] = input("Experience in Years: ")
-    if row["experience"].isnumeric() and row["experience"] > 0 and row["experience"] < age:
+    if row["experience"].isnumeric() and int(row["experience"]) > 0 and int(row["experience"]) < age:
         row["experience"] = int(row["experience"])
     else:
         print("\nError: Please enter valid Experience\n")
         return
 
     row["height"] = input("Height in cms: ")
-    if row["height"].isnumeric() and row["height"] > 0:
+    if row["height"].isnumeric() and int(row["height"]) > 0:
         row["height"] = int(row["height"])
     else:
         print("\nError: Please enter valid Height\n")
         return
 
     row["weight"] = input("weight in kgs: ")
-    if row["weight"].isnumeric() and row["weight"] > 0:
+    if row["weight"].isnumeric() and int(row["weight"]) > 0:
         row["weight"] = int(row["weight"])
     else:
         print("\nError: Please enter valid Weight\n")
@@ -194,7 +198,7 @@ def addActor(cur, con):
         print("\nError: Please enter a valid number\n")
     for i in range(num_phone):
         phone = input("Phone Number: ")
-        if phone.isnumeric() and phone > 0 and len(phone) == 10:
+        if phone.isnumeric() and int(phone) > 0 and len(phone) == 10:
             phone = int(phone)
             row_phone.append(phone)
         else:
@@ -243,8 +247,8 @@ def addActor(cur, con):
             name = input("Name of Guardian: ")
             phone = input("Phone Number of Guardian: ")
             aadharCard = input("Aadhar Card of Guardian: ")
-            if phone.isnumeric() and phone > 0 and len(phone) == 10 and len(
-                    aadharCard) == 12 and aadharCard > 0 and aadharCard.isnumeric() and len(name) > 0:
+            if phone.isnumeric() and int(phone) > 0 and len(phone) == 10 and len(
+                    aadharCard) == 12 and aadharCard.isnumeric() and int(aadharCard) > 0 and len(name) > 0:
                 phone = int(phone)
                 aadharCard = int(aadharCard)
                 row_guardians.append([phone, aadharCard, name])
@@ -330,7 +334,9 @@ def addChannel(cur, con):
 
     row["channelName"] = input("Enter Channel Name: ")
     row["baseprice"] = input("Baseprice: ")
-    if row["baseprice"] > 0:
+    if row["baseprice"].isnumeric() and int(row["baseprice"]) > 0:
+        row["baseprice"] = int(row["baseprice"])
+    else:
         print("\nError: Please enter a valid Baseprice\n")
         return
     try:
@@ -391,11 +397,11 @@ def addProduct(cur, con):
     if row["description"] == "":
         row["description"] = "NULL"
     row["price"] = input("Enter price: ")
-    if row["price"] < 0 or (not row["price"].isnumeric):
+    if row["price"].isnumeric() and int(row["price"]) > 0:
+        row["price"] = int(row["price"])
+    else:
         print("\nError: Please enter valid price\n")
         return
-    else:
-        row["price"] = int(row["price"])
 
     try:
         query = "INSERT INTO product(name, brandName, description, price) VALUES('%s', '%s', '%s', %d);" % (
@@ -447,14 +453,14 @@ def addProduction(cur, con):
         print("\nError: Please enter valid Signing Date\n")
 
     row["productionCost"] = input("Enter Production Cost of Ad: ")
-    if row["productionCost"] > 0 and row["productionCost"].isnumeric:
+    if row["productionCost"].isnumeric() and int(row["productionCost"]) > 0:
         row["productionCost"] = int(row["productionCost"])
     else:
         print("\nError: Please enter valid Production Cost\n")
         return
 
     row["duration"] = input("Enter Duration of Ad in sec: ")
-    if row["duration"] > 0 and row["duration"].isnumeric:
+    if row["duration"].isnumeric() and int(row["duration"]) > 0:
         row["duration"] = int(row["duration"])
     else:
         print("\nError: Please enter valid duration\n")
@@ -535,14 +541,14 @@ def addShow(cur, con):
         print("\nError: Please enter valid Airing Date\n")
 
     row["duration"] = input("Enter Duration of Show in min: ")
-    if row["duration"] > 0 and row["duration"].isnumeric:
+    if row["duration"].isnumeric() and int(row["duration"] > 0):
         row["duration"] = int(row["duration"])
     else:
         print("\nError: Please enter valid duration\n")
         return
 
     row["surcharge"] = input("Enter Surcharge of Show: ")
-    if row["surcharge"] > 0 and row["surcharge"].isnumeric:
+    if row["surcharge"].isnumeric() and int(row["surcharge"] > 0):
         row["surcharge"] = int(row["surcharge"])
     else:
         print("\nError: Please enter valid surcharge\n")
@@ -598,7 +604,7 @@ def addAdinShow(cur, con):
     row = {}
 
     row["adSerialNo"] = input("Please enter Serial number of Ad: ")
-    if row["adSerialNo"].isnumeric and row["adSerialNo"] > 0:
+    if row["adSerialNo"].isnumeric() and int(row["adSerialNo"]) > 0:
         row["adSerialNo"] = int(row["adSerialNo"])
     else:
         print("\nError: Please enter a valid serial Number\n")
@@ -621,7 +627,7 @@ def addAdinShow(cur, con):
 
     row["timesShown"] = input(
         "Please enter number of times Ad is shown during Show: ")
-    if row["timesShown"].isnumeric and row["timesShown"] > 0:
+    if row["timesShown"].isnumeric() and int(row["timesShown"]) > 0:
         row["timesShown"] = int(row["timesShown"])
     elif row["timesShown"] == "":
         row["timesShown"] = 1
