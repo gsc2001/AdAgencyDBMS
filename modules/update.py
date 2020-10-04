@@ -7,14 +7,14 @@ import re
 
 def updateAccountNumber(cur, con):
     aadharCard = input("12 digit Aadhar Card: ")
-    if len(aadharCard) == 12 and aadharCard.isnumeric and int(aadharCard) > 0:
+    if len(aadharCard) == 12 and aadharCard.isnumeric() and int(aadharCard) > 0:
         aadharCard = int(aadharCard)
     else:
         print("\nERROR: Please enter valid aadhar card\n")
         return
 
     accountNo = input("Account Number: ")
-    if len(accountNo) >= 8 and len(accountNo) <= 12 and accountNo.isnumeric and int(accountNo) > 0:
+    if len(accountNo) >= 8 and len(accountNo) <= 12 and accountNo.isnumeric() and int(accountNo) > 0:
         accountNo = int(accountNo)
     else:
         print("\nERROR: Please enter valid account number\n")
@@ -32,23 +32,45 @@ def updateAccountNumber(cur, con):
     return
 
 
+def updatePersonName(cur, con):
+    aadharCard = input("12 digit Aadhar Card: ")
+    if len(aadharCard) == 12 and aadharCard.isnumeric() and int(aadharCard) > 0:
+        aadharCard = int(aadharCard)
+    else:
+        print("\nERROR: Please enter valid aadhar card\n")
+        return
+
+    name = input("Name: ")
+
+    try:
+        query = f'UPDATE person SET `name` = {name} WHERE aadharCard = {aadharCard};'
+        cur.execute(query)
+        con.commit()
+    except Exception as e:
+        con.rollback()
+        print(e)
+        print("\nError: UPDATE FAILED!\n")
+
+    return
+
+
 def updateHeightWeight(cur, con):
     aadharCard = input("12 digit Aadhar Card: ")
-    if len(aadharCard) == 12 and aadharCard.isnumeric and int(aadharCard) > 0:
+    if len(aadharCard) == 12 and aadharCard.isnumeric() and int(aadharCard) > 0:
         aadharCard = int(aadharCard)
     else:
         print("\nERROR: Please enter valid aadhar card\n")
         return
 
     height = input("Height in cms: ")
-    if height.isnumeric and int(height) > 0:
+    if height.isnumeric() and int(height) > 0:
         height = int(height)
     else:
         print("\nERROR: Please enter valid Height in cms\n")
         return
 
     weight = input("Weight in kgs: ")
-    if weight.isnumeric and int(weight) > 0:
+    if weight.isnumeric() and int(weight) > 0:
         weight = int(weight)
     else:
         print("\nERROR: Please enter valid Weight in kgs\n")
@@ -82,14 +104,14 @@ def updateSurcharge(cur, con):
         return
 
     surcharge = input("Enter Surcharge: ")
-    if int(surcharge) > 0:
+    if surcharge.isnumeric() and int(surcharge) > 0:
         surcharge = int(surcharge)
     else:
         print("\nERROR: Please enter valid Surcharge\n")
         return
 
     try:
-        query = f"UPDATE `show` SET surcharge = {surcharge} WHERE channelName = '{channel}' AND `date` = {showdate} AND startTime = {time}"
+        query = f"UPDATE `show` SET surcharge = {surcharge} WHERE channelName = '{channel}' AND `date` = {showdate} AND startTime = {time};"
         cur.execute(query)
         con.commit()
     except Exception as e:
@@ -103,7 +125,7 @@ def updateSurcharge(cur, con):
 def updateBasePrice(cur, con):
     channel = input("Enter Channel Name: ")
     basePrice = input("Enter baseprice: ")
-    if int(basePrice) > 0:
+    if basePrice.isnumeric() and int(basePrice) > 0:
         basePrice = int(basePrice)
     else:
         print("\nERROR: Please enter valid baseprice\n")
@@ -129,7 +151,26 @@ def updateProductDescription(cur, con):
     if description == "":
         description = "NULL"
     try:
-        query = f"UPDATE product SET `description` = {description} WHERE `name` = '{name}' AND brandName = '{brand}'"
+        query = f"UPDATE product SET `description` = {description} WHERE `name` = '{name}' AND brandName = '{brand}';"
+        cur.execute(query)
+        con.commit()
+    except Exception as e:
+        con.rollback()
+        print(e)
+        print("\nError: UPDATE FAILED!\n")
+
+    return
+
+
+def updateProductPrice(cur, con):
+    print("Enter the product details: ")
+    name = input("Product Name: ")
+    brand = input("Brand Name: ")
+    price = input("Product price: ")
+    if price.isnumeric()() and int(price) > 0:
+        price = int(price)
+    try:
+        query = f"UPDATE product SET price = {price} WHERE `name` = '{name}' AND brandName = '{brand}';"
         cur.execute(query)
         con.commit()
     except Exception as e:
@@ -142,14 +183,14 @@ def updateProductDescription(cur, con):
 
 def updateSalary(cur, con):
     aadharCard = input("12 digit Aadhar Card: ")
-    if len(aadharCard) == 12 and aadharCard.isnumeric and int(aadharCard) > 0:
+    if len(aadharCard) == 12 and aadharCard.isnumeric() and int(aadharCard) > 0:
         aadharCard = int(aadharCard)
     else:
         print("\nERROR: Please enter valid aadhar card\n")
         return
 
     salary = input("Salary: ")
-    if salary.isnumeric and int(salary) >= 10000:
+    if salary.isnumeric() and int(salary) >= 10000:
         salary = int(salary)
     else:
         print("\nERROR: Please enter valid salary abive 10000\n")
@@ -169,7 +210,7 @@ def updateSalary(cur, con):
 
 def updateSupervisor(cur, con):
     aadharCard = input("12 digit Aadhar Card: ")
-    if len(aadharCard) == 12 and aadharCard.isnumeric and int(aadharCard) > 0:
+    if len(aadharCard) == 12 and aadharCard.isnumeric() and int(aadharCard) > 0:
         aadharCard = int(aadharCard)
     else:
         print("\nERROR: Please enter valid aadhar card\n")
@@ -178,7 +219,7 @@ def updateSupervisor(cur, con):
     supAadharCard = input("12 digit Supervisor Aadhar Card: ")
     if supAadharCard == "":
         supAadharCard = "NULL"
-    elif len(supAadharCard) == 12 and supAadharCard.isnumeric and int(supAadharCard) > 0 and int(supAadharCard) != int(aadharCard):
+    elif len(supAadharCard) == 12 and supAadharCard.isnumeric() and int(supAadharCard) > 0 and int(supAadharCard) != int(aadharCard):
         supAadharCard = int(supAadharCard)
     else:
         print("\nERROR: Please enter valid Supervisor Aadhar Card\n")
@@ -186,6 +227,33 @@ def updateSupervisor(cur, con):
 
     try:
         query = f'UPDATE director SET supervisorAadharCard = {supAadharCard} WHERE aadharCard = {aadharCard};'
+        cur.execute(query)
+        con.commit()
+    except Exception as e:
+        con.rollback()
+        print(e)
+        print("\nError: UPDATE FAILED!\n")
+
+    return
+
+
+def updateBrand(cur, con):
+    print("Enter the brand details: ")
+    brand = input("Enter Brand Name: ")
+    email = input("Email: ")
+    regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+    if not re.search(regex, email):
+        print("\nError: Please enter a valid Email Id\n")
+        return
+    phone = input("Phone: ")
+    if phone.isnumeric() and len(phone) == 10 and int(phone) > 0:
+        phone = int(phone)
+    else:
+        print("\nError: Please enter a valid Phone Number\n")
+        return
+
+    try:
+        query = f"UPDATE product SET `phone` = {phone}, email = {email} WHERE brandName = '{brand}';"
         cur.execute(query)
         con.commit()
     except Exception as e:
