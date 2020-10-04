@@ -1,8 +1,8 @@
-from datetime import date
+from datetime import datetime as dt, date
 import re
 
 
-def addDirector(cur, con):
+def addDirector(con, cur):
     row = {}
     print("Enter the new director's details: ")
 
@@ -19,7 +19,10 @@ def addDirector(cur, con):
         return
 
     row["accountNo"] = input("Account Number: ")
-    if len(row["accountNo"]) >= 8 and len(row["accountNo"]) <= 12 and row["accountNo"].isnumeric() and int(row["accountNo"]) > 0:
+    if len(
+        row["accountNo"]) >= 8 and len(
+        row["accountNo"]) <= 12 and row["accountNo"].isnumeric() and int(
+            row["accountNo"]) > 0:
         row["accountNo"] = int(row["accountNo"])
     else:
         print("\nError: Please enter valid Account Number\n")
@@ -31,13 +34,13 @@ def addDirector(cur, con):
         return
 
     try:
-        row["DOB"] = date(input("Date of Birth in YYYY-MM-DD: "))
+        row["DOB"] = dt.strptime(input("Date of Birth in YYYY-MM-DD: "), "%Y-%m-%d")
     except Exception as e:
         print(e)
         print("\nError: Please enter valid Date of Birth\n")
 
-    age = date.today.year - row['DOB'].year - \
-        ((date.today.month, date.today.day) <
+    age = date.today().year - row['DOB'].year - \
+        ((date.today().month, date.today().day) <
          (row['DOB'].month, row['DOB'].day))
 
     row["DOB"] = str(row["DOB"])
@@ -56,7 +59,7 @@ def addDirector(cur, con):
     try:
         row["joinDate"] = input("Date of Joining in YYYY-MM-DD: ")
         if row["joinDate"] == "":
-            row["joinDate"] = str(date.today())
+            row["joinDate"] = str(date.today()())
         else:
             row["joinDate"] = str(date(row["joinDate"]))
     except Exception as e:
@@ -129,7 +132,7 @@ def addDirector(cur, con):
     return
 
 
-def addActor(cur, con):
+def addActor(con, cur):
     row = {}
     print("Enter the new actor's details: ")
 
@@ -146,27 +149,33 @@ def addActor(cur, con):
         return
 
     row["accountNo"] = input("Account Number: ")
-    if len(row["accountNo"]) >= 8 and len(row["accountNo"]) <= 12 and row["accountNo"].isnumeric() and int(row["accountNo"]) > 0:
+    if len(
+        row["accountNo"]) >= 8 and len(
+        row["accountNo"]) <= 12 and row["accountNo"].isnumeric() and int(
+            row["accountNo"]) > 0:
         row["accountNo"] = int(row["accountNo"])
     else:
         print("\nError: Please enter valid Account Number\n")
         return
 
     row["gender"] = input("Male / Female / Other: ")
-    if row["gender"] != "Male" and row["gender"] != "Female" and row["gender"] != "Other":
+    if row["gender"].capitalize() != "Male" and row["gender"].capitalize(
+    ) != "Female" and row["gender"].capitalize() != "Other":
         print("\nError: Please enter valid gender\n")
         return
 
     try:
-        row["DOB"] = date(input("Date of Birth in YYYY-MM-DD: "))
+        row["DOB"] = dt.strptime(input("Date of Birth in YYYY-MM-DD: "), "%Y-%m-%d")
+        print(type(row["DOB"]))
     except Exception as e:
         print(e)
         print("\nError: Please enter valid Date of Birth\n")
+        return
 
-    age = date.today.year - row['DOB'].year - \
-        ((date.today.month, date.today.day) <
+    age = date.today().year - row['DOB'].year - \
+        ((date.today().month, date.today().day) <
          (row['DOB'].month, row['DOB'].day))
-    
+
     row["DOB"] = str(row["DOB"])
 
     row["experience"] = input("Experience in Years: ")
@@ -207,7 +216,8 @@ def addActor(cur, con):
 
     try:
         query = "INSERT INTO person(aadharCard, name, accountNo, gender, DOB) VALUES(%d, '%s', %d, '%s', '%s');" % (
-            row["aadharCard"], row["name"], row["accountNo"], row["galary"], row["DOB"])
+            row["aadharCard"], row["name"], row["accountNo"], row["gender"], str(row["DOB"]))
+        print(query)
         cur.execute(query)
     except Exception as e:
         con.rollback()
@@ -297,7 +307,7 @@ def addActor(cur, con):
     return
 
 
-def addBrand(cur, con):
+def addBrand(con, cur):
     row = {}
 
     row["brandName"] = input("Enter Brand Name: ")
@@ -329,7 +339,7 @@ def addBrand(cur, con):
     return
 
 
-def addChannel(cur, con):
+def addChannel(con, cur):
     row = {}
 
     row["channelName"] = input("Enter Channel Name: ")
@@ -358,7 +368,7 @@ def addChannel(cur, con):
     return
 
 
-def addPrefers(cur, con):
+def addPrefers(con, cur):
     row = {}
 
     row["brandName"] = input("Enter Brand Name: ")
@@ -388,7 +398,7 @@ def addPrefers(cur, con):
     return
 
 
-def addProduct(cur, con):
+def addProduct(con, cur):
     row = {}
 
     row["brandName"] = input("Enter Brand Name: ")
@@ -422,7 +432,7 @@ def addProduct(cur, con):
     return
 
 
-def addProduction(cur, con):
+def addProduction(con, cur):
     row = {}
 
     row["brandName"] = input("Enter Brand Name: ")
@@ -523,7 +533,7 @@ def addProduction(cur, con):
     return
 
 
-def addShow(cur, con):
+def addShow(con, cur):
     row = {}
 
     row["name"] = input("Enter Show Name: ")
@@ -600,7 +610,7 @@ def addShow(cur, con):
     return
 
 
-def addAdinShow(cur, con):
+def addAdinShow(con, cur):
     row = {}
 
     row["adSerialNo"] = input("Please enter Serial number of Ad: ")
