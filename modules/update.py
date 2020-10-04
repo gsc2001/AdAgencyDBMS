@@ -80,14 +80,14 @@ def updateSurcharge(cur, con):
     if not re.search(regex, time):
         print("\nError: Please enter a valid start time in HH-MM-SS format\n")
         return
-    
+
     surcharge = input("Enter Surcharge: ")
     if int(surcharge) > 0:
         surcharge = int(surcharge)
     else:
         print("\nERROR: Please enter valid Surcharge\n")
         return
-    
+
     try:
         query = f"UPDATE `show` SET surcharge = {surcharge} WHERE channelName = '{channel}' AND `date` = {showdate} AND startTime = {time}"
         cur.execute(query)
@@ -96,7 +96,7 @@ def updateSurcharge(cur, con):
         con.rollback()
         print(e)
         print("\nError: UPDATE FAILED!\n")
-    
+
     return
 
 
@@ -136,7 +136,7 @@ def updateProductDescription(cur, con):
         con.rollback()
         print(e)
         print("\nError: UPDATE FAILED!\n")
-    
+
     return
 
 
@@ -149,10 +149,10 @@ def updateSalary(cur, con):
         return
 
     salary = input("Salary: ")
-    if salary.isnumeric and int(salary) > 0:
+    if salary.isnumeric and int(salary) >= 10000:
         salary = int(salary)
     else:
-        print("\nERROR: Please enter valid salary\n")
+        print("\nERROR: Please enter valid salary abive 10000\n")
         return
 
     try:
@@ -165,6 +165,7 @@ def updateSalary(cur, con):
         print("\nError: UPDATE FAILED!\n")
 
     return
+
 
 def updateSupervisor(cur, con):
     aadharCard = input("12 digit Aadhar Card: ")
