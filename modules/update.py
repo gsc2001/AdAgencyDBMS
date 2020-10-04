@@ -178,7 +178,7 @@ def updateSupervisor(cur, con):
     supAadharCard = input("12 digit Supervisor Aadhar Card: ")
     if supAadharCard == "":
         supAadharCard = "NULL"
-    elif len(supAadharCard) == 12 and supAadharCard.isnumeric and int(supAadharCard) > 0:
+    elif len(supAadharCard) == 12 and supAadharCard.isnumeric and int(supAadharCard) > 0 and int(supAadharCard) != int(aadharCard):
         supAadharCard = int(supAadharCard)
     else:
         print("\nERROR: Please enter valid Supervisor Aadhar Card\n")
