@@ -1,13 +1,7 @@
-import subprocess as sp
-import pymysql
-import pymysql.cursors
-import re
-
-
 def deletePerson(cur, con):
     aadharCard = input("12 digit Aadhar Card: ")
     try:
-        query = f'DELETE FROM person WHERE aadharCard = {aadharCard}'
+        query = f'DELETE FROM person WHERE aadharCard = {aadharCard};'
         cur.execute(query)
         con.commit()
     except Exception as e:
@@ -19,7 +13,7 @@ def deletePerson(cur, con):
 def deleteBrand(cur, con):
     brand = input("Brand Name: ")
     try:
-        query = f'DELETE FROM brand WHERE brandName = \'{brand}\''
+        query = f'DELETE FROM brand WHERE brandName = "{brand}";'
         cur.execute(query)
         con.commit()
     except Exception as e:
@@ -31,7 +25,7 @@ def deleteBrand(cur, con):
 def deleteChannel(cur, con):
     channel = input("Channel Name: ")
     try:
-        query = f'DELETE FROM channel WHERE brandName = \'{channel}\''
+        query = f'DELETE FROM channel WHERE channelName = "{channel}";'
         cur.execute(query)
         con.commit()
     except Exception as e:
@@ -46,7 +40,7 @@ def deleteShow(cur, con):
     date = input("Date: ")
     time = input("Starting Time: ")
     try:
-        query = f'DELETE FROM show WHERE date = \'{date}\' AND startTime = \'{time}\' AND channelName = \'{channel}\''
+        query = f'DELETE FROM `show` WHERE `date` = "{date}" AND startTime = "{time}" AND channelName = "{channel}";'
         cur.execute(query)
         con.commit()
     except Exception as e:
@@ -60,7 +54,7 @@ def deleteProduct(cur, con):
     name = input("Name: ")
     brand = input("Brand Name: ")
     try:
-        query = f'DELETE FROM product WHERE name = \'{name}\' AND brandName = \'{brand}\''
+        query = f'DELETE FROM product WHERE `name` = "{name}" AND brandName = "{brand}";'
         cur.execute(query)
         con.commit()
     except Exception as e:
@@ -72,7 +66,36 @@ def deleteProduct(cur, con):
 def deleteAd(cur, con):
     serialNo = input("Ad Serial No: ")
     try:
-        query = f'DELETE FROM production WHERE adSerialNo = {serialNo}'
+        query = f'DELETE FROM production WHERE adSerialNo = {serialNo};'
+        cur.execute(query)
+        con.commit()
+    except Exception as e:
+        con.rollback()
+        print(e)
+        print("\nError: DELETE FAILED!\n")
+
+
+def deleteDisplayed(cur, con):
+    serialNo = input("Ad Serial No: ")
+    print("Enter the show details: ")
+    channel = input("Channel: ")
+    date = input("Date: ")
+    time = input("Starting Time: ")
+    try:
+        query = f'DELETE FROM displayedBetween WHERE adSerialNo = {serialNo} AND showDate = "{date}" AND showStartTime = "{time}" AND channelName = "{channel}";'
+        cur.execute(query)
+        con.commit()
+    except Exception as e:
+        con.rollback()
+        print(e)
+        print("\nError: DELETE FAILED!\n")
+
+
+def deletePrefers(cur, con):
+    aadhar = input("Actor Aadhar No: ")
+    brand = input("Brand Name: ")
+    try:
+        query = f'DELETE FROM prefers WHERE actorAadharCard = {aadhar} AND brandName = "{brand}";'
         cur.execute(query)
         con.commit()
     except Exception as e:
