@@ -159,7 +159,8 @@ CREATE TABLE `director` (
   `supervisorAadharCard` bigint DEFAULT NULL,
   PRIMARY KEY (`aadharCard`),
   KEY `supervisorAadharCard` (`supervisorAadharCard`),
-  CONSTRAINT `director_ibfk_1` FOREIGN KEY (`supervisorAadharCard`) REFERENCES `director` (`aadharCard`) ON DELETE SET NULL,
+  CONSTRAINT `director_ibfk_1` FOREIGN KEY (`aadharCard`) REFERENCES `person` (`aadharCard`) ON DELETE CASCADE,
+  CONSTRAINT `director_ibfk_2` FOREIGN KEY (`supervisorAadharCard`) REFERENCES `director` (`aadharCard`) ON DELETE SET NULL,
   CONSTRAINT `director_chk_1` CHECK ((`salary` >= 10000))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -256,7 +257,8 @@ CREATE TABLE `guardian` (
   `aadharCard` bigint NOT NULL,
   PRIMARY KEY (`aadharCard`,`jActorAadharCard`),
   KEY `jActorAadharCard` (`jActorAadharCard`),
-  CONSTRAINT `guardian_ibfk_1` FOREIGN KEY (`jActorAadharCard`) REFERENCES `juniorActor` (`aadharCard`) ON DELETE CASCADE
+  CONSTRAINT `guardian_ibfk_1` FOREIGN KEY (`jActorAadharCard`) REFERENCES `juniorActor` (`aadharCard`) ON DELETE CASCADE,
+  CONSTRAINT `guardian_ibfk_2` FOREIGN KEY (`aadharCard`) REFERENCES `guardianData` (`aadharCard`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -281,8 +283,7 @@ CREATE TABLE `guardianData` (
   `aadharCard` bigint NOT NULL,
   `name` varchar(255) NOT NULL,
   `phone` bigint NOT NULL,
-  PRIMARY KEY (`aadharCard`),
-  CONSTRAINT `guardianData_ibfk_1` FOREIGN KEY (`aadharCard`) REFERENCES `guardian` (`aadharCard`) ON DELETE CASCADE
+  PRIMARY KEY (`aadharCard`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -479,6 +480,8 @@ CREATE TABLE `show` (
   `surcharge` int NOT NULL,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`date`,`startTime`,`channelName`),
+  KEY `channelName` (`channelName`),
+  CONSTRAINT `show_ibfk_1` FOREIGN KEY (`channelName`) REFERENCES `channel` (`channelName`) ON DELETE CASCADE,
   CONSTRAINT `show_chk_1` CHECK (((`surcharge` >= 0) and (`duration` > 0)))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -557,4 +560,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-10-03 20:31:37
+-- Dump completed on 2020-10-05  0:59:00
