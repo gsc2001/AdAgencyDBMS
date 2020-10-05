@@ -23,6 +23,8 @@ def add_menu(connection, cursor):
             addChannel(connection, cursor)
         elif ch == '5':
             addShow(connection, cursor)
+        elif ch == '6':
+            addProduct(connection, cursor)
         elif ch == '7':
             addProduction(connection, cursor)
         elif ch == '8':

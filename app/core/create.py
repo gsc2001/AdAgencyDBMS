@@ -395,6 +395,7 @@ def addChannel(con, cur):
 
 
 def addPrefers(con, cur):
+    # TODO: Check!
     row = {}
 
     row["brandName"] = input("Enter Brand Name: ")
@@ -483,10 +484,11 @@ def addProduction(con, cur):
         if row["signingDate"] == "":
             row["signingDate"] = str(date.today())
         else:
-            row["signingDate"] = str(date(row["signingDate"]))
+            row["signingDate"] = str(dt.strptime(row["signingDate"], "%Y-%m-%d"))
     except Exception as e:
         print(e)
         print("\nError: Please enter valid Signing Date\n")
+        return
 
     row["productionCost"] = input("Enter Production Cost of Ad: ")
     if row["productionCost"].isnumeric() and int(row["productionCost"]) > 0:
@@ -510,6 +512,7 @@ def addProduction(con, cur):
     except Exception as e:
         print(e)
         print("\nError: Please enter a valid number\n")
+        return
     for i in range(num_genre):
         name = input(
             "Genre from Comedy|Thriller|Romance|Suspense|Sci-fi|Action|Horror|Fantasy: ")
@@ -527,6 +530,7 @@ def addProduction(con, cur):
         con.rollback()
         print(e)
         print("\nError: PLEASE TRY AGAIN!\n")
+        return
 
     adId = cur.lastrowid
 
@@ -538,6 +542,7 @@ def addProduction(con, cur):
         con.rollback()
         print(e)
         print("\nError: PLEASE TRY AGAIN!\n")
+        return
 
     for i in range(num_genre):
         try:
@@ -548,6 +553,7 @@ def addProduction(con, cur):
             con.rollback()
             print(e)
             print("\nError: PLEASE TRY AGAIN!\n")
+            return
 
     try:
         con.commit()
@@ -556,7 +562,6 @@ def addProduction(con, cur):
         print(e)
         print("\nError: PLEASE TRY AGAIN!\n")
         return
-    return
 
 
 def addShow(con, cur):
