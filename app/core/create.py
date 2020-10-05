@@ -132,6 +132,29 @@ def addDirector(con, cur):
     return
 
 
+def addGaurdians(con, cur):
+
+    name = input("Name of Guardian: ")
+    phone = input("Phone Number of Guardian: ")
+    aadharCard = input("Aadhar Card of Guardian: ")
+    if phone.isnumeric() and int(phone) > 0 and len(phone) == 10 and len(
+            aadharCard) == 12 and aadharCard.isnumeric() and int(aadharCard) > 0 and len(name) > 0:
+        phone = int(phone)
+        aadharCard = int(aadharCard)
+    else:
+        print("\nError: Please enter valid details\n")
+        return
+
+    try:
+        query = f'INSERT INTO guardianData(aadharCard, name, phone) VALUES({aadharCard}, {name}, {phone});'
+        cur.execute(query)
+    except Exception as e:
+        con.rollback()
+        print(e)
+        print("\nError: PLEASE TRY AGAIN!\n")
+        return
+
+
 def addActor(con, cur):
     row = {}
     print("Enter the new actor's details: ")
@@ -248,24 +271,16 @@ def addActor(con, cur):
 
     if(age < 18):
         row_guardians = []
+
+        # get number of gaurdians
         try:
             num_guard = int(input("Number of actor's guardians: "))
         except Exception as e:
             print(e)
             print("\nError: Please enter a valid number\n")
-        for i in range(num_guard):
-            name = input("Name of Guardian: ")
-            phone = input("Phone Number of Guardian: ")
-            aadharCard = input("Aadhar Card of Guardian: ")
-            if phone.isnumeric() and int(phone) > 0 and len(phone) == 10 and len(
-                    aadharCard) == 12 and aadharCard.isnumeric() and int(aadharCard) > 0 and len(name) > 0:
-                phone = int(phone)
-                aadharCard = int(aadharCard)
-                row_guardians.append([phone, aadharCard, name])
-            else:
-                print("\nError: Please enter valid details\n")
-                return
+            return
 
+        # add aadhar card to juniorActor
         try:
             query = "INSERT INTO juniorActor(aadharCard) VALUES(%d);" % (
                 row["aadharCard"])
@@ -276,26 +291,24 @@ def addActor(con, cur):
             print("\nError: PLEASE TRY AGAIN!\n")
             return
 
-        for i in range(num_guard):
-            try:
-                query = "INSERT INTO guardian(jActorAadharCard, aadharCard) VALUES(%d, %d);" % (
-                    row["aadharCard"], row_guardians[i][1])
-                cur.execute(query)
-            except Exception as e:
-                con.rollback()
-                print(e)
-                print("\nError: PLEASE TRY AGAIN!\n")
-                return
+        _guardians = [0 for _ in num_guard]
 
-            try:
-                query = "INSERT INTO guardianData(aadharCard, name, phone) VALUES(%d, '%s', %d);" % (
-                    row_guardians[i][1], row_guardians[i][2], row_guardians[i][0])
-                cur.execute(query)
-            except Exception as e:
-                con.rollback()
-                print(e)
-                print("\nError: PLEASE TRY AGAIN!\n")
+        for i in range(num_guard):
+            _guardians[i] = input("12 digit AadharCard: ")
+            if len(_guardians[i]) == 12 and _guardians[i].isnumeric():
+                _guardians[i] = int(_guardians[i])
+            else:
+                print("\nError: Please enter valid 12 digit Aadhar Card Number\n")
                 return
+        aadharCard = row["aadharCard"]
+        try:
+            query = f"INSERT INTO guardian(jActorAadharCard, aadharCard) VALUES {','.join([f'({aadharCard},{_gac})' for _gac in _guardians])};"
+            cur.execute(query)
+        except Exception as e:
+            con.rollback()
+            print(e)
+            print("\nError: PLEASE TRY AGAIN!\n")
+            return
 
     try:
         con.commit()
