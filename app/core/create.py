@@ -129,7 +129,6 @@ def addDirector(con, cur):
         print(e)
         print("\nError: PLEASE TRY AGAIN!\n")
         return
-    return
 
 
 def addGuardian(con, cur):
@@ -161,6 +160,19 @@ def addGuardian(con, cur):
         print(e)
         print("\nError: PLEASE TRY AGAIN!\n")
         return
+
+
+def preAddActor(con, cur):
+    res = input("Do you intend to add a junior Actor?(y,n) >")
+    if res == 'n' or res == 'N':
+        addActor(con, cur)
+        return
+
+    inp = input("Are the guardians for the actor already added?(y,n) >")
+    if inp == 'n' or inp == 'N':
+        print("Please add the guardians before.")
+    else:
+        addActor(con, cur)
 
 
 def addActor(con, cur):
@@ -277,6 +289,7 @@ def addActor(con, cur):
             return
 
     if(age < 18):
+        print("As the actor's age is less than 18, Guardian needs to be added before!")
         row_guardians = []
 
         # get number of guardians

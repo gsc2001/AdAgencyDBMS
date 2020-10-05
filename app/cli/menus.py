@@ -6,7 +6,7 @@ from ..utils.createMenu import createMenu
 
 def add_menu(connection, cursor):
     createMenu("ADD MENU", {
-        'Actor': create.addActor,
+        'Actor': create.preAddActor,
         'Director': create.addDirector,
         'Brand': create.addBrand,
         'Channel': create.addChannel,
