@@ -332,7 +332,11 @@ def addBrand(con, cur):
     row = {}
 
     row["brandName"] = input("Enter Brand Name: ")
-    row["email"] = input("Email: ")
+    if len(row["brandName"]) <= 0:
+        print("\nError: Please enter a valid brand name\n")
+        return
+
+    row["email"] = input("POC Email: ")
     regex = r'^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
     if not re.search(regex, row["email"]):
         print("\nError: Please enter a valid Email Id\n")
@@ -341,9 +345,11 @@ def addBrand(con, cur):
     if (not row["phone"].isnumeric()) or len(row["phone"]) != 10:
         print("\nError: Please enter a valid Phone Number\n")
         return
+    row["phone"] = int(row["phone"])
     try:
-        query = "INSERT INTO brand(brandName, email, phone) VALUES('%s', '%s', %d);" % (
+        query = "INSERT INTO brand(brandName, pocEmail, pocPhone) VALUES('%s', '%s', %d);" % (
             row["brandName"], row["email"], row["phone"])
+        print(query)
         cur.execute(query)
     except Exception as e:
         con.rollback()
@@ -357,7 +363,6 @@ def addBrand(con, cur):
         print(e)
         print("\nError: PLEASE TRY AGAIN!\n")
         return
-    return
 
 
 def addChannel(con, cur):
