@@ -59,9 +59,9 @@ def addDirector(con, cur):
     try:
         row["joinDate"] = input("Date of Joining in YYYY-MM-DD: ")
         if row["joinDate"] == "":
-            row["joinDate"] = str(date.today()())
+            row["joinDate"] = str(date.today())
         else:
-            row["joinDate"] = str(date(row["joinDate"]))
+            row["joinDate"] = str(dt.strptime(row["joinDate"], "%Y-%m-%d"))
     except Exception as e:
         print(e)
         print("\nError: Please enter valid Date of Joining\n")
@@ -93,7 +93,7 @@ def addDirector(con, cur):
 
     try:
         query = "INSERT INTO person(aadharCard, name, accountNo, gender, DOB) VALUES(%d, '%s', %d, '%s', '%s');" % (
-            row["aadharCard"], row["name"], row["accountNo"], row["galary"], row["DOB"])
+            row["aadharCard"], row["name"], row["accountNo"], row["gender"], row["DOB"])
         cur.execute(query)
     except Exception as e:
         con.rollback()
@@ -102,8 +102,8 @@ def addDirector(con, cur):
         return
 
     try:
-        query = "INSERT INTO director(aadharCard, joinDate, salary, supervisorAadharCard) VALUES(%d, '%s', %d, %d);" % (
-            row["aadharCard"], row["joinDate"], row["salary"], row["supervisorAadharCard"])
+        query = f"INSERT INTO director(aadharCard, joinDate, salary, supervisorAadharCard) VALUES \
+            ({row['aadharCard']}, '{row['joinDate']}', {row['salary']}, {row['supervisorAadharCard']});"
         cur.execute(query)
     except Exception as e:
         con.rollback()
@@ -132,7 +132,7 @@ def addDirector(con, cur):
     return
 
 
-def addGaurdians(con, cur):
+def addGaurdian(con, cur):
 
     name = input("Name of Guardian: ")
     phone = input("Phone Number of Guardian: ")
@@ -146,8 +146,16 @@ def addGaurdians(con, cur):
         return
 
     try:
-        query = f'INSERT INTO guardianData(aadharCard, name, phone) VALUES({aadharCard}, {name}, {phone});'
+        query = f'INSERT INTO guardianData(aadharCard, name, phone) VALUES( "{aadharCard}", "{name}", {phone});'
         cur.execute(query)
+    except Exception as e:
+        con.rollback()
+        print(e)
+        print("\nError: PLEASE TRY AGAIN!\n")
+        return
+
+    try:
+        con.commit()
     except Exception as e:
         con.rollback()
         print(e)
@@ -291,7 +299,7 @@ def addActor(con, cur):
             print("\nError: PLEASE TRY AGAIN!\n")
             return
 
-        _guardians = [0 for _ in num_guard]
+        _guardians = [0 for _ in range(num_guard)]
 
         for i in range(num_guard):
             _guardians[i] = input("12 digit AadharCard: ")

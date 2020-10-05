@@ -6,8 +6,11 @@ from .cli import repl
 
 def main():
     _ = sp.call('clear', shell=True)
-    username = input("Enter Username: ")
-    password = input("Enter Password: ")
+    # username = input("Enter Username: ")
+    # password = input("Enter Password: ")
+
+    username = 'root'
+    password = 'gscworking'
 
     connection = connect_to_database(username, password, 'AdAgency')
     if not connection:

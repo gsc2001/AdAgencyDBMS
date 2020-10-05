@@ -8,7 +8,7 @@ def add_menu(connection, cursor):
     while True:
         _ = sp.call("clear", shell=True)
         print("==============ADD MENU==================")
-        print("0. Back\n1. Actor\n2. Director\n3. Brand\n4. Channel\n5. Show\n6. Product\n7. Ad\n")
+        print("0. Back\n1. Actor\n2. Director\n3. Brand\n4. Channel\n5. Show\n6. Product\n7. Ad\n8. Gaurdian\n")
         ch = input("Enter your choice > ")
         if ch == '0':
             return
@@ -24,6 +24,8 @@ def add_menu(connection, cursor):
             addShow(connection, cursor)
         elif ch == '7':
             addProduction(connection, cursor)
+        elif ch == '8':
+            addGaurdian(connection, cursor)
         else:
             print("Invalid option\n")
         connection.rollback()
