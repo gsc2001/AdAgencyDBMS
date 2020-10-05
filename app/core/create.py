@@ -376,7 +376,7 @@ def addChannel(con, cur):
         print("\nError: Please enter a valid Baseprice\n")
         return
     try:
-        query = "INSERT INTO brand(channelName, baseprice) VALUES('%s', %d);" % (
+        query = "INSERT INTO channel(channelName, baseprice) VALUES('%s', %d);" % (
             row["channelName"], row["baseprice"])
         cur.execute(query)
     except Exception as e:
