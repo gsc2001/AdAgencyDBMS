@@ -2,6 +2,12 @@ import subprocess as sp
 
 cli_path = ["~"]
 
+# colors
+GREEN = '\033[92m'
+BLUE = '\033[94m'
+END = '\033[0m'
+BOLD = '\033[1m'
+
 
 def createMenu(
         menuName: str,
@@ -14,9 +20,9 @@ def createMenu(
         _ = sp.call('clear', shell=True)
 
         keys = list(options.keys())
-        print(f"============== {menuName} ==================")
+        print(f"============== {GREEN}{menuName}{END} ==================")
         print(f'0. {back_keyword}\n' + '\n'.join([f'{i+1}. {key}' for (i, key) in enumerate(keys)]) + '\n')
-        ch = input(f"{'/'.join(cli_path)}>")
+        ch = input(f"{GREEN}{'/'.join(cli_path)}{BLUE}{BOLD} > {END}")
         if ch == '0':
             return
         elif ch in map(str, range(1, len(keys) + 1)):
