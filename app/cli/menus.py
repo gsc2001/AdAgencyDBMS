@@ -41,7 +41,7 @@ def read_menu(connection, cursor):
         'Get all Ads': read.readAds,
         'Get all Guardians': read.getGuardians,
         'Get Ad-Show Relations': read.getAdShows,
-        "Get Actor's preffered brands": read.getActorBrands,
+        "Get Actor's preferred brands": read.getActorBrands,
         "Actors with Physical features": read.actorsByFeatures,
         'Average ad production cost': read.avgProduction,
         "Maximum preferred brands": read.maxPreferred,
@@ -72,8 +72,8 @@ def actor_update_menu(connection, cursor):
         'AccountNumber': update.updateAccountNumber,
         'Name': update.updatePersonName,
         'Height and Weight': update.updateHeightWeight,
-        'Add preffered brand': create.addPrefers,
-        'Remove preffered brand': delete.deletePrefers
+        'Add preferred brand': create.addPrefers,
+        'Remove preferred brand': delete.deletePrefers
     }, connection, cursor, True)
 
 

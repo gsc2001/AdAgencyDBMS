@@ -1,6 +1,156 @@
 # DnA AdAgency Project (MySQL)
 
-## THREE OF A KIND
+## Setup
+
+### Database
+
+Enter the following commands in **MySQL shell**
+
+1. Create a database 'AdAgency'
+
+```sql
+CREATE DATABASE AdAgency;
+```
+
+2. Change current database
+
+```sql
+USE AdAgency;
+```
+
+3. source the dump
+
+```sql
+SOURCE AdAgency.sql
+```
+
+### CLI
+
+4. Create a venv in python
+
+```bash
+    python3 -m venv DnA
+```
+
+5. Switch to the virtual environment created
+
+```bash
+    source DnA/bin/activate
+```
+
+6. Install dependencies
+
+```bash
+    pip install -r requirements.txt # or pip-sync requirements.txt
+```
+
+7. Run script
+
+```bash
+    ./main.py
+```
+
+---
+
+## Navigating the CLI (inspired by OS Shell)
+
+### Commands
+
+- `ls`: View options
+- `cd [arg]`: Navigate to _arg_ (option name or option number or `..`)
+- `[num]`: Navigate to _num_ option number
+- `clear`: Clear the output
+- `exit`: Close app
+- `help`: View these commands anytime!
+
+_Suggestions for new commands are always welcome :stuck_out_tongue_closed_eyes:_
+
+### Menu Structure
+
+```
+Main
+│
+└───Add
+│   │   Actor
+│   │   Director
+│   │   Brand
+│   │   Channel
+│   │   Show
+│   │   Product
+│   │   Ad
+│   │   Guardian
+│
+└───Update
+│   │
+│   └───Actor
+│   │   │   Account Number
+│   │   │   Name
+│   │   │   Height & Weight
+│   │   │   Add Preferred Brand
+│   │   │   Remove Preferred Brand
+│   │
+│   └───Director
+│   │   │   Account Number
+│   │   │   Name
+│   │   │   Salary
+│   │   │   Supervisor
+│   │
+│   └───Brand
+│   │   │   POC Email
+│   │   │   POC Phone
+│   │
+│   └───Product
+│   │   │   Price
+│   │   │   Description
+│   │
+│   └───Channel
+│   │   │   Base Price
+│   │
+│   └───Show
+│   │   │   Surcharge
+│   │   │   Air an Ad
+│   │   │   Remove an Ad
+│   │
+│   └───Ad
+│       │   Air in a show
+│       │   Remove from a show
+│
+└───Delete
+│   │   Actor
+│   │   Director
+│   │   Brand
+│   │   Channel
+│   │   Show
+│   │   Product
+│   │   Ad
+│   │   Guardian
+│
+└───Read
+    │   Actors
+    │   Directors
+    │   Brands
+    │   Channels
+    │   Shows
+    │   Products
+    │   Ads
+    │   Guardians
+    │   Ad-Show Relations
+    │   Actor's preffered brands
+    │   Actors with Physical features
+    │   Average Ad Production cost
+    │   Maximum preferred brand
+    │   Partial text search for shows
+    │   Partial text search for actor
+    │   Best shows for an ad
+    │   Shows with surcharge less than a value
+    │   Maximum of sum of contract money of brand
+    │   Bill for an Ad
+    │   Shows list by amount
+```
+
+---
+
+## File Details
 
 ### `app/__init__.py`
 
@@ -32,61 +182,9 @@ This file constains the implementation of the delete queries. Deletion of Actor,
 
 ---
 
-## USAGE
-
-### Loading database
-
-Enter the following commands in **MySQL shell**
-
-- Create a database 'AdAgency'
-
-```sql
-CREATE DATABASE AdAgency;
-```
-
-- Change current database
-
-```sql
-USE AdAgency;
-```
-
-- source the dump
-
-```sql
-SOURCE AdAgency.sql
-```
-
-### CLI
-
-#### Install dependencies
-
-- Create a venv in python
-
-```bash
-    python3 -m venv DnA
-```
-
-- Switch to the virtual environment created
-
-```bash
-    source DnA/bin/activate
-```
-
-- Install dependencies
-
-```bash
-    pip install -r requirements.txt # or pip-sync requirements.txt
-```
-
-- Run script
-
-```bash
-    ./main.py
-```
-
----
-
 ## Contributors
+
+#### Team: _Three Of A Kind_
 
 - Gurkirat Singh (2019101069)
 - Shrey Gupta (2019101058)
