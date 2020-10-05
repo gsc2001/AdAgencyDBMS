@@ -128,7 +128,7 @@ DROP TABLE IF EXISTS `channel`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `channel` (
-  `channelName` varchar(50) NOT NULL,
+  `channelName` varchar(255) NOT NULL,
   `basePrice` int NOT NULL,
   PRIMARY KEY (`channelName`),
   CONSTRAINT `channel_chk_1` CHECK ((`basePrice` >= 0))
@@ -330,7 +330,7 @@ DROP TABLE IF EXISTS `person`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `person` (
   `aadharCard` bigint NOT NULL,
-  `name` varchar(12) NOT NULL,
+  `name` varchar(255) NOT NULL,
   `accountNo` bigint NOT NULL,
   `gender` enum('Male','Female','Other') NOT NULL,
   `DOB` date NOT NULL,
@@ -560,4 +560,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-10-05  0:59:00
+-- Dump completed on 2020-10-05 20:17:48
