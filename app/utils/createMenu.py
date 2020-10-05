@@ -6,7 +6,7 @@ def createMenu(menuName: str, options: dict, connection, cursor, wait_at_last: b
         _ = sp.call('clear', shell=True)
 
         keys = list(options.keys())
-        print(f"=============={menuName}==================")
+        print(f"============== {menuName} ==================")
         print('0. Back\n' + '\n'.join([f'{i+1}. {key}' for (i, key) in enumerate(keys)]) + '\n')
         ch = input("Enter your choice > ")
         if ch == '0':
