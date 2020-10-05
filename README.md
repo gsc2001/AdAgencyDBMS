@@ -69,7 +69,7 @@ SOURCE AdAgency.sql
 - Switch to the virtual environment created
 
 ```bash
-    cd DnA
+    source DnA/bin/activate
 ```
 
 - Install dependencies
