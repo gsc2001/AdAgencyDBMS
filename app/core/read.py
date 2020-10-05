@@ -25,7 +25,7 @@ def readBrands(con, cur):
 
 def readActors(con, cur):
     try:
-        query = 'SELECT * FROM actor NATURAL JOIN person NATURAL JOIN phone;'
+        query = 'SELECT *, DATE_FORMAT(FROM_DAYS(DATEDIFF(CURDATE(), DOB)), "%Y")+0 AS age FROM actor NATURAL JOIN person NATURAL JOIN phone;'
         cur.execute(query)
         printResult(cur)
     except Exception as e:
@@ -36,7 +36,7 @@ def readActors(con, cur):
 
 def readDirectors(con, cur):
     try:
-        query = 'SELECT * FROM director NATURAL JOIN person NATURAL JOIN phone;'
+        query = 'SELECT *, DATE_FORMAT(FROM_DAYS(DATEDIFF(CURDATE(), DOB)), "%Y")+0 AS age FROM director NATURAL JOIN person NATURAL JOIN phone;'
         cur.execute(query)
         printResult(cur)
     except Exception as e:
