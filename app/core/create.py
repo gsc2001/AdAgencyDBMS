@@ -197,7 +197,6 @@ def addActor(con, cur):
 
     try:
         row["DOB"] = dt.strptime(input("Date of Birth in YYYY-MM-DD: "), "%Y-%m-%d")
-        print(type(row["DOB"]))
     except Exception as e:
         print(e)
         print("\nError: Please enter valid Date of Birth\n")
@@ -570,26 +569,26 @@ def addShow(con, cur):
     row["name"] = input("Enter Show Name: ")
     row["channelName"] = input("Enter Channel Name on which show is aired: ")
     row["startTime"] = input("Enter Start Time of show in HH-MM-SS: ")
-    regex = r'(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)'
-    if not re.search(regex, row["startTime"]):
-        print("\nError: Please enter a valid start time in HH-MM-SS format\n")
+    try:
+        row["startTime"] = str(dt.strptime(row["startTime"], "%H-%M-%S"))
+    except Exception as e:
+        print("Please enter a valid time")
         return
     try:
-        row["date"] = str(
-            date(input("Enter Air Date of Show in YYYY-MM-DD: ")))
+        row["date"] = str(dt.strptime(input("Enter Air Date of Show in YYYY-MM-DD: "), "%Y-%m-%d"))
     except Exception as e:
-        print(e)
         print("\nError: Please enter valid Airing Date\n")
+        return
 
     row["duration"] = input("Enter Duration of Show in min: ")
-    if row["duration"].isnumeric() and int(row["duration"] > 0):
+    if row["duration"].isnumeric() and int(row["duration"]) > 0:
         row["duration"] = int(row["duration"])
     else:
         print("\nError: Please enter valid duration\n")
         return
 
     row["surcharge"] = input("Enter Surcharge of Show: ")
-    if row["surcharge"].isnumeric() and int(row["surcharge"] > 0):
+    if row["surcharge"].isnumeric() and int(row["surcharge"]) > 0:
         row["surcharge"] = int(row["surcharge"])
     else:
         print("\nError: Please enter valid surcharge\n")
@@ -603,6 +602,7 @@ def addShow(con, cur):
     except Exception as e:
         print(e)
         print("\nError: Please enter a valid number\n")
+        return
     for i in range(num_genre):
         name = input(
             "Genre from Comedy|Thriller|Romance|Suspense|Sci-fi|Action|Horror|Fantasy: ")
@@ -613,13 +613,14 @@ def addShow(con, cur):
             return
 
     try:
-        query = "INSERT INTO show(date, startTime, channelName, duration, surcharge, name) VALUES('%s', '%s', '%s', %d, %d, '%s');" % (
+        query = "INSERT INTO `show`(date, startTime, channelName, duration, surcharge, name) VALUES('%s', '%s', '%s', %d, %d, '%s');" % (
             row["date"], row["startTime"], row["channelName"], row["duration"], row["surcharge"], row["name"])
         cur.execute(query)
     except Exception as e:
         con.rollback()
         print(e)
         print("\nError: PLEASE TRY AGAIN!\n")
+        return
 
     for i in range(num_genre):
         try:
@@ -630,6 +631,7 @@ def addShow(con, cur):
             con.rollback()
             print(e)
             print("\nError: PLEASE TRY AGAIN!\n")
+            return
 
     try:
         con.commit()
@@ -638,7 +640,6 @@ def addShow(con, cur):
         print(e)
         print("\nError: PLEASE TRY AGAIN!\n")
         return
-    return
 
 
 def addAdinShow(con, cur):
