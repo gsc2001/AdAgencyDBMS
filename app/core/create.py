@@ -132,7 +132,7 @@ def addDirector(con, cur):
     return
 
 
-def addGaurdian(con, cur):
+def addGuardian(con, cur):
 
     name = input("Name of Guardian: ")
     phone = input("Phone Number of Guardian: ")
@@ -279,7 +279,7 @@ def addActor(con, cur):
     if(age < 18):
         row_guardians = []
 
-        # get number of gaurdians
+        # get number of guardians
         try:
             num_guard = int(input("Number of actor's guardians: "))
         except Exception as e:

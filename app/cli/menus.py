@@ -13,7 +13,7 @@ def add_menu(connection, cursor):
         'Show': create.addShow,
         'Product': create.addProduct,
         'Ad': create.addProduction,
-        'Gaurdian': create.addGaurdian
+        'Guardian': create.addGuardian
     }, connection, cursor, True)
 
 
@@ -26,7 +26,7 @@ def delete_menu(connection, cursor):
         'Show': delete.deleteShow,
         'Product': delete.deleteProduct,
         'Ad': delete.deleteAd,
-        'Gaurdian': delete.deleteGuardian
+        'Guardian': delete.deleteGuardian
     }, connection, cursor, True)
 
 
@@ -39,7 +39,7 @@ def read_menu(connection, cursor):
         'Get all Shows': read.readShows,
         'Get all Products': read.readProducts,
         'Get all Ads': read.readAds,
-        'Get all Gaurdians': read.getGuardians,
+        'Get all Guardians': read.getGuardians,
         'Get Ad-Show Relations': read.getAdShows,
         "Get Actor's preffered brands": read.getActorBrands,
         "Actors with Physical features": read.actorsByFeatures,
