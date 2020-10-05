@@ -134,7 +134,7 @@ def maxProdCost(con, cur):
 def adBill(con, cur):
     serialNo = input("Ad Serial No: ")
     try:
-        query = f'SELECT production.productionCost + SUM(channel.basePrice) + SUM(displayedBetween.timesShown * ad.duration * `show`.surcharge) AS Bill FROM (((( displayedBetween INNER JOIN ad ON displayedBetween.adSerialNo = ad.serialNo) INNER JOIN `show` ON displayedBetween.showDate = `show`.date AND displayedBetween.showStartTime = `show`.startTime AND displayedBetween.channelName = `show`.channelName) INNER JOIN production ON ad.serialNo = production.adSerialNo) INNER JOIN channel ON `show`.channelName = channel.channelName) WHERE displayedBetween.adSerialNo = {serialNo};'
+        query = f'SELECT production.productionCost + COALESCE(SUM(channel.basePrice) + SUM(displayedBetween.timesShown * ad.duration * `show`.surcharge),0) AS Bill FROM (((( displayedBetween RIGHT JOIN ad ON displayedBetween.adSerialNo = ad.serialNo) LEFT JOIN `show` ON displayedBetween.showDate = `show`.date AND displayedBetween.showStartTime = `show`.startTime AND displayedBetween.channelName = `show`.channelName) LEFT JOIN production ON ad.serialNo = production.adSerialNo) LEFT JOIN `channel` ON `show`.channelName = channel.channelName) WHERE ad.serialNo = {serialNo};'
         cur.execute(query)
         printResult(cur)
     except Exception as e:
