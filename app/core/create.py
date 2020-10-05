@@ -124,6 +124,7 @@ def addDirector(con, cur):
 
     try:
         con.commit()
+        print("\nADDITION SUCCESSFULL")
     except Exception as e:
         con.rollback()
         print(e)
@@ -155,6 +156,7 @@ def addGuardian(con, cur):
 
     try:
         con.commit()
+        print("\nADDITION SUCCESSFULL")
     except Exception as e:
         con.rollback()
         print(e)
@@ -332,6 +334,7 @@ def addActor(con, cur):
 
     try:
         con.commit()
+        print("\nADDITION SUCCESSFULL")
     except Exception as e:
         con.rollback()
         print(e)
@@ -370,6 +373,7 @@ def addBrand(con, cur):
 
     try:
         con.commit()
+        print("\nADDITION SUCCESSFULL")
     except Exception as e:
         con.rollback()
         print(e)
@@ -398,6 +402,7 @@ def addChannel(con, cur):
 
     try:
         con.commit()
+        print("\nADDITION SUCCESSFULL")
     except Exception as e:
         con.rollback()
         print(e)
@@ -428,6 +433,7 @@ def addPrefers(con, cur):
 
     try:
         con.commit()
+        print("\nADDITION SUCCESSFULL")
     except Exception as e:
         con.rollback()
         print(e)
@@ -462,6 +468,7 @@ def addProduct(con, cur):
 
     try:
         con.commit()
+        print("\nADDITION SUCCESSFULL")
     except Exception as e:
         con.rollback()
         print(e)
@@ -568,6 +575,7 @@ def addProduction(con, cur):
 
     try:
         con.commit()
+        print("\nADDITION SUCCESSFULL")
     except Exception as e:
         con.rollback()
         print(e)
@@ -647,6 +655,7 @@ def addShow(con, cur):
 
     try:
         con.commit()
+        print("\nADDITION SUCCESSFULL")
     except Exception as e:
         con.rollback()
         print(e)
@@ -701,6 +710,7 @@ def addAdinShow(con, cur):
 
     try:
         con.commit()
+        print("\nADDITION SUCCESSFULL")
     except Exception as e:
         con.rollback()
         print(e)

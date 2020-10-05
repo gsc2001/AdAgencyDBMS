@@ -6,6 +6,7 @@ def deletePerson(con, cur):
         if deleted == 0:
             print('\nNo data with given details')
         con.commit()
+        print("\nDELETE SUCCESSFULL")
     except Exception as e:
         con.rollback()
         print(e)
@@ -20,6 +21,7 @@ def deleteBrand(con, cur):
         if deleted == 0:
             print('\nNo data with given details')
         con.commit()
+        print("\nDELETE SUCCESSFULL")
     except Exception as e:
         con.rollback()
         print(e)
@@ -34,6 +36,7 @@ def deleteChannel(con, cur):
         if deleted == 0:
             print('\nNo data with given details')
         con.commit()
+        print("\nDELETE SUCCESSFULL")
     except Exception as e:
         con.rollback()
         print(e)
@@ -51,6 +54,7 @@ def deleteShow(con, cur):
         if deleted == 0:
             print('\nNo data with given details')
         con.commit()
+        print("\nDELETE SUCCESSFULL")
     except Exception as e:
         con.rollback()
         print(e)
@@ -67,6 +71,7 @@ def deleteProduct(con, cur):
         if deleted == 0:
             print('\nNo data with given details')
         con.commit()
+        print("\nDELETE SUCCESSFULL")
     except Exception as e:
         con.rollback()
         print(e)
@@ -81,6 +86,7 @@ def deleteAd(con, cur):
         if deleted == 0:
             print('\nNo data with given details')
         con.commit()
+        print("\nDELETE SUCCESSFULL")
     except Exception as e:
         con.rollback()
         print(e)
@@ -95,6 +101,7 @@ def deleteGuardian(con, cur):
         if deleted == 0:
             print('\nNo data with given details')
         con.commit()
+        print("\nDELETE SUCCESSFULL")
     except Exception as e:
         con.rollback()
         print(e)
@@ -113,6 +120,7 @@ def deleteDisplayed(con, cur):
         if deleted == 0:
             print('\nNo data with given details')
         con.commit()
+        print("\nDELETE SUCCESSFULL")
     except Exception as e:
         con.rollback()
         print(e)
@@ -128,6 +136,7 @@ def deletePrefers(con, cur):
         if deleted == 0:
             print('\nNo data with given details')
         con.commit()
+        print("\nDELETE SUCCESSFULL")
     except Exception as e:
         con.rollback()
         print(e)
