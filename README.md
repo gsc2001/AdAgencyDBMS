@@ -83,3 +83,11 @@ SOURCE AdAgency.sql
 ```bash
     ./main.py
 ```
+
+---
+
+## Contributors
+
+- Gurkirat Singh (2019101069)
+- Shrey Gupta (2019101058)
+- Sanchit Arora (2019101047)
