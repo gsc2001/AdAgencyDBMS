@@ -5,3 +5,4 @@
 #    pip-compile requirements.in
 #
 pymysql==0.10.1           # via -r requirements.in
+tabulate==0.8.7           # via -r requirements.in

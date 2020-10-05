@@ -32,10 +32,44 @@ This is the dump file for our AdAgency Database. It contains the queries needed 
 
 ## USAGE
 
-1. Load the database AdAgency.sql
-2. Run the python script
+### Loading database
+
+-   Create a database 'AdAgency'
+
+```sql
+CREATE DATABASE AdAgency;
+```
+
+-   Change current database
+
+```sql
+USE AdAgency;
+```
+
+-   source the dump
+
+```sql
+SOURCE AdAgency.sql
+```
+
+### CLI
+
+#### Install dependencies
+
+-   Create a venv in python
 
 ```bash
-    $ mysql -u <username> -p < AdAgency.sql
-    $ python main.py
+    python3 -m venv DnA
+```
+
+-   Install dependencies
+
+```bash
+    pip install -r requirements.txt # or pip-sync requirements.txt
+```
+
+-   Run script
+
+```bash
+    ./main.py
 ```
