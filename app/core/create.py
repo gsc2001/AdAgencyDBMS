@@ -394,7 +394,6 @@ def addChannel(con, cur):
 
 
 def addPrefers(con, cur):
-    # TODO: Check!
     row = {}
 
     row["brandName"] = input("Enter Brand Name: ")

@@ -1,155 +1,75 @@
 import subprocess as sp
 
 from ..core import read, create, delete, update
+from ..utils.createMenu import createMenu
 
 
 def add_menu(connection, cursor):
-    while True:
-        _ = sp.call("clear", shell=True)
-        print("==============ADD MENU==================")
-        print("0. Back\n1. Actor\n2. Director\n3. Brand\n4. Channel\n5. Show\n6. Product\n7. Ad\n8. Gaurdian\n")
-        ch = input("Enter your choice > ")
-        if ch == '0':
-            return
-        elif ch == '1':
-            create.addActor(connection, cursor)
-        elif ch == '2':
-            create.addDirector(connection, cursor)
-        elif ch == '3':
-            create.addBrand(connection, cursor)
-        elif ch == '4':
-            create.addChannel(connection, cursor)
-        elif ch == '5':
-            create.addShow(connection, cursor)
-        elif ch == '6':
-            create.addProduct(connection, cursor)
-        elif ch == '7':
-            create.addProduction(connection, cursor)
-        elif ch == '8':
-            create.addGaurdian(connection, cursor)
-        else:
-            print("Invalid option\n")
-        connection.rollback()
-        _ = input("Enter a key to continue")
+    createMenu("ADD MENU", {
+        'Actor': create.addActor,
+        'Director': create.addDirector,
+        'Brand': create.addBrand,
+        'Channel': create.addChannel,
+        'Show': create.addShow,
+        'Product': create.addProduct,
+        'Ad': create.addProduction,
+        'Gaurdian': create.addGaurdian
+    }, connection, cursor, True)
 
 
 def delete_menu(connection, cursor):
-    while True:
-        _ = sp.call("clear", shell=True)
-        print("==============DELETE MENU==================")
-        print("0. Back\n1. Actor\n2. Director\n3. Brand\n4. Channel\n5. Show\n6. Product\n7. Ad\n8. Guardian\n9. Remove Ad from Show\n10. Remove Brand from Actor's preferred brands\n")
-        ch = input("Enter your choice > ")
-        if ch == '0':
-            return
-        elif ch == '1' or ch == '2':
-            delete.deletePerson(connection, cursor)
-        elif ch == '3':
-            delete.deleteBrand(connection, cursor)
-        elif ch == '4':
-            delete.deleteChannel(connection, cursor)
-        elif ch == '5':
-            delete.deleteShow(connection, cursor)
-        elif ch == '6':
-            delete.deleteProduct(connection, cursor)
-        elif ch == '7':
-            delete.deleteAd(connection, cursor)
-        elif ch == '8':
-            delete.deleteGuardian(connection, cursor)
-        elif ch == '9':
-            delete.deleteDisplayed(connection, cursor)
-        else:
-            print("Invalid option\n")
-
-        _ = input("Enter a key to continue")
+    createMenu("DELETE MENU", {
+        'Actor': delete.deletePerson,
+        'Director': delete.deletePerson,
+        'Brand': delete.deleteBrand,
+        'Channel': delete.deleteChannel,
+        'Show': delete.deleteShow,
+        'Product': delete.deleteProduct,
+        'Ad': delete.deleteAd,
+        'Gaurdian': delete.deleteGuardian
+    }, connection, cursor, True)
 
 
 def read_menu(connection, cursor):
-    while True:
-        _ = sp.call("clear", shell=True)
-        print("==============READ MENU==================")
-        print("0. Back\n1. Get all Actors\n2. Get all Directors\n3. Get all Brands\n4. Get all Channels\n5. Get all Shows\n6. Get all Products\n7. Get all Ads\n8. Get Ad-Show Relations\n9. Get Actor's preferred brands\n10. Get all Guardians\n11. Actors with Physical features\n12. Average ad production cost\n13. Maximum preferred brands\n14. Partial text search for show\n15. Get best shows for an ad\n16. Partial text search for actor\n17. Shows with surcharge less than a value\n18. Maximum of sum of the contract money of brand\n19. Bill for Ad\n20. Shows list by amount\n")
-        ch = input("Enter your choice > ")
-        if ch == '0':
-            return
-        elif ch == '1':
-            read.readActors(connection, cursor)
-        elif ch == '2':
-            read.readDirectors(connection, cursor)
-        elif ch == '3':
-            read.readBrands(connection, cursor)
-        elif ch == '4':
-            read.readChannels(connection, cursor)
-        elif ch == '5':
-            read.readShows(connection, cursor)
-        elif ch == '6':
-            read.readProducts(connection, cursor)
-        elif ch == '7':
-            read.readAds(connection, cursor)
-        elif ch == '8':
-            read.getAdShows(connection, cursor)
-        elif ch == '9':
-            read.getActorBrands(connection, cursor)
-        elif ch == '10':
-            read.getGuardians(connection, cursor)
-        elif ch == '11':
-            read.actorsByFeatures(connection, cursor)
-        elif ch == '12':
-            read.avgProduction(connection, cursor)
-        elif ch == '13':
-            read.maxPreferred(connection, cursor)
-        elif ch == '14':
-            read.searchShow(connection, cursor)
-        elif ch == '15':
-            read.showsForAd(connection, cursor)
-        elif ch == '16':
-            read.searchActor(connection, cursor)
-        elif ch == '17':
-            read.surchargeLessThan(connection, cursor)
-        elif ch == '18':
-            read.maxProdCost(connection, cursor)
-        elif ch == '19':
-            read.adBill(connection, cursor)
-        elif ch == '20':
-            read.showList(connection, cursor)
-        else:
-            print("Invalid option\n")
-
-        _ = input("Enter a key to continue")
+    createMenu("READ MENU", {
+        'Get all Actors': read.readActors,
+        'Get all Directors': read.readDirectors,
+        'Get all Brands': read.readBrands,
+        'Get all Channels': read.readChannels,
+        'Get all Shows': read.readShows,
+        'Get all Products': read.readProducts,
+        'Get all Ads': read.readAds,
+        'Get all Gaurdians': read.getGuardians,
+        'Get Ad-Show Relations': read.getAdShows,
+        "Get Actor's preffered brands": read.getActorBrands,
+        "Actors with Physical features": read.actorsByFeatures,
+        'Average ad production cost': read.avgProduction,
+        "Maximum preferred brands": read.maxPreferred,
+        'Partial text search for shows': read.searchShow,
+        'Partial text search for actor': read.searchActor,
+        'Get best shows for an ad': read.showsForAd,
+        'Shows with surcharge less than a value': read.surchargeLessThan,
+        'Maximum of sum of the contract money of brand': read.maxProdCost,
+        'Bill for an Ad': read.adBill,
+        'Shows list by amount': read.showList
+    }, connection, cursor, True)
 
 
 def update_menu(connection, cursor):
-    while True:
-        _ = sp.call('clear', shell=True)
-        print("==============UPDATE MENU==================")
-        print("0. Back\n1. Actor\n2. Director\n3. Brand\n4. Channel\n5. Show\n6. Product\n7. Ad\n8. Guardian\n")
-        ch = input("Enter your choice > ")
-        if ch == '0':
-            return
-        elif ch == '1':
-            actor_update_menu(connection, cursor)
-        else:
-            print("Invalid Option\n")
+    createMenu("UPDATE MENU", {
+        'Actor': actor_update_menu,
+        'Director': director_update_menu
+    }, connection, cursor)
 
 
 def actor_update_menu(connection, cursor):
-    while True:
-        _ = sp.call('clear', shell=True)
-        print("==============ACTOR UPDATE MENU==================")
-        print("0. Back\n1. AccountNumber\n2. Name\n3. Height and Weight\n4. Add preffered brand\n5. Remove preffered brand\n")
-        ch = input("Enter your choice > ")
-        if ch == '0':
-            return
-        elif ch == '1':
-            update.updateAccountNumber(connection, cursor)
-        elif ch == '2':
-            update.updatePersonName(connection, cursor)
-        elif ch == '3':
-            update.updateHeightWeight(connection, cursor)
-        elif ch == '4':
-            create.addPrefers(connection, cursor)
-        elif ch == '5':
-            delete.deletePrefers(connection, cursor)
-        else:
-            print("Invalid Option\n")
+    createMenu("ACTOR UPDATE MENU", {
+        'AccountNumber': update.updateAccountNumber,
+        'Name': update.updatePersonName,
+        'Height and Weight': update.updateHeightWeight,
+        'Add preffered brand': create.addPrefers,
+        'Remove preffered brand': delete.deletePrefers
+    }, connection, cursor, True)
 
-        _ = input("Enter a key to continue")
+
+# def director_update_menu(connection, cursor):
