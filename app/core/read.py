@@ -109,6 +109,17 @@ def getActorBrands(con, cur):
         print("\nError: READ FAILED!\n")
 
 
+def getGuardians(con, cur):
+    try:
+        query = 'SELECT guardianData.*, GROUP_CONCAT(guardian.jActorAadharCard) AS `Actor Aadhar Cards` FROM guardian NATURAL JOIN guardianData GROUP BY aadharCard;'
+        cur.execute(query)
+        printResult(cur)
+    except Exception as e:
+        con.rollback()
+        print(e)
+        print("\nError: READ FAILED!\n")
+
+
 def maxProdCost(con, cur):
     try:
         query = 'SELECT MAX(TotalCost.NetCost) AS `Highest Production Cost` FROM (SELECT SUM(production.productionCost) AS NetCost FROM production INNER JOIN product ON ( product.name = production.productName AND product.brandName = production.brandName ) GROUP BY product.brandname) AS TotalCost;'

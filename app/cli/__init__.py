@@ -1,5 +1,5 @@
 import subprocess as sp
-from .menus import add_menu, read_menu
+from .menus import add_menu, read_menu, delete_menu
 
 
 def printMenu():
@@ -14,6 +14,8 @@ def repl(connection, cursor):
         ch = input("Enter your choice > ")
         if ch == '1':
             add_menu(connection, cursor)
+        if ch == '3':
+            delete_menu(connection, cursor)
         if ch == '4':
             read_menu(connection, cursor)
         elif ch == '5':

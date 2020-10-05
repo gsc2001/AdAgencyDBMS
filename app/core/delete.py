@@ -75,6 +75,18 @@ def deleteAd(con, cur):
         print("\nError: DELETE FAILED!\n")
 
 
+def deleteGuardian(con, cur):
+    aadharCard = input("12 digit Aadhar Card: ")
+    try:
+        query = f'DELETE FROM guardianData WHERE aadharCard = {aadharCard};'
+        cur.execute(query)
+        con.commit()
+    except Exception as e:
+        con.rollback()
+        print(e)
+        print("\nError: DELETE FAILED!\n")
+
+
 def deleteDisplayed(con, cur):
     serialNo = input("Ad Serial No: ")
     print("Enter the show details: ")
