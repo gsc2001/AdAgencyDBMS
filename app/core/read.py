@@ -113,7 +113,7 @@ def getActorBrands(con, cur):
 
 def getGuardians(con, cur):
     try:
-        query = 'SELECT guardianData.*, GROUP_CONCAT(guardian.jActorAadharCard) AS `Actor Aadhar Cards` FROM guardian NATURAL JOIN guardianData GROUP BY aadharCard;'
+        query = 'SELECT guardianData.*, GROUP_CONCAT(guardian.jActorAadharCard) AS `Actor Aadhar Cards` FROM guardian RIGHT JOIN guardianData ON guardianData.aadharCard = guardian.aadharCard GROUP BY aadharCard;'
         cur.execute(query)
         printResult(cur)
     except Exception as e:
