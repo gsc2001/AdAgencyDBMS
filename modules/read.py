@@ -87,6 +87,28 @@ def readAds(con, cur):
         print("\nError: READ FAILED!\n")
 
 
+def getAdShows(con, cur):
+    try:
+        query = 'SELECT * FROM displayedBetween;'
+        cur.execute(query)
+        printResult(cur)
+    except Exception as e:
+        con.rollback()
+        print(e)
+        print("\nError: READ FAILED!\n")
+
+
+def getActorBrands(con, cur):
+    try:
+        query = 'SELECT actorAadharCard AS `Actor Aadhar Card`, GROUP_CONCAT(brandName) AS `Preferred Brands` FROM prefers GROUP BY actorAadharCard;'
+        cur.execute(query)
+        printResult(cur)
+    except Exception as e:
+        con.rollback()
+        print(e)
+        print("\nError: READ FAILED!\n")
+
+
 def maxProdCost(con, cur):
     try:
         query = 'SELECT MAX(TotalCost.NetCost) AS `Highest Production Cost` FROM (SELECT SUM(production.productionCost) AS NetCost FROM production INNER JOIN product ON ( product.name = production.productName AND product.brandName = production.brandName ) GROUP BY product.brandname) AS TotalCost;'

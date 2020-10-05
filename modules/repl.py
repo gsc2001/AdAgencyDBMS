@@ -84,7 +84,7 @@ def read_menu(connection, cursor):
     while True:
         _ = sp.call("clear", shell=True)
         print("==============READ MENU==================")
-        print("0. Back\n1. Get all Actors\n2. Get all Directors\n3. Get all Brands\n4. Get all Channels\n5. Get all Shows\n6. Get all Products\n7. Get all Ads\n8. Maximum of sum of the contract money of brand\n9. Bill for Ad\n10. Shows list by amount\n11. Actors with Physical features\n12. Average ad production cost\n13. Maximum preferred brands\n14. Partial text search for show\n15. Get best shows for an ad\n16. Partial text search for actor\n17. Shows with surcharge less than a value\n")
+        print("0. Back\n1. Get all Actors\n2. Get all Directors\n3. Get all Brands\n4. Get all Channels\n5. Get all Shows\n6. Get all Products\n7. Get all Ads\n8. Get Ad-Show Relations\n9. Get Actor's preferred brands\n10. Shows list by amount\n11. Actors with Physical features\n12. Average ad production cost\n13. Maximum preferred brands\n14. Partial text search for show\n15. Get best shows for an ad\n16. Partial text search for actor\n17. Shows with surcharge less than a value\n18. Maximum of sum of the contract money of brand\n19. Bill for Ad\n")
         ch = input("Enter your choice > ")
         if ch == '0':
             return
@@ -103,9 +103,9 @@ def read_menu(connection, cursor):
         elif ch == '7':
             readAds(connection, cursor)
         elif ch == '8':
-            maxProdCost(connection, cursor)
+            getAdShows(connection, cursor)
         elif ch == '9':
-            adBill(connection, cursor)
+            getActorBrands(connection, cursor)
         elif ch == '10':
             showList(connection, cursor)
         elif ch == '11':
@@ -122,6 +122,10 @@ def read_menu(connection, cursor):
             searchActor(connection, cursor)
         elif ch == '17':
             surchargeLessThan(connection, cursor)
+        elif ch == '18':
+            maxProdCost(connection, cursor)
+        elif ch == '19':
+            adBill(connection, cursor)
         else:
             print("Invalid option\n")
 
