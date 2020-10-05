@@ -567,9 +567,9 @@ def addShow(con, cur):
 
     row["name"] = input("Enter Show Name: ")
     row["channelName"] = input("Enter Channel Name on which show is aired: ")
-    row["startTime"] = input("Enter Start Time of show in HH-MM-SS: ")
+    row["startTime"] = input("Enter Start Time of show in HH:MM:SS: ")
     try:
-        row["startTime"] = str(dt.strptime(row["startTime"], "%H-%M-%S"))
+        row["startTime"] = str(dt.strptime(row["startTime"], "%H:%M:%S"))
     except Exception as e:
         print("Please enter a valid time")
         return
@@ -652,22 +652,22 @@ def addAdinShow(con, cur):
         return
 
     row["channelName"] = input("Enter Channel Name on which show is aired: ")
-    row["startTime"] = input(
-        "Enter Start Time of show in HH-MM-SS on which Ad is to be displayed: ")
-    regex = r'(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)'
-    if not re.search(regex, row["startTime"]):
-        print("\nError: Please enter a valid start time in HH-MM-SS format\n")
+    row["showStartTime"] = input(
+        "Enter Start Time of show (HH:MM:SS) in which Ad is to be displayed: ")
+    try:
+        row["showStartTime"] = str(dt.strptime(row["showStartTime"], "%H:%M:%S"))
+    except Exception as e:
+        print("Please enter a valid time")
         return
 
     try:
-        row["date"] = str(
-            date(input("Enter Air Date of Show in YYYY-MM-DD: ")))
+        row["showDate"] = str(dt.strptime(input("Enter Air Date of Show in YYYY-MM-DD: "), "%Y-%m-%d"))
     except Exception as e:
-        print(e)
         print("\nError: Please enter valid Airing Date\n")
+        return
 
     row["timesShown"] = input(
-        "Please enter number of times Ad is shown during Show: ")
+        "Please enter number of times Ad is shown during Show (Enter for 1): ")
     if row["timesShown"].isnumeric() and int(row["timesShown"]) > 0:
         row["timesShown"] = int(row["timesShown"])
     elif row["timesShown"] == "":
@@ -684,6 +684,7 @@ def addAdinShow(con, cur):
         con.rollback()
         print(e)
         print("\nError: PLEASE TRY AGAIN!\n")
+        return
 
     try:
         con.commit()
@@ -692,4 +693,3 @@ def addAdinShow(con, cur):
         print(e)
         print("\nError: PLEASE TRY AGAIN!\n")
         return
-    return

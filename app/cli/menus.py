@@ -58,7 +58,12 @@ def read_menu(connection, cursor):
 def update_menu(connection, cursor):
     createMenu("UPDATE MENU", {
         'Actor': actor_update_menu,
-        'Director': director_update_menu
+        'Director': director_update_menu,
+        'Brand': brand_update_menu,
+        'Product': product_update_menu,
+        'Channel': channel_update_menu,
+        'Show': show_update_menu,
+        'Ad': ad_update_menu
     }, connection, cursor)
 
 
@@ -78,4 +83,39 @@ def director_update_menu(connection, cursor):
         'Name': update.updatePersonName,
         'Salary': update.updateSalary,
         'Supervisor': update.updateSupervisor
+    }, connection, cursor, True)
+
+
+def brand_update_menu(connection, cursor):
+    createMenu("BRAND UPDATE MENU", {
+        'POC Email': update.updateBrandEmail,
+        'POC Phone': update.updateBrandPhone
+    }, connection, cursor, True)
+
+
+def product_update_menu(connection, cursor):
+    createMenu("PRODUCT UPDATE MENU", {
+        'Price': update.updateProductPrice,
+        'Description': update.updateProductDescription
+    }, connection, cursor, True)
+
+
+def channel_update_menu(connection, cursor):
+    createMenu("CHANNEL UPDATE MENU", {
+        'Base Price': update.updateBasePrice
+    }, connection, cursor, True)
+
+
+def show_update_menu(connection, cursor):
+    createMenu("SHOW UPDATE MENU", {
+        'Surcharge': update.updateSurcharge,
+        'Air an Ad': create.addAdinShow,
+        'Remove an Ad': delete.deleteDisplayed
+    }, connection, cursor, True)
+
+
+def ad_update_menu(connection, cursor):
+    createMenu("AD UPDATE MENU", {
+        'Air in a show': create.addAdinShow,
+        'Remove from a show': delete.deleteDisplayed
     }, connection, cursor, True)

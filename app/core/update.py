@@ -1,7 +1,4 @@
-import subprocess as sp
-import pymysql
-import pymysql.cursors
-from datetime import date
+from datetime import date, datetime as dt
 import re
 
 
@@ -96,15 +93,17 @@ def updateSurcharge(con, cur):
     print("Enter the show details: ")
     channel = input("Channel: ")
     try:
-        showdate = date(input("Date in YYYY-MM-DD: "))
+        showdate = str(dt.strptime(input("Date in YYYY-MM-DD: "), "%Y-%m-%d"))
     except Exception as e:
         print(e)
         print("\nError: Please enter valid date\n")
+        return
 
-    time = input("Starting Time: ")
-    regex = r'(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)'
-    if not re.search(regex, time):
-        print("\nError: Please enter a valid start time in HH-MM-SS format\n")
+    time = input("Starting Time (HH:MM:SS): ")
+    try:
+        time = str(dt.strptime(time, "%H:%M:%S"))
+    except Exception as e:
+        print("Please enter a valid time")
         return
 
     surcharge = input("Enter Surcharge: ")
@@ -115,7 +114,7 @@ def updateSurcharge(con, cur):
         return
 
     try:
-        query = f"UPDATE `show` SET surcharge = {surcharge} WHERE channelName = '{channel}' AND `date` = {showdate} AND startTime = {time};"
+        query = f"UPDATE `show` SET surcharge = {surcharge} WHERE channelName = '{channel}' AND `date` = '{showdate}' AND startTime = '{time}';"
         rows_aff = cur.execute(query)
         print(f'{rows_aff} rows changed!')
         con.commit()
@@ -137,7 +136,7 @@ def updateBasePrice(con, cur):
         return
 
     try:
-        query = f'UPDATE channel SET basePrice = {basePrice} WHERE channelName = {channel};'
+        query = f'UPDATE channel SET basePrice = {basePrice} WHERE channelName = "{channel}";'
         rows_aff = cur.execute(query)
         print(f'{rows_aff} rows changed!')
         con.commit()
@@ -157,7 +156,7 @@ def updateProductDescription(con, cur):
     if description == "":
         description = "NULL"
     try:
-        query = f"UPDATE product SET `description` = {description} WHERE `name` = '{name}' AND brandName = '{brand}';"
+        query = f"UPDATE product SET `description` = '{description}' WHERE `name` = '{name}' AND brandName = '{brand}';"
         rows_aff = cur.execute(query)
         print(f'{rows_aff} rows changed!')
         con.commit()
@@ -174,7 +173,7 @@ def updateProductPrice(con, cur):
     name = input("Product Name: ")
     brand = input("Brand Name: ")
     price = input("Product price: ")
-    if price.isnumeric()() and int(price) > 0:
+    if price.isnumeric() and int(price) > 0:
         price = int(price)
     try:
         query = f"UPDATE product SET price = {price} WHERE `name` = '{name}' AND brandName = '{brand}';"
@@ -247,7 +246,7 @@ def updateSupervisor(con, cur):
     return
 
 
-def updateBrand(con, cur):
+def updateBrandEmail(con, cur):
     print("Enter the brand details: ")
     brand = input("Enter Brand Name: ")
     email = input("Email: ")
@@ -255,15 +254,9 @@ def updateBrand(con, cur):
     if not re.search(regex, email):
         print("\nError: Please enter a valid Email Id\n")
         return
-    phone = input("Phone: ")
-    if phone.isnumeric() and len(phone) == 10 and int(phone) > 0:
-        phone = int(phone)
-    else:
-        print("\nError: Please enter a valid Phone Number\n")
-        return
 
     try:
-        query = f"UPDATE product SET `phone` = {phone}, email = {email} WHERE brandName = '{brand}';"
+        query = f"UPDATE brand SET pocEmail = '{email}' WHERE brandName = '{brand}';"
         rows_aff = cur.execute(query)
         print(f'{rows_aff} rows changed!')
         con.commit()
@@ -272,4 +265,23 @@ def updateBrand(con, cur):
         print(e)
         print("\nError: UPDATE FAILED!\n")
 
-    return
+
+def updateBrandPhone(con, cur):
+    print("Enter the brand details: ")
+    brand = input("Enter Brand Name: ")
+    phone = input("Phone: ")
+    if phone.isnumeric() and len(phone) == 10 and int(phone) > 0:
+        phone = int(phone)
+    else:
+        print("\nError: Please enter a valid Phone Number\n")
+        return
+
+    try:
+        query = f"UPDATE brand SET `pocPhone` = {phone} WHERE brandName = '{brand}';"
+        rows_aff = cur.execute(query)
+        print(f'{rows_aff} rows changed!')
+        con.commit()
+    except Exception as e:
+        con.rollback()
+        print(e)
+        print("\nError: UPDATE FAILED!\n")
