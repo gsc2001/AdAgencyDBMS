@@ -47,8 +47,7 @@ def updatePersonName(con, cur):
     try:
         query = f'UPDATE person SET `name` = "{name}" WHERE aadharCard = {aadharCard};'
         rows_aff = cur.execute(query)
-        if rows_aff == 0:
-            print(f'Actor with aadhar card {aadharCard} not found')
+        print(f'{rows_aff} rows changed!')
         con.commit()
     except Exception as e:
         con.rollback()
@@ -83,9 +82,7 @@ def updateHeightWeight(con, cur):
     try:
         query = f'UPDATE actor SET height = {height}, `weight` = {weight} WHERE aadharCard = {aadharCard};'
         rows_aff = cur.execute(query)
-        if rows_aff == 0:
-            print(f'Actor with aadhar card {aadharCard} not found')
-        con.commit()
+        print(f'{rows_aff} rows changed!')
         con.commit()
     except Exception as e:
         con.rollback()
@@ -120,9 +117,7 @@ def updateSurcharge(con, cur):
     try:
         query = f"UPDATE `show` SET surcharge = {surcharge} WHERE channelName = '{channel}' AND `date` = {showdate} AND startTime = {time};"
         rows_aff = cur.execute(query)
-        if rows_aff == 0:
-            print(f'Actor with aadhar card {aadharCard} not found')
-        con.commit()
+        print(f'{rows_aff} rows changed!')
         con.commit()
     except Exception as e:
         con.rollback()
@@ -144,9 +139,7 @@ def updateBasePrice(con, cur):
     try:
         query = f'UPDATE channel SET basePrice = {basePrice} WHERE channelName = {channel};'
         rows_aff = cur.execute(query)
-        if rows_aff == 0:
-            print(f'Actor with aadhar card {aadharCard} not found')
-        con.commit()
+        print(f'{rows_aff} rows changed!')
         con.commit()
     except Exception as e:
         con.rollback()
@@ -166,9 +159,7 @@ def updateProductDescription(con, cur):
     try:
         query = f"UPDATE product SET `description` = {description} WHERE `name` = '{name}' AND brandName = '{brand}';"
         rows_aff = cur.execute(query)
-        if rows_aff == 0:
-            print(f'Actor with aadhar card {aadharCard} not found')
-        con.commit()
+        print(f'{rows_aff} rows changed!')
         con.commit()
     except Exception as e:
         con.rollback()
@@ -188,9 +179,7 @@ def updateProductPrice(con, cur):
     try:
         query = f"UPDATE product SET price = {price} WHERE `name` = '{name}' AND brandName = '{brand}';"
         rows_aff = cur.execute(query)
-        if rows_aff == 0:
-            print(f'Actor with aadhar card {aadharCard} not found')
-        con.commit()
+        print(f'{rows_aff} rows changed!')
         con.commit()
     except Exception as e:
         con.rollback()
@@ -218,9 +207,7 @@ def updateSalary(con, cur):
     try:
         query = f'UPDATE director SET salary = {salary} WHERE aadharCard = {aadharCard};'
         rows_aff = cur.execute(query)
-        if rows_aff == 0:
-            print(f'Actor with aadhar card {aadharCard} not found')
-        con.commit()
+        print(f'{rows_aff} rows changed!')
         con.commit()
     except Exception as e:
         con.rollback()
@@ -238,7 +225,7 @@ def updateSupervisor(con, cur):
         print("\nERROR: Please enter valid aadhar card\n")
         return
 
-    supAadharCard = input("12 digit Supervisor Aadhar Card: ")
+    supAadharCard = input("12 digit Supervisor Aadhar Card: (Enter for none)")
     if supAadharCard == "":
         supAadharCard = "NULL"
     elif len(supAadharCard) == 12 and supAadharCard.isnumeric() and int(supAadharCard) > 0 and int(supAadharCard) != int(aadharCard):
@@ -250,9 +237,7 @@ def updateSupervisor(con, cur):
     try:
         query = f'UPDATE director SET supervisorAadharCard = {supAadharCard} WHERE aadharCard = {aadharCard};'
         rows_aff = cur.execute(query)
-        if rows_aff == 0:
-            print(f'Actor with aadhar card {aadharCard} not found')
-        con.commit()
+        print(f'{rows_aff} rows changed!')
         con.commit()
     except Exception as e:
         con.rollback()
@@ -280,9 +265,7 @@ def updateBrand(con, cur):
     try:
         query = f"UPDATE product SET `phone` = {phone}, email = {email} WHERE brandName = '{brand}';"
         rows_aff = cur.execute(query)
-        if rows_aff == 0:
-            print(f'Actor with aadhar card {aadharCard} not found')
-        con.commit()
+        print(f'{rows_aff} rows changed!')
         con.commit()
     except Exception as e:
         con.rollback()

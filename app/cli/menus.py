@@ -72,4 +72,10 @@ def actor_update_menu(connection, cursor):
     }, connection, cursor, True)
 
 
-# def director_update_menu(connection, cursor):
+def director_update_menu(connection, cursor):
+    createMenu("DIRECTOR UPDATE MENU", {
+        'AccountNumber': update.updateAccountNumber,
+        'Name': update.updatePersonName,
+        'Salary': update.updateSalary,
+        'Supervisor': update.updateSupervisor
+    }, connection, cursor, True)

@@ -11,7 +11,7 @@ def createMenu(menuName: str, options: dict, connection, cursor, wait_at_last: b
         ch = input("Enter your choice > ")
         if ch == '0':
             return
-        elif ch in map(str, range(1, len(keys))):
+        elif ch in map(str, range(1, len(keys) + 1)):
             options[keys[int(ch) - 1]](connection, cursor)
         else:
             print("Invalid option\n")
