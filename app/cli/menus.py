@@ -1,8 +1,6 @@
 import subprocess as sp
 
-from ..core.read import *
-from ..core.create import *
-from ..core.delete import *
+from ..core import read, create, delete, update
 
 
 def add_menu(connection, cursor):
@@ -14,21 +12,21 @@ def add_menu(connection, cursor):
         if ch == '0':
             return
         elif ch == '1':
-            addActor(connection, cursor)
+            create.addActor(connection, cursor)
         elif ch == '2':
-            addDirector(connection, cursor)
+            create.addDirector(connection, cursor)
         elif ch == '3':
-            addBrand(connection, cursor)
+            create.addBrand(connection, cursor)
         elif ch == '4':
-            addChannel(connection, cursor)
+            create.addChannel(connection, cursor)
         elif ch == '5':
-            addShow(connection, cursor)
+            create.addShow(connection, cursor)
         elif ch == '6':
-            addProduct(connection, cursor)
+            create.addProduct(connection, cursor)
         elif ch == '7':
-            addProduction(connection, cursor)
+            create.addProduction(connection, cursor)
         elif ch == '8':
-            addGaurdian(connection, cursor)
+            create.addGaurdian(connection, cursor)
         else:
             print("Invalid option\n")
         connection.rollback()
@@ -44,23 +42,21 @@ def delete_menu(connection, cursor):
         if ch == '0':
             return
         elif ch == '1' or ch == '2':
-            deletePerson(connection, cursor)
+            delete.deletePerson(connection, cursor)
         elif ch == '3':
-            deleteBrand(connection, cursor)
+            delete.deleteBrand(connection, cursor)
         elif ch == '4':
-            deleteChannel(connection, cursor)
+            delete.deleteChannel(connection, cursor)
         elif ch == '5':
-            deleteShow(connection, cursor)
+            delete.deleteShow(connection, cursor)
         elif ch == '6':
-            deleteProduct(connection, cursor)
+            delete.deleteProduct(connection, cursor)
         elif ch == '7':
-            deleteAd(connection, cursor)
+            delete.deleteAd(connection, cursor)
         elif ch == '8':
-            deleteGuardian(connection, cursor)
+            delete.deleteGuardian(connection, cursor)
         elif ch == '9':
-            deleteDisplayed(connection, cursor)
-        elif ch == '10':
-            deletePrefers(connection, cursor)
+            delete.deleteDisplayed(connection, cursor)
         else:
             print("Invalid option\n")
 
@@ -76,46 +72,84 @@ def read_menu(connection, cursor):
         if ch == '0':
             return
         elif ch == '1':
-            readActors(connection, cursor)
+            read.readActors(connection, cursor)
         elif ch == '2':
-            readDirectors(connection, cursor)
+            read.readDirectors(connection, cursor)
         elif ch == '3':
-            readBrands(connection, cursor)
+            read.readBrands(connection, cursor)
         elif ch == '4':
-            readChannels(connection, cursor)
+            read.readChannels(connection, cursor)
         elif ch == '5':
-            readShows(connection, cursor)
+            read.readShows(connection, cursor)
         elif ch == '6':
-            readProducts(connection, cursor)
+            read.readProducts(connection, cursor)
         elif ch == '7':
-            readAds(connection, cursor)
+            read.readAds(connection, cursor)
         elif ch == '8':
-            getAdShows(connection, cursor)
+            read.getAdShows(connection, cursor)
         elif ch == '9':
-            getActorBrands(connection, cursor)
+            read.getActorBrands(connection, cursor)
         elif ch == '10':
-            getGuardians(connection, cursor)
+            read.getGuardians(connection, cursor)
         elif ch == '11':
-            actorsByFeatures(connection, cursor)
+            read.actorsByFeatures(connection, cursor)
         elif ch == '12':
-            avgProduction(connection, cursor)
+            read.avgProduction(connection, cursor)
         elif ch == '13':
-            maxPreferred(connection, cursor)
+            read.maxPreferred(connection, cursor)
         elif ch == '14':
-            searchShow(connection, cursor)
+            read.searchShow(connection, cursor)
         elif ch == '15':
-            showsForAd(connection, cursor)
+            read.showsForAd(connection, cursor)
         elif ch == '16':
-            searchActor(connection, cursor)
+            read.searchActor(connection, cursor)
         elif ch == '17':
-            surchargeLessThan(connection, cursor)
+            read.surchargeLessThan(connection, cursor)
         elif ch == '18':
-            maxProdCost(connection, cursor)
+            read.maxProdCost(connection, cursor)
         elif ch == '19':
-            adBill(connection, cursor)
+            read.adBill(connection, cursor)
         elif ch == '20':
-            showList(connection, cursor)
+            read.showList(connection, cursor)
         else:
             print("Invalid option\n")
+
+        _ = input("Enter a key to continue")
+
+
+def update_menu(connection, cursor):
+    while True:
+        _ = sp.call('clear', shell=True)
+        print("==============UPDATE MENU==================")
+        print("0. Back\n1. Actor\n2. Director\n3. Brand\n4. Channel\n5. Show\n6. Product\n7. Ad\n8. Guardian\n")
+        ch = input("Enter your choice > ")
+        if ch == '0':
+            return
+        elif ch == '1':
+            actor_update_menu(connection, cursor)
+        else:
+            print("Invalid Option\n")
+
+
+def actor_update_menu(connection, cursor):
+    while True:
+        _ = sp.call('clear', shell=True)
+        print("==============ACTOR UPDATE MENU==================")
+        print("0. Back\n1. AccountNumber\n2. Name\n3. Height and Weight\n4. Add preffered brand\n5. Remove preffered brand\n")
+        ch = input("Enter your choice > ")
+        if ch == '0':
+            return
+        elif ch == '1':
+            update.updateAccountNumber(connection, cursor)
+        elif ch == '2':
+            update.updatePersonName(connection, cursor)
+        elif ch == '3':
+            update.updateHeightWeight(connection, cursor)
+        elif ch == '4':
+            create.addPrefers(connection, cursor)
+        elif ch == '5':
+            delete.deletePrefers(connection, cursor)
+        else:
+            print("Invalid Option\n")
 
         _ = input("Enter a key to continue")

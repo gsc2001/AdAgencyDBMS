@@ -1,14 +1,16 @@
 from tabulate import tabulate
 
+
 def printResult(cur):
     result = cur.fetchall()
 
     if len(result) != 0:
         header = result[0].keys()
-        rows =  [x.values() for x in result]
-        print(tabulate(rows, header, tablefmt = 'grid'))
+        rows = [x.values() for x in result]
+        print(tabulate(rows, header, tablefmt='grid'))
     else:
         print("No Data!")
+
 
 def readBrands(con, cur):
     try:

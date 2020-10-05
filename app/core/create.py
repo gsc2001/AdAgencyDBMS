@@ -399,8 +399,8 @@ def addPrefers(con, cur):
 
     row["brandName"] = input("Enter Brand Name: ")
     row["actorAadharCard"] = input("actorAadharCard: ")
-    if len(row["aadharCard"]) == 12 and row["aadharCard"].isnumeric():
-        row["aadharCard"] = int(row["aadharCard"])
+    if len(row["actorAadharCard"]) == 12 and row["actorAadharCard"].isnumeric():
+        row["actorAadharCard"] = int(row["actorAadharCard"])
     else:
         print("\nError: Please enter valid 12 digit Actor Aadhar Card Number\n")
         return

@@ -5,7 +5,7 @@ from datetime import date
 import re
 
 
-def updateAccountNumber(cur, con):
+def updateAccountNumber(con, cur):
     aadharCard = input("12 digit Aadhar Card: ")
     if len(aadharCard) == 12 and aadharCard.isnumeric() and int(aadharCard) > 0:
         aadharCard = int(aadharCard)
@@ -22,7 +22,9 @@ def updateAccountNumber(cur, con):
 
     try:
         query = f'UPDATE person SET accountNo = {accountNo} WHERE aadharCard = {aadharCard};'
-        cur.execute(query)
+        rows_aff = cur.execute(query)
+        if rows_aff == 0:
+            print(f'Actor with aadhar card {aadharCard} not found')
         con.commit()
     except Exception as e:
         con.rollback()
@@ -32,7 +34,7 @@ def updateAccountNumber(cur, con):
     return
 
 
-def updatePersonName(cur, con):
+def updatePersonName(con, cur):
     aadharCard = input("12 digit Aadhar Card: ")
     if len(aadharCard) == 12 and aadharCard.isnumeric() and int(aadharCard) > 0:
         aadharCard = int(aadharCard)
@@ -43,8 +45,10 @@ def updatePersonName(cur, con):
     name = input("Name: ")
 
     try:
-        query = f'UPDATE person SET `name` = {name} WHERE aadharCard = {aadharCard};'
-        cur.execute(query)
+        query = f'UPDATE person SET `name` = "{name}" WHERE aadharCard = {aadharCard};'
+        rows_aff = cur.execute(query)
+        if rows_aff == 0:
+            print(f'Actor with aadhar card {aadharCard} not found')
         con.commit()
     except Exception as e:
         con.rollback()
@@ -54,7 +58,7 @@ def updatePersonName(cur, con):
     return
 
 
-def updateHeightWeight(cur, con):
+def updateHeightWeight(con, cur):
     aadharCard = input("12 digit Aadhar Card: ")
     if len(aadharCard) == 12 and aadharCard.isnumeric() and int(aadharCard) > 0:
         aadharCard = int(aadharCard)
@@ -78,7 +82,10 @@ def updateHeightWeight(cur, con):
 
     try:
         query = f'UPDATE actor SET height = {height}, `weight` = {weight} WHERE aadharCard = {aadharCard};'
-        cur.execute(query)
+        rows_aff = cur.execute(query)
+        if rows_aff == 0:
+            print(f'Actor with aadhar card {aadharCard} not found')
+        con.commit()
         con.commit()
     except Exception as e:
         con.rollback()
@@ -88,7 +95,7 @@ def updateHeightWeight(cur, con):
     return
 
 
-def updateSurcharge(cur, con):
+def updateSurcharge(con, cur):
     print("Enter the show details: ")
     channel = input("Channel: ")
     try:
@@ -98,7 +105,7 @@ def updateSurcharge(cur, con):
         print("\nError: Please enter valid date\n")
 
     time = input("Starting Time: ")
-    regex = '(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)'
+    regex = r'(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)'
     if not re.search(regex, time):
         print("\nError: Please enter a valid start time in HH-MM-SS format\n")
         return
@@ -112,7 +119,10 @@ def updateSurcharge(cur, con):
 
     try:
         query = f"UPDATE `show` SET surcharge = {surcharge} WHERE channelName = '{channel}' AND `date` = {showdate} AND startTime = {time};"
-        cur.execute(query)
+        rows_aff = cur.execute(query)
+        if rows_aff == 0:
+            print(f'Actor with aadhar card {aadharCard} not found')
+        con.commit()
         con.commit()
     except Exception as e:
         con.rollback()
@@ -122,7 +132,7 @@ def updateSurcharge(cur, con):
     return
 
 
-def updateBasePrice(cur, con):
+def updateBasePrice(con, cur):
     channel = input("Enter Channel Name: ")
     basePrice = input("Enter baseprice: ")
     if basePrice.isnumeric() and int(basePrice) > 0:
@@ -133,7 +143,10 @@ def updateBasePrice(cur, con):
 
     try:
         query = f'UPDATE channel SET basePrice = {basePrice} WHERE channelName = {channel};'
-        cur.execute(query)
+        rows_aff = cur.execute(query)
+        if rows_aff == 0:
+            print(f'Actor with aadhar card {aadharCard} not found')
+        con.commit()
         con.commit()
     except Exception as e:
         con.rollback()
@@ -143,7 +156,7 @@ def updateBasePrice(cur, con):
     return
 
 
-def updateProductDescription(cur, con):
+def updateProductDescription(con, cur):
     print("Enter the product details: ")
     name = input("Product Name: ")
     brand = input("Brand Name: ")
@@ -152,7 +165,10 @@ def updateProductDescription(cur, con):
         description = "NULL"
     try:
         query = f"UPDATE product SET `description` = {description} WHERE `name` = '{name}' AND brandName = '{brand}';"
-        cur.execute(query)
+        rows_aff = cur.execute(query)
+        if rows_aff == 0:
+            print(f'Actor with aadhar card {aadharCard} not found')
+        con.commit()
         con.commit()
     except Exception as e:
         con.rollback()
@@ -162,7 +178,7 @@ def updateProductDescription(cur, con):
     return
 
 
-def updateProductPrice(cur, con):
+def updateProductPrice(con, cur):
     print("Enter the product details: ")
     name = input("Product Name: ")
     brand = input("Brand Name: ")
@@ -171,7 +187,10 @@ def updateProductPrice(cur, con):
         price = int(price)
     try:
         query = f"UPDATE product SET price = {price} WHERE `name` = '{name}' AND brandName = '{brand}';"
-        cur.execute(query)
+        rows_aff = cur.execute(query)
+        if rows_aff == 0:
+            print(f'Actor with aadhar card {aadharCard} not found')
+        con.commit()
         con.commit()
     except Exception as e:
         con.rollback()
@@ -181,7 +200,7 @@ def updateProductPrice(cur, con):
     return
 
 
-def updateSalary(cur, con):
+def updateSalary(con, cur):
     aadharCard = input("12 digit Aadhar Card: ")
     if len(aadharCard) == 12 and aadharCard.isnumeric() and int(aadharCard) > 0:
         aadharCard = int(aadharCard)
@@ -198,7 +217,10 @@ def updateSalary(cur, con):
 
     try:
         query = f'UPDATE director SET salary = {salary} WHERE aadharCard = {aadharCard};'
-        cur.execute(query)
+        rows_aff = cur.execute(query)
+        if rows_aff == 0:
+            print(f'Actor with aadhar card {aadharCard} not found')
+        con.commit()
         con.commit()
     except Exception as e:
         con.rollback()
@@ -208,7 +230,7 @@ def updateSalary(cur, con):
     return
 
 
-def updateSupervisor(cur, con):
+def updateSupervisor(con, cur):
     aadharCard = input("12 digit Aadhar Card: ")
     if len(aadharCard) == 12 and aadharCard.isnumeric() and int(aadharCard) > 0:
         aadharCard = int(aadharCard)
@@ -227,7 +249,10 @@ def updateSupervisor(cur, con):
 
     try:
         query = f'UPDATE director SET supervisorAadharCard = {supAadharCard} WHERE aadharCard = {aadharCard};'
-        cur.execute(query)
+        rows_aff = cur.execute(query)
+        if rows_aff == 0:
+            print(f'Actor with aadhar card {aadharCard} not found')
+        con.commit()
         con.commit()
     except Exception as e:
         con.rollback()
@@ -237,11 +262,11 @@ def updateSupervisor(cur, con):
     return
 
 
-def updateBrand(cur, con):
+def updateBrand(con, cur):
     print("Enter the brand details: ")
     brand = input("Enter Brand Name: ")
     email = input("Email: ")
-    regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+    regex = r'^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
     if not re.search(regex, email):
         print("\nError: Please enter a valid Email Id\n")
         return
@@ -254,7 +279,10 @@ def updateBrand(cur, con):
 
     try:
         query = f"UPDATE product SET `phone` = {phone}, email = {email} WHERE brandName = '{brand}';"
-        cur.execute(query)
+        rows_aff = cur.execute(query)
+        if rows_aff == 0:
+            print(f'Actor with aadhar card {aadharCard} not found')
+        con.commit()
         con.commit()
     except Exception as e:
         con.rollback()
