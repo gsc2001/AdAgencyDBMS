@@ -1,11 +1,11 @@
 import subprocess as sp
 
 from ..core import read, create, delete, update
-from ..utils.createMenu import createMenu
+from ..utils.createCLI import createCLI
 
 
 def add_menu(connection, cursor):
-    createMenu("ADD MENU", {
+    createCLI("ADD MENU", {
         'Actor': create.preAddActor,
         'Director': create.addDirector,
         'Brand': create.addBrand,
@@ -18,7 +18,7 @@ def add_menu(connection, cursor):
 
 
 def delete_menu(connection, cursor):
-    createMenu("DELETE MENU", {
+    createCLI("DELETE MENU", {
         'Actor': delete.deletePerson,
         'Director': delete.deletePerson,
         'Brand': delete.deleteBrand,
@@ -31,7 +31,7 @@ def delete_menu(connection, cursor):
 
 
 def read_menu(connection, cursor):
-    createMenu("READ MENU", {
+    createCLI("READ MENU", {
         'Get all Actors': read.readActors,
         'Get all Directors': read.readDirectors,
         'Get all Brands': read.readBrands,
@@ -56,7 +56,7 @@ def read_menu(connection, cursor):
 
 
 def update_menu(connection, cursor):
-    createMenu("UPDATE MENU", {
+    createCLI("UPDATE MENU", {
         'Actor': actor_update_menu,
         'Director': director_update_menu,
         'Brand': brand_update_menu,
@@ -68,7 +68,7 @@ def update_menu(connection, cursor):
 
 
 def actor_update_menu(connection, cursor):
-    createMenu("ACTOR UPDATE MENU", {
+    createCLI("ACTOR UPDATE MENU", {
         'AccountNumber': update.updateAccountNumber,
         'Name': update.updatePersonName,
         'Height and Weight': update.updateHeightWeight,
@@ -78,7 +78,7 @@ def actor_update_menu(connection, cursor):
 
 
 def director_update_menu(connection, cursor):
-    createMenu("DIRECTOR UPDATE MENU", {
+    createCLI("DIRECTOR UPDATE MENU", {
         'AccountNumber': update.updateAccountNumber,
         'Name': update.updatePersonName,
         'Salary': update.updateSalary,
@@ -87,27 +87,27 @@ def director_update_menu(connection, cursor):
 
 
 def brand_update_menu(connection, cursor):
-    createMenu("BRAND UPDATE MENU", {
+    createCLI("BRAND UPDATE MENU", {
         'POC Email': update.updateBrandEmail,
         'POC Phone': update.updateBrandPhone
     }, connection, cursor, True)
 
 
 def product_update_menu(connection, cursor):
-    createMenu("PRODUCT UPDATE MENU", {
+    createCLI("PRODUCT UPDATE MENU", {
         'Price': update.updateProductPrice,
         'Description': update.updateProductDescription
     }, connection, cursor, True)
 
 
 def channel_update_menu(connection, cursor):
-    createMenu("CHANNEL UPDATE MENU", {
+    createCLI("CHANNEL UPDATE MENU", {
         'Base Price': update.updateBasePrice
     }, connection, cursor, True)
 
 
 def show_update_menu(connection, cursor):
-    createMenu("SHOW UPDATE MENU", {
+    createCLI("SHOW UPDATE MENU", {
         'Surcharge': update.updateSurcharge,
         'Air an Ad': create.addAdinShow,
         'Remove an Ad': delete.deleteDisplayed
@@ -115,7 +115,7 @@ def show_update_menu(connection, cursor):
 
 
 def ad_update_menu(connection, cursor):
-    createMenu("AD UPDATE MENU", {
+    createCLI("AD UPDATE MENU", {
         'Air in a show': create.addAdinShow,
         'Remove from a show': delete.deleteDisplayed
     }, connection, cursor, True)

@@ -1,10 +1,12 @@
 import subprocess as sp
 from .menus import add_menu, read_menu, delete_menu, update_menu
-from ..utils.createMenu import createMenu
+from ..utils.createCLI import createCLI, printHelp
 
 
 def repl(connection, cursor):
-    createMenu("Menu", {
+    print("Commands\n")
+    printHelp()
+    createCLI("Menu", {
         'Add': add_menu,
         'Update': update_menu,
         'Delete': delete_menu,

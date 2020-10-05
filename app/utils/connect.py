@@ -1,6 +1,7 @@
 import subprocess as sp
 import pymysql
 from pymysql.cursors import DictCursor
+from .createCLI import GREEN, END, BOLD
 
 
 def connect_to_database(username: str, password: str, db: str):
@@ -11,7 +12,7 @@ def connect_to_database(username: str, password: str, db: str):
         _ = sp.call('clear', shell=True)
 
         if connection.open:
-            print("Connected")
+            print(f"{GREEN}{BOLD}Connected to database!!{END}\n")
         else:
             print("Failed to connect")
         return connection
