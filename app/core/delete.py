@@ -2,7 +2,9 @@ def deletePerson(con, cur):
     aadharCard = input("12 digit Aadhar Card: ")
     try:
         query = f'DELETE FROM person WHERE aadharCard = {aadharCard};'
-        cur.execute(query)
+        deleted = cur.execute(query)
+        if deleted == 0:
+            print('\nNo data with given details')
         con.commit()
     except Exception as e:
         con.rollback()
@@ -14,7 +16,9 @@ def deleteBrand(con, cur):
     brand = input("Brand Name: ")
     try:
         query = f'DELETE FROM brand WHERE brandName = "{brand}";'
-        cur.execute(query)
+        deleted = cur.execute(query)
+        if deleted == 0:
+            print('\nNo data with given details')
         con.commit()
     except Exception as e:
         con.rollback()
@@ -26,7 +30,9 @@ def deleteChannel(con, cur):
     channel = input("Channel Name: ")
     try:
         query = f'DELETE FROM channel WHERE channelName = "{channel}";'
-        cur.execute(query)
+        deleted = cur.execute(query)
+        if deleted == 0:
+            print('\nNo data with given details')
         con.commit()
     except Exception as e:
         con.rollback()
@@ -41,7 +47,9 @@ def deleteShow(con, cur):
     time = input("Starting Time: ")
     try:
         query = f'DELETE FROM `show` WHERE `date` = "{date}" AND startTime = "{time}" AND channelName = "{channel}";'
-        cur.execute(query)
+        deleted = cur.execute(query)
+        if deleted == 0:
+            print('\nNo data with given details')
         con.commit()
     except Exception as e:
         con.rollback()
@@ -55,7 +63,9 @@ def deleteProduct(con, cur):
     brand = input("Brand Name: ")
     try:
         query = f'DELETE FROM product WHERE `name` = "{name}" AND brandName = "{brand}";'
-        cur.execute(query)
+        deleted = cur.execute(query)
+        if deleted == 0:
+            print('\nNo data with given details')
         con.commit()
     except Exception as e:
         con.rollback()
@@ -67,7 +77,9 @@ def deleteAd(con, cur):
     serialNo = input("Ad Serial No: ")
     try:
         query = f'DELETE FROM production WHERE adSerialNo = {serialNo};'
-        cur.execute(query)
+        deleted = cur.execute(query)
+        if deleted == 0:
+            print('\nNo data with given details')
         con.commit()
     except Exception as e:
         con.rollback()
@@ -79,7 +91,9 @@ def deleteGuardian(con, cur):
     aadharCard = input("12 digit Aadhar Card: ")
     try:
         query = f'DELETE FROM guardianData WHERE aadharCard = {aadharCard};'
-        cur.execute(query)
+        deleted = cur.execute(query)
+        if deleted == 0:
+            print('\nNo data with given details')
         con.commit()
     except Exception as e:
         con.rollback()
@@ -95,7 +109,9 @@ def deleteDisplayed(con, cur):
     time = input("Starting Time: ")
     try:
         query = f'DELETE FROM displayedBetween WHERE adSerialNo = {serialNo} AND showDate = "{date}" AND showStartTime = "{time}" AND channelName = "{channel}";'
-        cur.execute(query)
+        deleted = cur.execute(query)
+        if deleted == 0:
+            print('\nNo data with given details')
         con.commit()
     except Exception as e:
         con.rollback()
@@ -108,7 +124,9 @@ def deletePrefers(con, cur):
     brand = input("Brand Name: ")
     try:
         query = f'DELETE FROM prefers WHERE actorAadharCard = {aadhar} AND brandName = "{brand}";'
-        cur.execute(query)
+        deleted = cur.execute(query)
+        if deleted == 0:
+            print('\nNo data with given details')
         con.commit()
     except Exception as e:
         con.rollback()
