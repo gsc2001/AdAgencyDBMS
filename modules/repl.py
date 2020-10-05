@@ -1,6 +1,7 @@
 import subprocess as sp
 from .create import *
 from .read import *
+from .delete import *
 
 
 def printMenu():
@@ -15,6 +16,8 @@ def repl(connection, cursor):
         ch = input("Enter your choice > ")
         if ch == '1':
             add_menu(connection, cursor)
+        if ch == '3':
+            delete_menu(connection, cursor)
         if ch == '4':
             read_menu(connection, cursor)
         elif ch == '5':
@@ -41,6 +44,36 @@ def add_menu(connection, cursor):
             addShow(connection, cursor)
         elif ch == '7':
             addProduction(connection, cursor)
+        else:
+            print("Invalid option\n")
+
+        _ = input("Enter a key to continue")
+
+
+def delete_menu(connection, cursor):
+    while True:
+        _ = sp.call("clear", shell=True)
+        print("==============DELETE MENU==================")
+        print("0. Back\n1. Actor\n2. Director\n3. Brand\n4. Channel\n5. Show\n6. Product\n7. Ad\n8. Remove Ad from Show\n9. Remove Brand from Actor's preferred brands\n")
+        ch = input("Enter your choice > ")
+        if ch == '0':
+            return
+        elif ch == '1' or ch == '2':
+            deletePerson(connection, cursor)
+        elif ch == '3':
+            deleteBrand(connection, cursor)
+        elif ch == '4':
+            deleteChannel(connection, cursor)
+        elif ch == '5':
+            deleteShow(connection, cursor)
+        elif ch == '6':
+            deleteProduct(connection, cursor)
+        elif ch == '7':
+            deleteAd(connection, cursor)
+        elif ch == '8':
+            deleteDisplayed(connection, cursor)
+        elif ch == '9':
+            deletePrefers(connection, cursor)
         else:
             print("Invalid option\n")
 

@@ -1,4 +1,4 @@
-def deletePerson(cur, con):
+def deletePerson(con, cur):
     aadharCard = input("12 digit Aadhar Card: ")
     try:
         query = f'DELETE FROM person WHERE aadharCard = {aadharCard};'
@@ -10,7 +10,7 @@ def deletePerson(cur, con):
         print("\nError: DELETE FAILED!\n")
 
 
-def deleteBrand(cur, con):
+def deleteBrand(con, cur):
     brand = input("Brand Name: ")
     try:
         query = f'DELETE FROM brand WHERE brandName = "{brand}";'
@@ -22,7 +22,7 @@ def deleteBrand(cur, con):
         print("\nError: DELETE FAILED!\n")
 
 
-def deleteChannel(cur, con):
+def deleteChannel(con, cur):
     channel = input("Channel Name: ")
     try:
         query = f'DELETE FROM channel WHERE channelName = "{channel}";'
@@ -34,7 +34,7 @@ def deleteChannel(cur, con):
         print("\nError: DELETE FAILED!\n")
 
 
-def deleteShow(cur, con):
+def deleteShow(con, cur):
     print("Enter the show details: ")
     channel = input("Channel: ")
     date = input("Date: ")
@@ -49,7 +49,7 @@ def deleteShow(cur, con):
         print("\nError: DELETE FAILED!\n")
 
 
-def deleteProduct(cur, con):
+def deleteProduct(con, cur):
     print("Enter the product details: ")
     name = input("Name: ")
     brand = input("Brand Name: ")
@@ -63,7 +63,7 @@ def deleteProduct(cur, con):
         print("\nError: DELETE FAILED!\n")
 
 
-def deleteAd(cur, con):
+def deleteAd(con, cur):
     serialNo = input("Ad Serial No: ")
     try:
         query = f'DELETE FROM production WHERE adSerialNo = {serialNo};'
@@ -75,7 +75,7 @@ def deleteAd(cur, con):
         print("\nError: DELETE FAILED!\n")
 
 
-def deleteDisplayed(cur, con):
+def deleteDisplayed(con, cur):
     serialNo = input("Ad Serial No: ")
     print("Enter the show details: ")
     channel = input("Channel: ")
@@ -91,7 +91,7 @@ def deleteDisplayed(cur, con):
         print("\nError: DELETE FAILED!\n")
 
 
-def deletePrefers(cur, con):
+def deletePrefers(con, cur):
     aadhar = input("Actor Aadhar No: ")
     brand = input("Brand Name: ")
     try:
