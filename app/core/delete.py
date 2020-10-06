@@ -3,10 +3,11 @@ def deletePerson(con, cur):
     try:
         query = f'DELETE FROM person WHERE aadharCard = {aadharCard};'
         deleted = cur.execute(query)
-        if deleted == 0:
-            print('\nNo data with given details')
         con.commit()
-        print("\nDELETE SUCCESSFULL")
+        if deleted == 0:
+            print('\nNothing was deleted\n')
+        else:
+            print("\nDELETE SUCCESSFULL\n")
     except Exception as e:
         con.rollback()
         print(e)
@@ -18,10 +19,11 @@ def deleteBrand(con, cur):
     try:
         query = f'DELETE FROM brand WHERE brandName = "{brand}";'
         deleted = cur.execute(query)
-        if deleted == 0:
-            print('\nNo data with given details')
         con.commit()
-        print("\nDELETE SUCCESSFULL")
+        if deleted == 0:
+            print('\nNothing was deleted\n')
+        else:
+            print("\nDELETE SUCCESSFULL\n")
     except Exception as e:
         con.rollback()
         print(e)
@@ -33,10 +35,11 @@ def deleteChannel(con, cur):
     try:
         query = f'DELETE FROM channel WHERE channelName = "{channel}";'
         deleted = cur.execute(query)
-        if deleted == 0:
-            print('\nNo data with given details')
         con.commit()
-        print("\nDELETE SUCCESSFULL")
+        if deleted == 0:
+            print('\nNothing was deleted\n')
+        else:
+            print("\nDELETE SUCCESSFULL\n")
     except Exception as e:
         con.rollback()
         print(e)
@@ -51,10 +54,11 @@ def deleteShow(con, cur):
     try:
         query = f'DELETE FROM `show` WHERE `date` = "{date}" AND startTime = "{time}" AND channelName = "{channel}";'
         deleted = cur.execute(query)
-        if deleted == 0:
-            print('\nNo data with given details')
         con.commit()
-        print("\nDELETE SUCCESSFULL")
+        if deleted == 0:
+            print('\nNothing was deleted\n')
+        else:
+            print("\nDELETE SUCCESSFULL\n")
     except Exception as e:
         con.rollback()
         print(e)
@@ -68,10 +72,11 @@ def deleteProduct(con, cur):
     try:
         query = f'DELETE FROM product WHERE `name` = "{name}" AND brandName = "{brand}";'
         deleted = cur.execute(query)
-        if deleted == 0:
-            print('\nNo data with given details')
         con.commit()
-        print("\nDELETE SUCCESSFULL")
+        if deleted == 0:
+            print('\nNothing was deleted\n')
+        else:
+            print("\nDELETE SUCCESSFULL\n")
     except Exception as e:
         con.rollback()
         print(e)
@@ -83,10 +88,11 @@ def deleteAd(con, cur):
     try:
         query = f'DELETE FROM production WHERE adSerialNo = {serialNo};'
         deleted = cur.execute(query)
-        if deleted == 0:
-            print('\nNo data with given details')
         con.commit()
-        print("\nDELETE SUCCESSFULL")
+        if deleted == 0:
+            print('\nNothing was deleted\n')
+        else:
+            print("\nDELETE SUCCESSFULL\n")
     except Exception as e:
         con.rollback()
         print(e)
@@ -98,10 +104,11 @@ def deleteGuardian(con, cur):
     try:
         query = f'DELETE FROM guardianData WHERE aadharCard = {aadharCard};'
         deleted = cur.execute(query)
-        if deleted == 0:
-            print('\nNo data with given details')
         con.commit()
-        print("\nDELETE SUCCESSFULL")
+        if deleted == 0:
+            print('\nNothing was deleted\n')
+        else:
+            print("\nDELETE SUCCESSFULL\n")
     except Exception as e:
         con.rollback()
         print(e)
@@ -117,10 +124,11 @@ def deleteDisplayed(con, cur):
     try:
         query = f'DELETE FROM displayedBetween WHERE adSerialNo = {serialNo} AND showDate = "{date}" AND showStartTime = "{time}" AND channelName = "{channel}";'
         deleted = cur.execute(query)
-        if deleted == 0:
-            print('\nNo data with given details')
         con.commit()
-        print("\nDELETE SUCCESSFULL")
+        if deleted == 0:
+            print('\nNothing was deleted\n')
+        else:
+            print("\nDELETE SUCCESSFULL\n")
     except Exception as e:
         con.rollback()
         print(e)
@@ -133,10 +141,11 @@ def deletePrefers(con, cur):
     try:
         query = f'DELETE FROM prefers WHERE actorAadharCard = {aadhar} AND brandName = "{brand}";'
         deleted = cur.execute(query)
-        if deleted == 0:
-            print('\nNo data with given details')
         con.commit()
-        print("\nDELETE SUCCESSFULL")
+        if deleted == 0:
+            print('\nNothing was deleted\n')
+        else:
+            print("\nDELETE SUCCESSFULL\n")
     except Exception as e:
         con.rollback()
         print(e)

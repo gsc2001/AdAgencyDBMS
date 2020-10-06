@@ -9,6 +9,7 @@ Enter the following commands in **MySQL shell**
 1. Create a database 'AdAgency'
 
 ```sql
+DROP DATABASE IF EXISTS AdAgency;
 CREATE DATABASE AdAgency;
 ```
 

@@ -20,10 +20,11 @@ def updateAccountNumber(con, cur):
     try:
         query = f'UPDATE person SET accountNo = {accountNo} WHERE aadharCard = {aadharCard};'
         rows_aff = cur.execute(query)
-        if rows_aff == 0:
-            print(f'Actor with aadhar card {aadharCard} not found')
         con.commit()
-        print("\nUPDATE SUCCESSFULL")
+        if rows_aff == 0:
+            print("\nNothing was updated\n")
+        else:
+            print("\nUPDATE SUCCESSFULL\n")
     except Exception as e:
         con.rollback()
         print(e)
@@ -49,7 +50,10 @@ def updatePersonName(con, cur):
         rows_aff = cur.execute(query)
         print(f'{rows_aff} rows changed!')
         con.commit()
-        print("\nUPDATE SUCCESSFULL")
+        if rows_aff == 0:
+            print("\nNothing was updated\n")
+        else:
+            print("\nUPDATE SUCCESSFULL\n")
     except Exception as e:
         con.rollback()
         print(e)
@@ -85,7 +89,10 @@ def updateHeightWeight(con, cur):
         rows_aff = cur.execute(query)
         print(f'{rows_aff} rows changed!')
         con.commit()
-        print("\nUPDATE SUCCESSFULL")
+        if rows_aff == 0:
+            print("\nNothing was updated\n")
+        else:
+            print("\nUPDATE SUCCESSFULL\n")
     except Exception as e:
         con.rollback()
         print(e)
@@ -123,7 +130,10 @@ def updateSurcharge(con, cur):
         rows_aff = cur.execute(query)
         print(f'{rows_aff} rows changed!')
         con.commit()
-        print("\nUPDATE SUCCESSFULL")
+        if rows_aff == 0:
+            print("\nNothing was updated\n")
+        else:
+            print("\nUPDATE SUCCESSFULL\n")
     except Exception as e:
         con.rollback()
         print(e)
@@ -146,7 +156,10 @@ def updateBasePrice(con, cur):
         rows_aff = cur.execute(query)
         print(f'{rows_aff} rows changed!')
         con.commit()
-        print("\nUPDATE SUCCESSFULL")
+        if rows_aff == 0:
+            print("\nNothing was updated\n")
+        else:
+            print("\nUPDATE SUCCESSFULL\n")
     except Exception as e:
         con.rollback()
         print(e)
@@ -170,7 +183,10 @@ def updateProductDescription(con, cur):
         rows_aff = cur.execute(query)
         print(f'{rows_aff} rows changed!')
         con.commit()
-        print("\nUPDATE SUCCESSFULL")
+        if rows_aff == 0:
+            print("\nNothing was updated\n")
+        else:
+            print("\nUPDATE SUCCESSFULL\n")
     except Exception as e:
         con.rollback()
         print(e)
@@ -191,7 +207,10 @@ def updateProductPrice(con, cur):
         rows_aff = cur.execute(query)
         print(f'{rows_aff} rows changed!')
         con.commit()
-        print("\nUPDATE SUCCESSFULL")
+        if rows_aff == 0:
+            print("\nNothing was updated\n")
+        else:
+            print("\nUPDATE SUCCESSFULL\n")
     except Exception as e:
         con.rollback()
         print(e)
@@ -220,7 +239,10 @@ def updateSalary(con, cur):
         rows_aff = cur.execute(query)
         print(f'{rows_aff} rows changed!')
         con.commit()
-        print("\nUPDATE SUCCESSFULL")
+        if rows_aff == 0:
+            print("\nNothing was updated\n")
+        else:
+            print("\nUPDATE SUCCESSFULL\n")
     except Exception as e:
         con.rollback()
         print(e)
@@ -251,7 +273,10 @@ def updateSupervisor(con, cur):
         rows_aff = cur.execute(query)
         print(f'{rows_aff} rows changed!')
         con.commit()
-        print("\nUPDATE SUCCESSFULL")
+        if rows_aff == 0:
+            print("\nNothing was updated\n")
+        else:
+            print("\nUPDATE SUCCESSFULL\n")
     except Exception as e:
         con.rollback()
         print(e)
@@ -274,7 +299,10 @@ def updateBrandEmail(con, cur):
         rows_aff = cur.execute(query)
         print(f'{rows_aff} rows changed!')
         con.commit()
-        print("\nUPDATE SUCCESSFULL")
+        if rows_aff == 0:
+            print("\nNothing was updated\n")
+        else:
+            print("\nUPDATE SUCCESSFULL\n")
     except Exception as e:
         con.rollback()
         print(e)
@@ -296,7 +324,10 @@ def updateBrandPhone(con, cur):
         rows_aff = cur.execute(query)
         print(f'{rows_aff} rows changed!')
         con.commit()
-        print("\nUPDATE SUCCESSFULL")
+        if rows_aff == 0:
+            print("\nNothing was updated\n")
+        else:
+            print("\nUPDATE SUCCESSFULL\n")
     except Exception as e:
         con.rollback()
         print(e)
