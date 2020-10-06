@@ -663,6 +663,8 @@ def addShow(con, cur):
             print("\nError: Please enter valid genre\n")
             return
 
+    # show overlapping condition checked by mysql (`before_show_insert` trigger)
+
     try:
         query = "INSERT INTO `show`(date, startTime, channelName, duration, surcharge, name) VALUES('%s', '%s', '%s', %d, %d, '%s');" % (
             row["date"], row["startTime"], row["channelName"], row["duration"], row["surcharge"], row["name"])
@@ -731,6 +733,8 @@ def addAdinShow(con, cur):
     else:
         print("\nError: Please enter a valid number\n")
         return
+
+    # total Ad duration < show duration constraint checked in mysql (`before_displaying` trigger)
 
     try:
         query = "INSERT INTO displayedBetween(showDate, showStartTime, channelName, adSerialNo, timesShown) VALUES('%s', '%s', '%s', %d, %d);" % (
