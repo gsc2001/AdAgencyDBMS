@@ -176,7 +176,7 @@ BEGIN
 	declare possible int;
     select count(*) into possible from `show` where 
     (
-    `date` = new.`date` and
+    `date` = new.`date` and `channelName` = new.channelName and
     ((new.startTime < startTime and startTime < ADDTIME(new.startTime, SEC_TO_TIME(new.duration*60)))
     or
     (startTime < new.startTime and new.startTime < ADDTIME(startTime, SEC_TO_TIME(duration*60)))
