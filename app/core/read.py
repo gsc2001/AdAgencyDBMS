@@ -7,7 +7,7 @@ def printResult(cur):
     if len(result) != 0:
         header = result[0].keys()
         rows = [x.values() for x in result]
-        print(tabulate(rows, header, tablefmt='grid'))
+        print(tabulate(rows, header, tablefmt='fancy_grid', numalign='center', stralign='center'))
     else:
         print("No Data!")
 
@@ -25,7 +25,7 @@ def readBrands(con, cur):
 
 def readActors(con, cur):
     try:
-        query = 'SELECT *, DATE_FORMAT(FROM_DAYS(DATEDIFF(CURDATE(), DOB)), "%Y")+0 AS age FROM actor NATURAL JOIN person NATURAL JOIN phone;'
+        query = 'SELECT actor.experience, actor.height, actor.weight, person.*, GROUP_CONCAT(phone.phoneNo) AS Phone, DATE_FORMAT(FROM_DAYS(DATEDIFF(CURDATE(), DOB)), "%Y")+0 AS age FROM actor NATURAL JOIN person NATURAL JOIN phone GROUP BY person.aadharCard;'
         cur.execute(query)
         printResult(cur)
     except Exception as e:
@@ -36,7 +36,7 @@ def readActors(con, cur):
 
 def readDirectors(con, cur):
     try:
-        query = 'SELECT *, DATE_FORMAT(FROM_DAYS(DATEDIFF(CURDATE(), DOB)), "%Y")+0 AS age FROM director NATURAL JOIN person NATURAL JOIN phone;'
+        query = 'SELECT director.joinDate, director.salary, director.supervisorAadharCard, person.*, GROUP_CONCAT(phone.phoneNo) AS Phone, DATE_FORMAT(FROM_DAYS(DATEDIFF(CURDATE(), DOB)), "%Y")+0 AS age FROM director NATURAL JOIN person NATURAL JOIN phone GROUP BY person.aadharCard;'
         cur.execute(query)
         printResult(cur)
     except Exception as e:
