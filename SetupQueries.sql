@@ -183,7 +183,7 @@ BEGIN
     ));
 	if possible > 0
 	then
-		signal sqlstate '45000' set message_text = 'Not a valid show time and duration';
+		signal sqlstate '45000' set message_text = 'The show is overlapping with other shows. Please change date, time or duration';
 	end if;
 END$$
 DELIMITER ;
@@ -213,7 +213,7 @@ BEGIN
     
     if (adDurationTillNow + adDuration) > showDuration
     then
-		signal sqlstate '45000' set message_text = 'Ad Duration exceeding show duration';
+		signal sqlstate '45000' set message_text = 'Total Duration of Ads aired exceeds show duration';
 	end if;
 
 END$$

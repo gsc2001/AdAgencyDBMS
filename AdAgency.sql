@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 8.0.21, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.31, for Linux (x86_64)
 --
 -- Host: 127.0.0.1    Database: AdAgency
 -- ------------------------------------------------------
@@ -7,7 +7,7 @@
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -21,7 +21,7 @@
 
 DROP TABLE IF EXISTS `actor`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `actor` (
   `aadharCard` bigint NOT NULL,
   `experience` int NOT NULL,
@@ -49,7 +49,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `ad`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ad` (
   `serialNo` int NOT NULL,
   `duration` int DEFAULT NULL,
@@ -75,7 +75,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `adGenre`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `adGenre` (
   `name` enum('Comedy','Thriller','Romance','Suspense','Sci-fi','Action','Horror','Fantasy') NOT NULL,
   `adSerialNo` int NOT NULL,
@@ -101,7 +101,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `brand`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `brand` (
   `brandName` varchar(255) NOT NULL,
   `pocEmail` varchar(255) DEFAULT NULL,
@@ -126,7 +126,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `channel`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `channel` (
   `channelName` varchar(255) NOT NULL,
   `basePrice` int NOT NULL,
@@ -151,7 +151,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `director`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `director` (
   `aadharCard` bigint NOT NULL,
   `joinDate` date NOT NULL,
@@ -181,7 +181,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `displayedBetween`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `displayedBetween` (
   `showDate` date NOT NULL,
   `showStartTime` time NOT NULL,
@@ -235,7 +235,7 @@ DELIMITER ;;
     
     if (adDurationTillNow + adDuration) > showDuration
     then
-		signal sqlstate '45000' set message_text = 'Ad Duration exceeding show duration';
+		signal sqlstate '45000' set message_text = 'Total Duration of Ads aired exceeds show duration';
 	end if;
 
 END */;;
@@ -251,7 +251,7 @@ DELIMITER ;
 
 DROP TABLE IF EXISTS `guardian`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `guardian` (
   `jActorAadharCard` bigint NOT NULL,
   `aadharCard` bigint NOT NULL,
@@ -278,7 +278,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `guardianData`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `guardianData` (
   `aadharCard` bigint NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -303,7 +303,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `juniorActor`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `juniorActor` (
   `aadharCard` bigint NOT NULL,
   PRIMARY KEY (`aadharCard`),
@@ -327,7 +327,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `person`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `person` (
   `aadharCard` bigint NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -354,7 +354,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `phone`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phone` (
   `aadharCard` bigint NOT NULL,
   `phoneNo` bigint NOT NULL,
@@ -379,7 +379,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `prefers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `prefers` (
   `actorAadharCard` bigint NOT NULL,
   `brandName` varchar(255) NOT NULL,
@@ -406,7 +406,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `product`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `product` (
   `name` varchar(255) NOT NULL,
   `brandName` varchar(255) NOT NULL,
@@ -435,7 +435,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `production`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `production` (
   `adSerialNo` int NOT NULL AUTO_INCREMENT,
   `actorAadharCard` bigint NOT NULL,
@@ -471,7 +471,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `show`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `show` (
   `date` date NOT NULL,
   `startTime` time NOT NULL,
@@ -492,7 +492,7 @@ CREATE TABLE `show` (
 
 LOCK TABLES `show` WRITE;
 /*!40000 ALTER TABLE `show` DISABLE KEYS */;
-INSERT INTO `show` VALUES ('2020-10-02','18:00:00','Disney',90,435,'Jake and Pirate'),('2020-10-05','23:00:00','Animal Planet',105,631,'King of Jungle'),('2020-10-05','23:00:00','Sony',75,280,'Pati Patni aur Wo'),('2020-10-06','05:00:00','Animal Planet',75,843,'Deadliest in the Wild'),('2020-10-06','09:00:00','Animal Planet',90,182,'1000 years before'),('2020-10-07','09:00:00','Animal Planet',75,380,'Most Dangerous 10'),('2020-10-07','18:00:00','Sony',90,712,'mollis'),('2020-10-08','09:00:00','Aaj Tak',120,838,'Aaj ki News'),('2020-10-12','11:00:00','Nickledeon',105,729,'Art Attack'),('2020-10-13','15:00:00','Nickledeon',105,16,'Ninja Hattori'),('2020-10-14','05:00:00','Aaj Tak',60,183,'Jungle News'),('2020-10-14','23:00:00','Sony',30,374,'Nach le India'),('2020-10-17','18:00:00','Animal Planet',60,492,'Jungle Jungle'),('2020-10-19','07:00:00','Aaj Tak',105,68,'10 Breaking News'),('2020-10-19','18:00:00','Disney',120,489,'Doraemon'),('2020-10-20','18:00:00','Disney',120,143,'Shinchan'),('2020-10-21','07:00:00','Aaj Tak',30,42,'Top 10'),('2020-10-22','11:00:00','Nickledeon',105,344,'Perman'),('2020-10-25','09:00:00','Animal Planet',90,362,'Snakes'),('2020-10-31','07:00:00','Sony',90,149,'Crime Patrol');
+INSERT INTO `show` VALUES ('2020-10-02','18:00:00','Disney',90,435,'Jake and Pirate'),('2020-10-05','23:00:00','Animal Planet',105,631,'King of Jungle'),('2020-10-05','23:00:00','Sony',75,280,'Pati Patni aur Wo'),('2020-10-06','05:00:00','Animal Planet',75,843,'Deadliest in the Wild'),('2020-10-06','09:00:00','Animal Planet',90,182,'1000 years before'),('2020-10-07','09:00:00','Animal Planet',75,380,'Most Dangerous 10'),('2020-10-07','18:00:00','Sony',90,712,'mollis'),('2020-10-08','09:00:00','Aaj Tak',120,838,'Aaj ki News'),('2020-10-12','11:00:00','Nickledeon',105,729,'Art Attack'),('2020-10-13','15:00:00','Nickledeon',105,16,'Ninja Hattori'),('2020-10-14','05:00:00','Aaj Tak',60,183,'Jungle News'),('2020-10-14','23:00:00','Sony',30,374,'Nach le India'),('2020-10-17','18:00:00','Animal Planet',60,492,'Jungle Jungle'),('2020-10-19','07:00:00','Aaj Tak',105,68,'10 Breaking News'),('2020-10-19','18:00:00','Disney',120,489,'Doraemon'),('2020-10-20','18:00:00','Disney',120,143,'Shinchan'),('2020-10-21','07:00:00','Aaj Tak',30,42,'Top 10'),('2020-10-22','11:00:00','Nickledeon',105,344,'Perman'),('2020-10-25','09:00:00','Animal Planet',90,362,'Snakes'),('2020-10-31','07:00:00','Sony',90,149,'Crime Patrol'),('2020-11-30','09:00:00','disney',30,600,'jake and the neverland pirates');
 /*!40000 ALTER TABLE `show` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -515,7 +515,7 @@ DELIMITER ;;
     ));
 	if possible > 0
 	then
-		signal sqlstate '45000' set message_text = 'Not a valid show time and duration';
+		signal sqlstate '45000' set message_text = 'The show is overlapping with other shows. Please change date, time or duration';
 	end if;
 END */;;
 DELIMITER ;
@@ -530,7 +530,7 @@ DELIMITER ;
 
 DROP TABLE IF EXISTS `showGenre`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `showGenre` (
   `name` enum('Comedy','Thriller','Romance','Suspense','Sci-fi','Action','Horror','Fantasy') NOT NULL,
   `showDate` date NOT NULL,
@@ -547,7 +547,7 @@ CREATE TABLE `showGenre` (
 
 LOCK TABLES `showGenre` WRITE;
 /*!40000 ALTER TABLE `showGenre` DISABLE KEYS */;
-INSERT INTO `showGenre` VALUES ('Comedy','2020-10-02','18:00:00','Disney'),('Thriller','2020-10-05','23:00:00','Animal Planet'),('Comedy','2020-10-05','23:00:00','Sony'),('Romance','2020-10-05','23:00:00','Sony'),('Thriller','2020-10-06','05:00:00','Animal Planet'),('Thriller','2020-10-07','09:00:00','Animal Planet'),('Action','2020-10-07','18:00:00','Sony'),('Comedy','2020-10-12','11:00:00','Nickledeon'),('Comedy','2020-10-13','15:00:00','Nickledeon'),('Comedy','2020-10-14','23:00:00','Sony'),('Comedy','2020-10-19','18:00:00','Disney'),('Comedy','2020-10-20','18:00:00','Disney'),('Comedy','2020-10-22','11:00:00','Nickledeon'),('Comedy','2020-10-25','09:00:00','Animal Planet'),('Suspense','2020-10-31','07:00:00','Sony');
+INSERT INTO `showGenre` VALUES ('Comedy','2020-10-02','18:00:00','Disney'),('Thriller','2020-10-05','23:00:00','Animal Planet'),('Comedy','2020-10-05','23:00:00','Sony'),('Romance','2020-10-05','23:00:00','Sony'),('Thriller','2020-10-06','05:00:00','Animal Planet'),('Thriller','2020-10-07','09:00:00','Animal Planet'),('Action','2020-10-07','18:00:00','Sony'),('Comedy','2020-10-12','11:00:00','Nickledeon'),('Comedy','2020-10-13','15:00:00','Nickledeon'),('Comedy','2020-10-14','23:00:00','Sony'),('Comedy','2020-10-19','18:00:00','Disney'),('Comedy','2020-10-20','18:00:00','Disney'),('Comedy','2020-10-22','11:00:00','Nickledeon'),('Comedy','2020-10-25','09:00:00','Animal Planet'),('Suspense','2020-10-31','07:00:00','Sony'),('Comedy','2020-11-30','09:00:00','disney');
 /*!40000 ALTER TABLE `showGenre` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -560,4 +560,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-10-05 20:17:48
+-- Dump completed on 2020-10-06 11:36:33
