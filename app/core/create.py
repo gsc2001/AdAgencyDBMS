@@ -261,7 +261,6 @@ def addActor(con, cur):
     try:
         query = "INSERT INTO person(aadharCard, name, accountNo, gender, DOB) VALUES(%d, '%s', %d, '%s', '%s');" % (
             row["aadharCard"], row["name"], row["accountNo"], row["gender"], str(row["DOB"]))
-        print(query)
         cur.execute(query)
     except Exception as e:
         con.rollback()
@@ -363,7 +362,6 @@ def addBrand(con, cur):
     try:
         query = "INSERT INTO brand(brandName, pocEmail, pocPhone) VALUES('%s', '%s', %d);" % (
             row["brandName"], row["email"], row["phone"])
-        print(query)
         cur.execute(query)
     except Exception as e:
         con.rollback()
