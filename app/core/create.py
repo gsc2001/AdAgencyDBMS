@@ -57,7 +57,7 @@ def addDirector(con, cur):
         return
 
     try:
-        row["joinDate"] = input("Date of Joining in YYYY-MM-DD: ")
+        row["joinDate"] = input("Date of Joining in YYYY-MM-DD: (Enter for today)")
         if row["joinDate"] == "":
             row["joinDate"] = str(date.today())
         else:
@@ -66,8 +66,8 @@ def addDirector(con, cur):
         print(e)
         print("\nError: Please enter valid Date of Joining\n")
 
-    row["supervisorAadharCard"] = input("12 digit Supervisor AadharCard: ")
-    if len(row["supervisorAadharCard"]) == 12 and row["supervisorAadharCard"].isnumeric()(
+    row["supervisorAadharCard"] = input("12 digit Supervisor AadharCard: (Enter to skip)")
+    if len(row["supervisorAadharCard"]) == 12 and row["supervisorAadharCard"].isnumeric(
     ) and row["supervisorAadharCard"] != row["aadharCard"]:
         row["supervisorAadharCard"] = int(row["supervisorAadharCard"])
     elif row["supervisorAadharCard"] == "":
@@ -179,7 +179,7 @@ def preAddActor(con, cur):
 
 def addActor(con, cur):
     row = {}
-    print("Enter the new actor's details: ")
+    print("--Enter the new actor's details--")
 
     row["aadharCard"] = input("12 digit AadharCard: ")
     if len(row["aadharCard"]) == 12 and row["aadharCard"].isnumeric():
@@ -292,7 +292,6 @@ def addActor(con, cur):
 
     if(age < 18):
         print("As the actor's age is less than 18, Guardian needs to be added before!")
-        row_guardians = []
 
         # get number of guardians
         try:
@@ -385,6 +384,9 @@ def addChannel(con, cur):
     row = {}
 
     row["channelName"] = input("Enter Channel Name: ")
+    if len(row["channelName"]) <= 0:
+        print('Please enter a channel name')
+        return
     row["baseprice"] = input("Baseprice: ")
     if row["baseprice"].isnumeric() and int(row["baseprice"]) > 0:
         row["baseprice"] = int(row["baseprice"])
@@ -415,6 +417,9 @@ def addPrefers(con, cur):
     row = {}
 
     row["brandName"] = input("Enter Brand Name: ")
+    if len(row['brandName']) <= 0:
+        print("Please enter a brand name")
+        return
     row["actorAadharCard"] = input("actorAadharCard: ")
     if len(row["actorAadharCard"]) == 12 and row["actorAadharCard"].isnumeric():
         row["actorAadharCard"] = int(row["actorAadharCard"])
@@ -446,10 +451,20 @@ def addProduct(con, cur):
     row = {}
 
     row["brandName"] = input("Enter Brand Name: ")
+    if len(row['brandName']) <= 0:
+        print("Please add brand name")
+        return
     row["name"] = input("Enter Product Name: ")
-    row["description"] = input("Enter Product description: ")
-    if row["description"] == "":
-        row["description"] = "NULL"
+    if len(row['name']) <= 0:
+        print("Please add product name")
+        return
+    row["description"] = input("Enter Product description: (Enter to skip)")
+
+    if len(row['description']) <= 0:
+        row['description'] = 'NULL'
+    else:
+        row['description'] = '"' + row['description'] + '"'
+
     row["price"] = input("Enter price: ")
     if row["price"].isnumeric() and int(row["price"]) > 0:
         row["price"] = int(row["price"])
@@ -458,7 +473,7 @@ def addProduct(con, cur):
         return
 
     try:
-        query = "INSERT INTO product(name, brandName, description, price) VALUES('%s', '%s', '%s', %d);" % (
+        query = "INSERT INTO product(name, brandName, description, price) VALUES('%s', '%s', %s, %d);" % (
             row["name"], row["brandName"], row["description"], row["price"])
         cur.execute(query)
     except Exception as e:
@@ -481,7 +496,13 @@ def addProduction(con, cur):
     row = {}
 
     row["brandName"] = input("Enter Brand Name: ")
+    if len(row['brandName']) <= 0:
+        print("Please add brand name")
+        return
     row["productName"] = input("Enter Product Name: ")
+    if len(row['productName']) <= 0:
+        print("Please add product name")
+        return
     row["actorAadharCard"] = input(
         "Enter Aadhar Card of actor working in that Ad: ")
     if len(row["actorAadharCard"]) == 12 and row["actorAadharCard"].isnumeric():
@@ -498,7 +519,7 @@ def addProduction(con, cur):
         return
 
     try:
-        row["signingDate"] = input("Enter Signing Date of Ad in YYYY-MM-DD: ")
+        row["signingDate"] = input("Enter Signing Date of Ad in YYYY-MM-DD: (Enter for today)")
         if row["signingDate"] == "":
             row["signingDate"] = str(date.today())
         else:
@@ -587,7 +608,17 @@ def addShow(con, cur):
     row = {}
 
     row["name"] = input("Enter Show Name: ")
+    if len(row['name']) <= 0:
+        print("Please add show name")
+        return
+    row["productName"] = input("Enter Product Name: ")
+    if len(row['productName']) <= 0:
+        print("Please add product name")
+        return
     row["channelName"] = input("Enter Channel Name on which show is aired: ")
+    if len(row['channelName']) <= 0:
+        print("Please add channel name")
+        return
     row["startTime"] = input("Enter Start Time of show in HH:MM:SS: ")
     try:
         row["startTime"] = str(dt.strptime(row["startTime"], "%H:%M:%S"))
@@ -674,6 +705,9 @@ def addAdinShow(con, cur):
         return
 
     row["channelName"] = input("Enter Channel Name on which show is aired: ")
+    if len(row['channelName']) <= 0:
+        print("Please add channel name")
+        return
     row["showStartTime"] = input(
         "Enter Start Time of show (HH:MM:SS) in which Ad is to be displayed: ")
     try:

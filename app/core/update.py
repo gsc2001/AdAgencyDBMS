@@ -41,6 +41,8 @@ def updatePersonName(con, cur):
         return
 
     name = input("Name: ")
+    if len(name) <= 0:
+        print('Please enter name')
 
     try:
         query = f'UPDATE person SET `name` = "{name}" WHERE aadharCard = {aadharCard};'
@@ -158,10 +160,13 @@ def updateProductDescription(con, cur):
     name = input("Product Name: ")
     brand = input("Brand Name: ")
     description = input("Product Description: ")
-    if description == "":
-        description = "NULL"
+    if len(description) <= 0:
+        description = 'NULL'
+    else:
+        description = '"' + description + '"'
+
     try:
-        query = f"UPDATE product SET `description` = '{description}' WHERE `name` = '{name}' AND brandName = '{brand}';"
+        query = f"UPDATE product SET `description` = {description} WHERE `name` = '{name}' AND brandName = '{brand}';"
         rows_aff = cur.execute(query)
         print(f'{rows_aff} rows changed!')
         con.commit()
