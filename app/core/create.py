@@ -38,6 +38,7 @@ def addDirector(con, cur):
     except Exception as e:
         print(e)
         print("\nError: Please enter valid Date of Birth\n")
+        return
 
     age = date.today().year - row['DOB'].year - \
         ((date.today().month, date.today().day) <
@@ -65,6 +66,7 @@ def addDirector(con, cur):
     except Exception as e:
         print(e)
         print("\nError: Please enter valid Date of Joining\n")
+        return
 
     row["supervisorAadharCard"] = input("12 digit Supervisor AadharCard: (Enter to skip)")
     if len(row["supervisorAadharCard"]) == 12 and row["supervisorAadharCard"].isnumeric(
@@ -85,6 +87,7 @@ def addDirector(con, cur):
     except Exception as e:
         print(e)
         print("\nError: Please enter a valid number\n")
+        return
     for i in range(num_phone):
         phone = input("Phone Number: ")
         if phone.isnumeric() and int(phone) > 0 and len(phone) == 10:
@@ -255,6 +258,7 @@ def addActor(con, cur):
     except Exception as e:
         print(e)
         print("\nError: Please enter a valid number\n")
+        return
     for i in range(num_phone):
         phone = input("Phone Number: ")
         if phone.isnumeric() and int(phone) > 0 and len(phone) == 10:
@@ -373,6 +377,7 @@ def addBrand(con, cur):
         con.rollback()
         print(e)
         print("\nError: PLEASE TRY AGAIN!\n")
+        return
 
     try:
         con.commit()
@@ -405,6 +410,7 @@ def addChannel(con, cur):
         con.rollback()
         print(e)
         print("\nError: PLEASE TRY AGAIN!\n")
+        return
 
     try:
         con.commit()
@@ -439,6 +445,7 @@ def addPrefers(con, cur):
         con.rollback()
         print(e)
         print("\nError: PLEASE TRY AGAIN!\n")
+        return
 
     try:
         con.commit()
@@ -484,6 +491,7 @@ def addProduct(con, cur):
         con.rollback()
         print(e)
         print("\nError: PLEASE TRY AGAIN!\n")
+        return
 
     try:
         con.commit()
