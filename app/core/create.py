@@ -78,7 +78,10 @@ def addDirector(con, cur):
 
     row_phone = []
     try:
-        num_phone = int(input("Number of director's phone number: "))
+        num_phone = int(input("Number of director's phone number (>0): "))
+        if num_phone == 0:
+            print("Atleast one phone number is required.")
+            num_phone = 1
     except Exception as e:
         print(e)
         print("\nError: Please enter a valid number\n")
@@ -223,7 +226,7 @@ def addActor(con, cur):
     row["DOB"] = str(row["DOB"])
 
     row["experience"] = input("Experience in Years: ")
-    if row["experience"].isnumeric() and int(row["experience"]) > 0 and int(row["experience"]) < age:
+    if row["experience"].isnumeric() and int(row["experience"]) >= 0 and int(row["experience"]) < age:
         row["experience"] = int(row["experience"])
     else:
         print("\nError: Please enter valid Experience\n")
@@ -246,6 +249,9 @@ def addActor(con, cur):
     row_phone = []
     try:
         num_phone = int(input("Number of actor's phone number: "))
+        if num_phone == 0:
+            print("Atleast one phone number is required.")
+            num_phone = 1
     except Exception as e:
         print(e)
         print("\nError: Please enter a valid number\n")
